@@ -25,6 +25,7 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 counter = 0
+counter_2 = 0
 
 class Ui_thirdDialog(object):
 
@@ -285,24 +286,41 @@ class Ui_thirdDialog(object):
         self.label_8.setText(_translate("thirdDialog", "W", None))
         self.label_9.setText(_translate("thirdDialog", "W", None))
 
-        QtCore.QObject.connect(self.pushButton , QtCore.SIGNAL("clicked()") , self.button_Plus_click)
-        QtCore.QObject.connect(self.pushButton_2 , QtCore.SIGNAL("clicked()") , self.button_Minus_click)
+        QtCore.QObject.connect(self.pushButton , QtCore.SIGNAL("clicked()") , self.initial_button_Plus_click)
+        QtCore.QObject.connect(self.pushButton_2 , QtCore.SIGNAL("clicked()") , self.initial_button_Minus_click)
+        QtCore.QObject.connect(self.pushButton_3 , QtCore.SIGNAL("clicked()") , self.final_button_Plus_click)
+        QtCore.QObject.connect(self.pushButton_4, QtCore.SIGNAL("clicked()") , self.final_button_Minus_click)
 
-    def button_Plus_click(self):
-        global counter
-        counter +=1
+    def initial_button_Plus_click(self):
+        global counter,counter_2
+        if counter_2 > counter:     
+            counter +=1
         self.lcdNumber.display(counter)
         while counter > 50:
             self.lcdNumber.display(50)
             counter = 50
-    def button_Minus_click(self):
+    def initial_button_Minus_click(self):
         global counter
         counter -=1
         self.lcdNumber.display(counter)
         while counter < 0:
             self.lcdNumber.display(0)
             counter = 0
-
+    def final_button_Plus_click(self):
+        global counter_2        
+        counter_2 +=1
+        self.lcdNumber_2.display(counter_2)
+        while counter > 50:
+            self.lcdNumber_2.display(50)
+            counter_2 = 50
+    def final_button_Minus_click(self):
+        global counter,counter_2
+        # if counter_2 >= counter: 
+        counter_2 -=1
+        self.lcdNumber_2.display(counter_2)
+        while counter_2 > 50:
+            self.lcdNumber_2.display(50)
+            counter_2 = 50
 
 if __name__ == "__main__":
     import sys
