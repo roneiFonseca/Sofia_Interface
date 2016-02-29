@@ -318,7 +318,8 @@ class Ui_thirdDialog(object):
             self.lcdNumber_2.display(parametros.todos['potenciaFinal'])
 
     def final_button_Minus_click(self):
-        parametros.todos['potenciaFinal'] -=1
+        if parametros.todos['potenciaFinal']> parametros.todos['potenciaInicial']:
+            parametros.todos['potenciaFinal'] -=1
         self.lcdNumber_2.display(parametros.todos['potenciaFinal'])
         while parametros.todos['potenciaFinal'] < 0:
             parametros.todos['potenciaFinal'] = 0
