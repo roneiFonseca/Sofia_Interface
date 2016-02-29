@@ -311,16 +311,22 @@ class Ui_thirdDialog(object):
         counter_2 +=1
         self.lcdNumber_2.display(counter_2)
         while counter > 50:
-            self.lcdNumber_2.display(50)
             counter_2 = 50
+            self.lcdNumber_2.display(counter_2)
+
     def final_button_Minus_click(self):
         global counter,counter_2
         # if counter_2 >= counter: 
         counter_2 -=1
         self.lcdNumber_2.display(counter_2)
-        while counter_2 > 50:
-            self.lcdNumber_2.display(50)
-            counter_2 = 50
+        while counter_2 < 0:
+            counter_2 = 0
+            self.lcdNumber_2.display(counter_2)
+
+
+    def ok_button_click(self):
+        global counter,counter_2
+        pass
 
 if __name__ == "__main__":
     import sys
