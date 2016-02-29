@@ -9,6 +9,7 @@
 
 from PyQt4 import QtCore, QtGui
 import imagens
+import parametros
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -24,13 +25,12 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-counter = 0
-counter_2 = 0
+
 
 class Ui_thirdDialog(object):
 
     def setupUi(self, thirdDialog):
-        global counter
+
         thirdDialog.setObjectName(_fromUtf8("thirdDialog"))
         thirdDialog.resize(800, 480)
         font = QtGui.QFont()
@@ -49,6 +49,7 @@ class Ui_thirdDialog(object):
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.lcdNumber = QtGui.QLCDNumber(thirdDialog)
         self.lcdNumber.setGeometry(QtCore.QRect(110, 240, 121, 81))
+        self.lcdNumber.display(parametros.todos['potenciaInicial'])
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -231,6 +232,7 @@ class Ui_thirdDialog(object):
         self.lcdNumber_2.setPalette(palette)
         self.lcdNumber_2.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);"))
         self.lcdNumber_2.setObjectName(_fromUtf8("lcdNumber_2"))
+        self.lcdNumber_2.display(parametros.todos['potenciaFinal'])
         self.pushButton_4 = QtGui.QPushButton(thirdDialog)
         self.pushButton_4.setGeometry(QtCore.QRect(590, 280, 51, 41))
         font = QtGui.QFont()
@@ -270,7 +272,7 @@ class Ui_thirdDialog(object):
         self.line_4.setObjectName(_fromUtf8("line_4"))
 
         self.retranslateUi(thirdDialog)
-        QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), thirdDialog.close)
+        QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")),thirdDialog.close)
         QtCore.QMetaObject.connectSlotsByName(thirdDialog)
 
     def retranslateUi(self, thirdDialog):
@@ -292,41 +294,33 @@ class Ui_thirdDialog(object):
         QtCore.QObject.connect(self.pushButton_4, QtCore.SIGNAL("clicked()") , self.final_button_Minus_click)
 
     def initial_button_Plus_click(self):
-        global counter,counter_2
-        if counter_2 > counter:     
-            counter +=1
-        self.lcdNumber.display(counter)
-        while counter > 50:
+        if parametros.todos['potenciaFinal']> parametros.todos['potenciaInicial']:
+            parametros.todos['potenciaInicial'] +=1
+        self.lcdNumber.display(parametros.todos['potenciaInicial'])
+        while parametros.todos['potenciaInicial'] > 50:
             self.lcdNumber.display(50)
-            counter = 50
+            parametros.todos['potenciaInicial'] = 50        
+
     def initial_button_Minus_click(self):
-        global counter
-        counter -=1
-        self.lcdNumber.display(counter)
-        while counter < 0:
+        parametros.todos['potenciaInicial'] -=1
+        self.lcdNumber.display(parametros.todos['potenciaInicial'])
+        while parametros.todos['potenciaInicial'] < 0:
             self.lcdNumber.display(0)
-            counter = 0
-    def final_button_Plus_click(self):
-        global counter_2        
-        counter_2 +=1
-        self.lcdNumber_2.display(counter_2)
-        while counter > 50:
-            counter_2 = 50
-            self.lcdNumber_2.display(counter_2)
+            parametros.todos['potenciaInicial'] = 0
+
+    def final_button_Plus_click(self):        
+        parametros.todos['potenciaFinal'] +=1
+        self.lcdNumber_2.display(parametros.todos['potenciaFinal'])
+        while parametros.todos['potenciaFinal'] > 50:
+            parametros.todos['potenciaFinal'] = 50
+            self.lcdNumber_2.display(parametros.todos['potenciaFinal'])
 
     def final_button_Minus_click(self):
-        global counter,counter_2
-        # if counter_2 >= counter: 
-        counter_2 -=1
-        self.lcdNumber_2.display(counter_2)
-        while counter_2 < 0:
-            counter_2 = 0
-            self.lcdNumber_2.display(counter_2)
-
-
-    def ok_button_click(self):
-        global counter,counter_2
-        pass
+        parametros.todos['potenciaFinal'] -=1
+        self.lcdNumber_2.display(parametros.todos['potenciaFinal'])
+        while parametros.todos['potenciaFinal'] < 0:
+            parametros.todos['potenciaFinal'] = 0
+            self.lcdNumber_2.display(parametros.todos['potenciaFinal'])
 
 if __name__ == "__main__":
     import sys
