@@ -74,13 +74,13 @@ class Ui_SecDialog(object):
 
         QtCore.QObject.connect(self.pushButton_4 , QtCore.SIGNAL("clicked()") , self.Init)
 
-    def Init(self):
+    def Init(self): # Clicar em Iniciar
         moniDialog = QtGui.QDialog()
         ui = Ui_moniDialog()
         ui.setupUi(moniDialog)
         moniDialog.exec_()
 
-    def Power_Func(self):
+    def Power_Func(self): # Clicar em Potencia
         thirdDialog = QtGui.QDialog()
         ui = Ui_thirdDialog()
         ui.setupUi(thirdDialog)
