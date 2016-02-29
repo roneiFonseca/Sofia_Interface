@@ -13,6 +13,8 @@ import thirddialog
 #import time
 import imagens
 import sys 
+import parametros
+
 #from timer_function import timer 
 #import os
 try:
@@ -541,7 +543,7 @@ class Ui_moniDialog(object):
         #import thirddialog
         #global counter
         #import thirddialog
-        self.lcd_potencia.display(thirddialog.counter)
+        self.lcd_potencia.display(parametros.todos['potenciaRT'])
        # self.timer = QtCore.QTimer(self)
         #self.timer.timeout.connect(self.button_timer)
  
@@ -554,7 +556,7 @@ class Ui_moniDialog(object):
 
     def button_timer(self):
         global seconds
-        if seconds < thirddialog.counter:
+        if seconds < parametros.todos['potenciaRT']:
             seconds += 1
             self.lcd_tempo.display(seconds)
         else:

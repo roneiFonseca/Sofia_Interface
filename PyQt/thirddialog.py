@@ -299,7 +299,8 @@ class Ui_thirdDialog(object):
         self.lcdNumber.display(parametros.todos['potenciaInicial'])
         while parametros.todos['potenciaInicial'] > 50:
             self.lcdNumber.display(50)
-            parametros.todos['potenciaInicial'] = 50        
+            parametros.todos['potenciaInicial'] = 50
+        parametros.todos['potenciaRT'] = parametros.todos['potenciaInicial']        
 
     def initial_button_Minus_click(self):
         parametros.todos['potenciaInicial'] -=1
@@ -307,6 +308,7 @@ class Ui_thirdDialog(object):
         while parametros.todos['potenciaInicial'] < 0:
             self.lcdNumber.display(0)
             parametros.todos['potenciaInicial'] = 0
+        parametros.todos['potenciaRT'] = parametros.todos['potenciaInicial']
 
     def final_button_Plus_click(self):        
         parametros.todos['potenciaFinal'] +=1
