@@ -75,7 +75,7 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:26pt;\">Seja Bem Vindo</span></p><p><span style=\" font-size:26pt;\">ao </span></p><p><span style=\" font-size:26pt;\">Gerador RF – </span><span style=\" font-size:26pt; font-style:italic;\">SOFIA </span></p></body></html>", None))
       #  self.pushButton.setText(_translate("MainWindow", "Configurações", None))
       #  QtCore.QObject.connect(self.pushButton , QtCore.SIGNAL("clicked()") , self.OpenIT)
-        QtCore.QTimer.singleShot(1000, self.OpenIT)
+        QtCore.QTimer.singleShot(5000, self.OpenIT)
        # self._pushButton.clicked.connect(self.OpenIT)
        # self.setCentralWidget(self._pushButton)
        # QtCore.QMetaObject.connectSlotsByName(MainWindow)
