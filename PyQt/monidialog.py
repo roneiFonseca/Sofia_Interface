@@ -552,7 +552,6 @@ class Ui_moniDialog(object):
     def control(self):
         global time_before, time_beginning, minute
         time_now = time.time()
-        # print parametros.todos['potenciaRT']
         self.lcd_potencia.display(parametros.todos['potenciaRT'])
         seconds = round(time_now - time_beginning,0)
         if seconds >= 60:
@@ -563,9 +562,9 @@ class Ui_moniDialog(object):
         else:
             str_count = str(minute) + ':' + str(int(seconds))
         self.lcd_tempo.display(str_count)      
-        if time_now - time_before > parametros.todos['tempoStep']*60:
+        if ( time_now - time_before > parametros.todos['tempoStep']*60 ) and (parametros.todos['potenciaRT']<parametros.todos['potenciaFinal']):
             parametros.todos['potenciaRT'] += parametros.todos['potenciaStep']
-            print time_now - time_before
+            # print time_now - time_before
             time_before = time_now
 
 
