@@ -14,15 +14,22 @@ import thirddialog
 import imagens
 import sys 
 import parametros
+#import timeStep
+import time
+import math
 
 #from timer_function import timer 
 #import os
+
+time_before= 0 
+time_beginning = 0
+minute = 0
+
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
     def _fromUtf8(s):
         return s
-seconds = 0
 
 try:
     _encoding = QtGui.QApplication.UnicodeUTF8
@@ -523,7 +530,7 @@ class Ui_moniDialog(object):
         self.line_5.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_5.setObjectName(_fromUtf8("line_5"))
         self.timer = QtCore.QTimer(moniDialog)
-        self.timer.timeout.connect(self.button_timer)
+        self.timer.timeout.connect(self.control)
         self.retranslateUi(moniDialog)
         QtCore.QObject.connect(self.pushButton_8, QtCore.SIGNAL(_fromUtf8("clicked()")), moniDialog.close)
         QtCore.QMetaObject.connectSlotsByName(moniDialog)
@@ -534,33 +541,36 @@ class Ui_moniDialog(object):
         self.label_2.setText(_translate("moniDialog", "TELA DE MONITORAMENTO", None))
         self.label_14.setText(_translate("moniDialog", "min", None))
         self.label_15.setText(_translate("moniDialog", "Status da Ablação: Iniciando/ Em andamento/ Finalizada ", None))
-        self.pushButton_7.setText(_translate("moniDialog", "CONFIGURAÇÕES ", None))
+        self.pushButton_7.setText(_translate("moniDialog", "INICIAR ", None))
         self.label_20.setText(_translate("moniDialog", "ºC", None))
         self.label_21.setText(_translate("moniDialog", "TELA DE MONITORAMENTO", None))
         self.pushButton_8.setText(_translate("moniDialog", "DESLIGAR", None))
         self.label_23.setText(_translate("moniDialog", "W", None))
         self.label_24.setText(_translate("moniDialog", "Ω", None))
-        #import thirddialog
-        #global counter
-        #import thirddialog
-        self.lcd_potencia.display(parametros.todos['potenciaRT'])
-       # self.timer = QtCore.QTimer(self)
-        #self.timer.timeout.connect(self.button_timer)
- 
-        QtCore.QObject.connect(self.pushButton_7 , QtCore.SIGNAL("clicked()") , self.start)
-      #  timer(10)
-      #  os.system("python timer_function.py")
-    def start(self):
-        global seconds
-        self.timer.start(1000)
 
-    def button_timer(self):
-        global seconds
-        if seconds < parametros.todos['potenciaRT']:
-            seconds += 1
-            self.lcd_tempo.display(seconds)
-        else:
-            self.timer.stop()
+        QtCore.QObject.connect(self.pushButton_7 , QtCore.SIGNAL("clicked()") , self.start)
+    def control(self):
+        global time_before, time_beginning, minute
+        time_now = time.time()
+        # print parametros.todos['potenciaRT']
+        self.lcd_potencia.display(parametros.todos['potenciaRT'])
+        seconds = round(time_now - time_beginning,0)
+        if seconds >= 60:
+            minute +=1
+            time_beginning = time_now
+        str_count = str(minute) + ':' + str(int(seconds))
+        self.lcd_tempo.display(str_count)      
+        if time_now - time_before > parametros.todos['tempoStep']*60:
+            parametros.todos['potenciaRT'] += parametros.todos['potenciaStep']
+            print time_now - time_before
+            time_before = time_now
+
+
+    def start(self):
+        global time_before,time_beginning
+        time_before = time.time()
+        time_beginning = time_before
+        self.timer.start(1)
     
 
 if __name__ == "__main__":
