@@ -558,7 +558,10 @@ class Ui_moniDialog(object):
         if seconds >= 60:
             minute +=1
             time_beginning = time_now
-        str_count = str(minute) + ':' + str(int(seconds))
+        if seconds < 10:
+            str_count = str(minute) + ':0' + str(int(seconds))
+        else:
+            str_count = str(minute) + ':' + str(int(seconds))
         self.lcd_tempo.display(str_count)      
         if time_now - time_before > parametros.todos['tempoStep']*60:
             parametros.todos['potenciaRT'] += parametros.todos['potenciaStep']
