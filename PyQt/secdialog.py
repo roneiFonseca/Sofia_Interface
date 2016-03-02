@@ -10,6 +10,7 @@
 from PyQt4 import QtCore, QtGui
 from thirddialog import Ui_thirdDialog
 from monidialog import Ui_moniDialog
+from time_window import Ui_fourthDialog
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -73,6 +74,7 @@ class Ui_SecDialog(object):
         self.pushButton_8.setText(_translate("SecDialog", "TEMPO", None))
 
         QtCore.QObject.connect(self.pushButton_4 , QtCore.SIGNAL("clicked()") , self.Init)
+        QtCore.QObject.connect(self.pushButton_8 , QtCore.SIGNAL("clicked()") , self.Timer_Func)
 
     def Init(self): # Clicar em Iniciar
         moniDialog = QtGui.QDialog()
@@ -85,6 +87,12 @@ class Ui_SecDialog(object):
         ui = Ui_thirdDialog()
         ui.setupUi(thirdDialog)
         thirdDialog.exec_()
+
+    def Timer_Func(self): # Clicar em Tempo
+        fourthDialog = QtGui.QDialog()
+        ui = Ui_fourthDialog()
+        ui.setupUi(fourthDialog)
+        fourthDialog.exec_()
         
 
 import imagens
