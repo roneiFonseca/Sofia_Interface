@@ -2,17 +2,18 @@
 
 # Form implementation generated from reading ui file 'fifdialog.ui'
 #
-# Created: Tue Mar  1 23:44:14 2016
+# Created: Wed Mar  2 15:46:05 2016
 #      by: PyQt4 UI code generator 4.9.4
 #
 # WARNING! All changes made in this file will be lost!
-
+import random
 from PyQt4 import QtCore, QtGui
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
     _fromUtf8 = lambda s: s
+
 
 class Ui_fifDialog(object):
     def setupUi(self, fifDialog):
@@ -46,21 +47,24 @@ class Ui_fifDialog(object):
         self.label.setText(_fromUtf8(""))
         self.label.setObjectName(_fromUtf8("label"))
         self.pushButton_2 = QtGui.QPushButton(fifDialog)
-        self.pushButton_2.setGeometry(QtCore.QRect(250, 180, 361, 51))
+        self.pushButton_2.setGeometry(QtCore.QRect(20, 200, 361, 51))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
         self.pushButton_3 = QtGui.QPushButton(fifDialog)
-        self.pushButton_3.setGeometry(QtCore.QRect(250, 260, 361, 51))
+        self.pushButton_3.setGeometry(QtCore.QRect(20, 260, 361, 51))
         self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
         self.pushButton_4 = QtGui.QPushButton(fifDialog)
-        self.pushButton_4.setGeometry(QtCore.QRect(250, 340, 361, 51))
+        self.pushButton_4.setGeometry(QtCore.QRect(20, 320, 361, 51))
         self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
         self.pushButton_5 = QtGui.QPushButton(fifDialog)
-        self.pushButton_5.setGeometry(QtCore.QRect(350, 420, 131, 51))
+        self.pushButton_5.setGeometry(QtCore.QRect(100, 390, 131, 51))
         self.pushButton_5.setStyleSheet(_fromUtf8("font: 14pt \"Arial\";\n"
 "\n"
 ""))
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
-
+        self.graphicsView = QtGui.QGraphicsView(fifDialog)
+        self.graphicsView.scale(5,5)
+        self.graphicsView.setGeometry(QtCore.QRect(395, 161, 381, 211))
+        self.graphicsView.setObjectName(_fromUtf8("graphicsView"))
         self.retranslateUi(fifDialog)
         QtCore.QMetaObject.connectSlotsByName(fifDialog)
 
@@ -72,3 +76,12 @@ class Ui_fifDialog(object):
         self.pushButton_4.setText(QtGui.QApplication.translate("fifDialog", "2.5 W a cada 1 minuto", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_5.setText(QtGui.QApplication.translate("fifDialog", "VOLTAR", None, QtGui.QApplication.UnicodeUTF8))
 
+
+if __name__ == "__main__":
+    import sys
+    app = QtGui.QApplication(sys.argv)
+    fifDialog = QtGui.QDialog()
+    ui = Ui_fifDialog()
+    ui.setupUi(fifDialog)
+    fifDialog.show()
+    sys.exit(app.exec_())
