@@ -10,6 +10,7 @@
 from PyQt4 import QtCore, QtGui
 from thirddialog import Ui_thirdDialog
 from monidialog import Ui_moniDialog
+from fifdialog import Ui_fifDialog
 from time_window import Ui_fourthDialog
 
 try:
@@ -75,6 +76,7 @@ class Ui_SecDialog(object):
 
         QtCore.QObject.connect(self.pushButton_4 , QtCore.SIGNAL("clicked()") , self.Init)
         QtCore.QObject.connect(self.pushButton_8 , QtCore.SIGNAL("clicked()") , self.Timer_Func)
+        QtCore.QObject.connect(self.pushButton_6 , QtCore.SIGNAL("clicked()") , self.Operation_mode)
 
     def Init(self): # Clicar em Iniciar
         moniDialog = QtGui.QDialog()
@@ -93,7 +95,12 @@ class Ui_SecDialog(object):
         ui = Ui_fourthDialog()
         ui.setupUi(fourthDialog)
         fourthDialog.exec_()
-        
+
+    def Operation_mode(self): # Clicar em Modo de Operação
+        fifDialog = QtGui.QDialog()
+        ui = Ui_fifDialog()
+        ui.setupUi(fifDialog)
+        fifDialog.exec_()
 
 import imagens
 
