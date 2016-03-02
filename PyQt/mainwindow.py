@@ -43,7 +43,7 @@ class Ui_MainWindow(object):
         self.label = QtGui.QLabel(self.centralWidget)
         self.label.setGeometry(QtCore.QRect(-10, -10, 800, 480))
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Times New Roman"))
+        font.setFamily(_fromUtf8("Leelawadee"))
         font.setPointSize(24)
         font.setBold(True)
         font.setWeight(75)
@@ -53,9 +53,6 @@ class Ui_MainWindow(object):
         self.label.setTextFormat(QtCore.Qt.AutoText)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName(_fromUtf8("label"))
-        #self.pushButton = QtGui.QPushButton(self.centralWidget)
-        #self.pushButton.setGeometry(QtCore.QRect(340, 340, 121, 61))
-        #self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.label_2 = QtGui.QLabel(self.centralWidget)
         self.label_2.setGeometry(QtCore.QRect(40, 10, 701, 111))
         self.label_2.setText(_fromUtf8(""))
@@ -72,15 +69,8 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "Sofia_Gerador_RF", None))
         self.label.setWhatsThis(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-family:\'Calibri\'; font-size:44pt; font-weight:600; color:#000000;\">Gerador RF</span><span style=\" font-family:\'Calibri\'; font-size:44pt; font-weight:600; font-style:italic; color:#000000;\"> – SOFIA</span><span style=\" font-family:\'Calibri\'; font-size:44pt; font-style:italic; color:#000000;\"/></p></body></html>", None))
-        self.label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:26pt;\">Seja Bem Vindo</span></p><p><span style=\" font-size:26pt;\">ao </span></p><p><span style=\" font-size:26pt;\">Gerador RF – </span><span style=\" font-size:26pt; font-style:italic;\">SOFIA </span></p></body></html>", None))
-      #  self.pushButton.setText(_translate("MainWindow", "Configurações", None))
-      #  QtCore.QObject.connect(self.pushButton , QtCore.SIGNAL("clicked()") , self.OpenIT)
-        QtCore.QTimer.singleShot(5000, self.OpenIT)
-       # self._pushButton.clicked.connect(self.OpenIT)
-       # self.setCentralWidget(self._pushButton)
-       # QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
-    
+        self.label.setText(_translate("MainWindow", "<html><head/><body><br><p><span style=\" font-size:26pt;\">Seja Bem Vindo</span></p><p><span style=\" font-size:26pt;\">ao </span></p><p><span style=\" font-size:26pt;\">Gerador RF – </span><span style=\" font-size:26pt; font-style:italic;\">SOFIA </span></p></body></html>", None))
+        QtCore.QTimer.singleShot(5000, self.OpenIT)   
     
     def OpenIT(self):
         MainWindow.close()
@@ -90,15 +80,11 @@ class Ui_MainWindow(object):
         SecDialog.exec_()
 
 
-
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     MainWindow = QtGui.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-   # time.sleep(1000)
-  #  QtCore.QTimer.singleShot(5000, MainWindow.close)
-
     sys.exit(app.exec_())
 
