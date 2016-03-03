@@ -573,6 +573,16 @@ class Ui_moniDialog(object):
         time_before = time.time()
         time_beginning = time_before
         self.timer.start(1)
+
+    # def Reset_Parameters(self):
+    #     moniDialog.close()
+    #     parametros.todos['potenciaInicial']= 0
+    #     parametros.todos['potenciaRT']= 0
+    #     parametros.todos['potenciaStep']=2 
+    #     parametros.todos['potenciaFinal']= 20
+    #     parametros.todos['tempo']=10
+    #     parametros.todos['tempoStep']=1 
+    #     parametros.todos['modo'] = 1
     
 
 if __name__ == "__main__":
