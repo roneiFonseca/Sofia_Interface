@@ -9,9 +9,9 @@
 
 from PyQt4 import QtCore, QtGui
 from thirddialog import Ui_thirdDialog
-from monidialog import Ui_moniDialog
 from fifdialog import Ui_fifDialog
 from time_window import Ui_fourthDialog
+from verificacao import Ui_modo_de_op
 import imagens
 
 try:
@@ -75,15 +75,10 @@ class Ui_SecDialog(object):
         QtCore.QObject.connect(self.pushButton_7 , QtCore.SIGNAL("clicked()") , self.Power_Func)
         self.pushButton_8.setText(_translate("SecDialog", "TEMPO", None))
 
-        QtCore.QObject.connect(self.pushButton_4 , QtCore.SIGNAL("clicked()") , self.Init)
         QtCore.QObject.connect(self.pushButton_8 , QtCore.SIGNAL("clicked()") , self.Timer_Func)
         QtCore.QObject.connect(self.pushButton_6 , QtCore.SIGNAL("clicked()") , self.Operation_mode)
+        QtCore.QObject.connect(self.pushButton_4 , QtCore.SIGNAL("clicked()") , self.Verify_window)
 
-    def Init(self): # Clicar em Iniciar
-        moniDialog = QtGui.QDialog()
-        ui = Ui_moniDialog()
-        ui.setupUi(moniDialog)
-        moniDialog.exec_()
 
     def Power_Func(self): # Clicar em Potencia
         thirdDialog = QtGui.QDialog()
@@ -102,6 +97,12 @@ class Ui_SecDialog(object):
         ui = Ui_fifDialog()
         ui.setupUi(fifDialog)
         fifDialog.exec_()
+
+    def Verify_window(self): # Clicar em tela de verifição
+        modo_de_op = QtGui.QDialog()
+        ui = Ui_modo_de_op()
+        ui.setupUi(modo_de_op)
+        modo_de_op.exec_()
 
 
 
