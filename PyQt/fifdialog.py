@@ -108,6 +108,7 @@ class Ui_fifDialog(object):
         global pixmap
         parametros.todos['potenciaStep'] = 2
         parametros.todos['tempoStep'] = 1
+        parametros.todos['modo'] = 1
         self.pushButton_2.setStyleSheet("background-color: blue")
         self.pushButton_3.setStyleSheet("background-color: white")
         self.pushButton_4.setStyleSheet("background-color: white")
@@ -119,6 +120,7 @@ class Ui_fifDialog(object):
     def mode2 (self):
         parametros.todos['potenciaStep'] = 2.5
         parametros.todos['tempoStep'] = 1
+        parametros.todos['modo'] = 2
         self.pushButton_2.setStyleSheet("background-color: white")
         self.pushButton_3.setStyleSheet("background-color: green")
         self.pushButton_4.setStyleSheet("background-color: white")        
@@ -131,6 +133,7 @@ class Ui_fifDialog(object):
     def mode3 (self):
         parametros.todos['potenciaStep'] = 5
         parametros.todos['tempoStep'] = 1
+        parametros.todos['modo'] = 3
         self.pushButton_2.setStyleSheet("background-color: white")
         self.pushButton_3.setStyleSheet("background-color: white")
         self.pushButton_4.setStyleSheet("background-color: red")
