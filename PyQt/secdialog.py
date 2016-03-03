@@ -12,6 +12,7 @@ from thirddialog import Ui_thirdDialog
 from monidialog import Ui_moniDialog
 from fifdialog import Ui_fifDialog
 from time_window import Ui_fourthDialog
+import imagens
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -102,7 +103,7 @@ class Ui_SecDialog(object):
         ui.setupUi(fifDialog)
         fifDialog.exec_()
 
-import imagens
+
 
 if __name__ == "__main__":
     import sys

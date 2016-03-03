@@ -182,9 +182,9 @@ class Ui_fourthDialog(object):
     def time_button_Minus_click(self):
         parametros.todos['tempo'] -=1
         self.lcdNumber_2.display(parametros.todos['tempo'])
-        while parametros.todos['tempo'] < 4:
-            self.lcdNumber_2.display(4)
-            parametros.todos['tempo'] = 4   
+        while parametros.todos['tempo'] < 8:
+            self.lcdNumber_2.display(8)
+            parametros.todos['tempo'] = 8   
     
 
            
