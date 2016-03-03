@@ -9,9 +9,14 @@ def plotMode(self,mode):
 	os.listdir("/Users/MatiasPedro25/Professional/2016_1/LAB/Software/EVOLUTION/Sofia_Interface/PyQt")
 	img = "mode" + str(mode) + ".png"
 	# print img
-	sentence = "rm " + img
+	sentence = [
+	"[ -f mode1.png ] && rm mode1.png",
+	"[ -f mode2.png ] && rm mode2.png",
+	"[ -f mode3.png ] && rm mode3.png"
+	]
 	# print sentence
-	os.system(sentence)
+	for k in range(len(sentence)):
+		os.system(sentence[k])
 	time_step = parametros.todos['tempoStep']
 	timeValue = 0 	#Tempo sempre inicia em zero
 	potStep = parametros.todos['potenciaStep']
