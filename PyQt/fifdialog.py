@@ -7,6 +7,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 import random
+import parametros
 from PyQt4 import QtCore, QtGui
 
 try:
@@ -71,11 +72,31 @@ class Ui_fifDialog(object):
     def retranslateUi(self, fifDialog):
         fifDialog.setWindowTitle(QtGui.QApplication.translate("fifDialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("fifDialog", "MODO DE OPERAÇÃO", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_2.setText(QtGui.QApplication.translate("fifDialog", "5 W a cada 2 minutos", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_3.setText(QtGui.QApplication.translate("fifDialog", "10 W a cada 4 minutos", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_4.setText(QtGui.QApplication.translate("fifDialog", "2.5 W a cada 1 minuto", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_2.setText(QtGui.QApplication.translate("fifDialog", "1 W por minuto", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_3.setText(QtGui.QApplication.translate("fifDialog", "2.5 W por minuto", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_4.setText(QtGui.QApplication.translate("fifDialog", "5 W por minuto", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_5.setText(QtGui.QApplication.translate("fifDialog", "VOLTAR", None, QtGui.QApplication.UnicodeUTF8))
 
+        QtCore.QObject.connect(self.pushButton_2 , QtCore.SIGNAL("clicked()") , self.mode1)
+        QtCore.QObject.connect(self.pushButton_3 , QtCore.SIGNAL("clicked()") , self.mode2)
+        QtCore.QObject.connect(self.pushButton_4 , QtCore.SIGNAL("clicked()") , self.mode3)
+        QtCore.QObject.connect(self.pushButton_5 , QtCore.SIGNAL("clicked()") , fifDialog.close)
+
+
+    def mode1 (self):
+        parametros.todos['potenciaStep'] = 1
+        parametros.todos['tempoStep'] = 1
+        fifDialog.close()
+
+    def mode2 (self):
+        parametros.todos['potenciaStep'] = 2.5
+        parametros.todos['tempoStep'] = 1
+        fifDialog.close()
+
+    def mode3 (self):
+        parametros.todos['potenciaStep'] = 5
+        parametros.todos['tempoStep'] = 1
+        fifDialog.close()
 
 if __name__ == "__main__":
     import sys
