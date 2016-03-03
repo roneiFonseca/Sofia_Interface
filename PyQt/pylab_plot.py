@@ -8,9 +8,9 @@ import os,sys
 def plotMode(self,mode):
 	os.listdir("/Users/MatiasPedro25/Professional/2016_1/LAB/Software/EVOLUTION/Sofia_Interface/PyQt")
 	img = "mode" + str(mode) + ".png"
-	print img
+	# print img
 	sentence = "rm " + img
-	print sentence
+	# print sentence
 	os.system(sentence)
 	# os.system("rm mode1.png")
 	time_step = parametros.todos['tempoStep']
