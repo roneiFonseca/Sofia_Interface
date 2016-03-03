@@ -9,6 +9,7 @@
 
 from PyQt4 import QtCore, QtGui
 import imagens
+from monidialog import Ui_moniDialog
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -107,8 +108,14 @@ class Ui_modo_de_op(object):
         self.pushButton_2.setText(_translate("modo_de_op", "VOLTAR", None))
         self.label_7.setText(_translate("modo_de_op", "POTÊNCIA FINAL", None))
         self.label_8.setText(_translate("modo_de_op", "W", None))
+        QtCore.QObject.connect(self.pushButton , QtCore.SIGNAL("clicked()") , self.Init)
 
 
+    def Init(self): # Clicar em Iniciar
+        moniDialog = QtGui.QDialog()
+        ui = Ui_moniDialog()
+        ui.setupUi(moniDialog)
+        moniDialog.exec_()
 
 if __name__ == "__main__":
     import sys
