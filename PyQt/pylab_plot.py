@@ -1,10 +1,15 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import parametros
+import os,sys
 
 
 # 1 W/ minuto
-def plotMode(self):
+def plotMode(self,mode):
+	os.listdir("/Users/MatiasPedro25/Professional/2016_1/LAB/Software/EVOLUTION/Sofia_Interface/PyQt")
+	img = "mode" + str(mode) + ".png"
+	print img
+	os.system("rm "+str(mode))
 	time_step = parametros.todos['tempoStep']
 	timeValue = 0 	#Tempo sempre inicia em zero
 	potStep = parametros.todos['potenciaStep']
@@ -23,4 +28,4 @@ def plotMode(self):
 	plt.ylabel('some numbers')
 	plt.grid()
 	# plt.show()
-	plt.savefig('mode.png')
+	plt.savefig(img)
