@@ -10,6 +10,7 @@ import random
 import parametros
 import pylab_plot
 from PyQt4 import QtCore, QtGui
+import imagens
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -49,6 +50,11 @@ class Ui_fifDialog(object):
         self.label.setGeometry(QtCore.QRect(20, 0, 721, 111))
         self.label.setText(_fromUtf8(""))
         self.label.setObjectName(_fromUtf8("label"))
+        self.label_9 = QtGui.QLabel(fifDialog)
+        self.label_9.setGeometry(QtCore.QRect(10, -10, 801, 111))
+        self.label_9.setText(_fromUtf8(""))
+        self.label_9.setPixmap(QtGui.QPixmap(_fromUtf8(":/imagens/logo.png")))
+        self.label_9.setObjectName(_fromUtf8("label_9"))
         self.pushButton_2 = QtGui.QPushButton(fifDialog)
         self.pushButton_2.setGeometry(QtCore.QRect(20, 200, 241, 51))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
@@ -59,14 +65,14 @@ class Ui_fifDialog(object):
         self.pushButton_4 = QtGui.QPushButton(fifDialog)
         self.pushButton_4.setGeometry(QtCore.QRect(20, 320, 241, 51))
         self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
-        self.pushButton_5 = QtGui.QPushButton(fifDialog)
-        self.pushButton_5.setGeometry(QtCore.QRect(20, 380, 111, 51))
-        self.pushButton_5.setStyleSheet(_fromUtf8("font: 14pt \"Arial\";\n"
-"\n"
-""))
-        self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
+#         self.pushButton_5 = QtGui.QPushButton(fifDialog)
+#         self.pushButton_5.setGeometry(QtCore.QRect(20, 380, 111, 51))
+#         self.pushButton_5.setStyleSheet(_fromUtf8("font: 14pt \"Arial\";\n"
+# "\n"
+# ""))
+        # self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
         self.pushButton_6 = QtGui.QPushButton(fifDialog)
-        self.pushButton_6.setGeometry(QtCore.QRect(150, 380, 111, 51))
+        self.pushButton_6.setGeometry(QtCore.QRect(75, 380, 111, 51))
         self.pushButton_6.setStyleSheet(_fromUtf8("font: 14pt \"Arial\";\n""\n"""))
         pylab_plot.plotMode(self,1)
         self.pic = QtGui.QLabel(fifDialog)
@@ -87,13 +93,13 @@ class Ui_fifDialog(object):
         self.pushButton_2.setText(QtGui.QApplication.translate("fifDialog", "2 W por minuto", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_3.setText(QtGui.QApplication.translate("fifDialog", "2.5 W por minuto", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_4.setText(QtGui.QApplication.translate("fifDialog", "5 W por minuto", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_5.setText(QtGui.QApplication.translate("fifDialog", "VOLTAR", None, QtGui.QApplication.UnicodeUTF8))
+    #    self.pushButton_5.setText(QtGui.QApplication.translate("fifDialog", "VOLTAR", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_6.setText(QtGui.QApplication.translate("fifDialog", "OK", None, QtGui.QApplication.UnicodeUTF8))
 
         QtCore.QObject.connect(self.pushButton_2 , QtCore.SIGNAL("clicked()") , self.mode1)
         QtCore.QObject.connect(self.pushButton_3 , QtCore.SIGNAL("clicked()") , self.mode2)
         QtCore.QObject.connect(self.pushButton_4 , QtCore.SIGNAL("clicked()") , self.mode3)
-        QtCore.QObject.connect(self.pushButton_5 , QtCore.SIGNAL("clicked()") , fifDialog.close)
+        # QtCore.QObject.connect(self.pushButton_5 , QtCore.SIGNAL("clicked()") , fifDialog.close)
         QtCore.QObject.connect(self.pushButton_6 , QtCore.SIGNAL("clicked()") , fifDialog.close)
 
 
