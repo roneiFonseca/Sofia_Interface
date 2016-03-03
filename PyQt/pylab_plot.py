@@ -6,7 +6,8 @@ import os,sys
 
 # 1 W/ minuto
 def plotMode(self,mode):
-	os.listdir("/usr/lib/python2.7/dist-packages/PyQt4")
+	# os.listdir("/usr/lib/python2.7/dist-packages/PyQt4")
+	os.listdir(os.getcwd())
 	#os.listdir("/Users/MatiasPedro25/Professional/2016_1/LAB/Software/EVOLUTION/Sofia_Interface/PyQt")
 	img = "mode" + str(mode) + ".png"
 	# print img
