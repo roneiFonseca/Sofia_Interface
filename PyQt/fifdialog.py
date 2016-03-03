@@ -50,24 +50,28 @@ class Ui_fifDialog(object):
         self.label.setText(_fromUtf8(""))
         self.label.setObjectName(_fromUtf8("label"))
         self.pushButton_2 = QtGui.QPushButton(fifDialog)
-        self.pushButton_2.setGeometry(QtCore.QRect(20, 200, 361, 51))
+        self.pushButton_2.setGeometry(QtCore.QRect(20, 200, 241, 51))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
         self.pushButton_3 = QtGui.QPushButton(fifDialog)
-        self.pushButton_3.setGeometry(QtCore.QRect(20, 260, 361, 51))
+        self.pushButton_3.setGeometry(QtCore.QRect(20, 260, 241, 51))
         self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
         self.pushButton_4 = QtGui.QPushButton(fifDialog)
-        self.pushButton_4.setGeometry(QtCore.QRect(20, 320, 361, 51))
+        self.pushButton_4.setGeometry(QtCore.QRect(20, 320, 241, 51))
         self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
         self.pushButton_5 = QtGui.QPushButton(fifDialog)
-        self.pushButton_5.setGeometry(QtCore.QRect(100, 390, 131, 51))
+        self.pushButton_5.setGeometry(QtCore.QRect(20, 380, 111, 51))
         self.pushButton_5.setStyleSheet(_fromUtf8("font: 14pt \"Arial\";\n"
 "\n"
 ""))
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
+        self.pushButton_6 = QtGui.QPushButton(fifDialog)
+        self.pushButton_6.setGeometry(QtCore.QRect(150, 380, 111, 51))
+        self.pushButton_6.setStyleSheet(_fromUtf8("font: 14pt \"Arial\";\n""\n"""))
         pylab_plot.plotMode(self,1)
         self.pic = QtGui.QLabel(fifDialog)
-        self.pic.setGeometry(399, 180, 371, 261)
+        self.pic.setGeometry(QtCore.QRect(309, 180, 461, 261))
         self.pic.setScaledContents(True)
+        pylab_plot.plotMode(self,1)
         pixmap = QtGui.QPixmap('mode1.png')
         self.pic.setPixmap(pixmap)
         # self.frame.setFrameShape(QtGui.QFrame.StyledPanel)
@@ -79,40 +83,43 @@ class Ui_fifDialog(object):
     def retranslateUi(self, fifDialog):
         fifDialog.setWindowTitle(QtGui.QApplication.translate("fifDialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("fifDialog", "MODO DE OPERAÇÃO", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_2.setText(QtGui.QApplication.translate("fifDialog", "1 W por minuto", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_2.setText(QtGui.QApplication.translate("fifDialog", "2 W por minuto", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_3.setText(QtGui.QApplication.translate("fifDialog", "2.5 W por minuto", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_4.setText(QtGui.QApplication.translate("fifDialog", "5 W por minuto", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_5.setText(QtGui.QApplication.translate("fifDialog", "VOLTAR", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_6.setText(QtGui.QApplication.translate("fifDialog", "OK", None, QtGui.QApplication.UnicodeUTF8))
 
         QtCore.QObject.connect(self.pushButton_2 , QtCore.SIGNAL("clicked()") , self.mode1)
         QtCore.QObject.connect(self.pushButton_3 , QtCore.SIGNAL("clicked()") , self.mode2)
         QtCore.QObject.connect(self.pushButton_4 , QtCore.SIGNAL("clicked()") , self.mode3)
         QtCore.QObject.connect(self.pushButton_5 , QtCore.SIGNAL("clicked()") , fifDialog.close)
+        QtCore.QObject.connect(self.pushButton_6 , QtCore.SIGNAL("clicked()") , fifDialog.close)
+
 
 
     def mode1 (self):
         global pixmap
-        parametros.todos['potenciaStep'] = 1
+        parametros.todos['potenciaStep'] = 2
         parametros.todos['tempoStep'] = 1
         pylab_plot.plotMode(self,1)
-        pixmap = QtGui.QPixmap('mode2.png')
+        pixmap = QtGui.QPixmap('mode1.png')
         self.pic.setPixmap(pixmap)  
-        # fifDialog.close()
+
 
     def mode2 (self):
         parametros.todos['potenciaStep'] = 2.5
         parametros.todos['tempoStep'] = 1
         pylab_plot.plotMode(self,2)
-        pixmap = QtGui.QPixmap('mode3.png')
+        pixmap = QtGui.QPixmap('mode2.png')
         self.pic.setPixmap(pixmap)
-        # fifDialog.close()
+
 
     def mode3 (self):
         parametros.todos['potenciaStep'] = 5
         parametros.todos['tempoStep'] = 1
-        pixmap = QtGui.QPixmap('mode.png')
-        pylab_plot.plotMode(self,3)   
-        # fifDialog.close()
+        pylab_plot.plotMode(self,3) 
+        pixmap = QtGui.QPixmap('mode3.png')  
+        self.pic.setPixmap(pixmap)  
 
 if __name__ == "__main__":
     import sys

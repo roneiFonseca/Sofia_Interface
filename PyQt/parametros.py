@@ -1,8 +1,8 @@
 todos = {
 'potenciaInicial': 0,
 'potenciaRT': 0,
-'potenciaStep':5, 
-'potenciaFinal': 25,
+'potenciaStep':2, 
+'potenciaFinal': 20,
 'tempo':10,
 'tempoStep':1, 
 'modo': 1};

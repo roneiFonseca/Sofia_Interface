@@ -9,7 +9,10 @@ def plotMode(self,mode):
 	os.listdir("/Users/MatiasPedro25/Professional/2016_1/LAB/Software/EVOLUTION/Sofia_Interface/PyQt")
 	img = "mode" + str(mode) + ".png"
 	print img
-	os.system("rm "+str(mode))
+	sentence = "rm " + img
+	print sentence
+	os.system(sentence)
+	# os.system("rm mode1.png")
 	time_step = parametros.todos['tempoStep']
 	timeValue = 0 	#Tempo sempre inicia em zero
 	potStep = parametros.todos['potenciaStep']
@@ -24,8 +27,20 @@ def plotMode(self,mode):
 		timeValue += time_step
 		x.append(timeValue)
 
-	plt.step(x,y)
+	if mode == 1:
+		color = 'blue'
+	elif mode == 2:
+		color = 'green'
+	else:
+		color = 'red'
+
+	plt.step(x,y,color)
 	plt.ylabel('some numbers')
 	plt.grid()
 	# plt.show()
 	plt.savefig(img)
+	plt.close()
+
+
+
+# plotMode(plotMode,1)
