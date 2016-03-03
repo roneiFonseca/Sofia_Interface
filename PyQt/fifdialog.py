@@ -8,12 +8,14 @@
 # WARNING! All changes made in this file will be lost!
 import random
 import parametros
+import pylab_plot
 from PyQt4 import QtCore, QtGui
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
     _fromUtf8 = lambda s: s
+
 
 
 class Ui_fifDialog(object):
@@ -62,10 +64,15 @@ class Ui_fifDialog(object):
 "\n"
 ""))
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
-        self.graphicsView = QtGui.QGraphicsView(fifDialog)
-        self.graphicsView.scale(5,5)
-        self.graphicsView.setGeometry(QtCore.QRect(395, 161, 381, 211))
-        self.graphicsView.setObjectName(_fromUtf8("graphicsView"))
+        pylab_plot.plotMode(self,1)
+        self.pic = QtGui.QLabel(fifDialog)
+        self.pic.setGeometry(399, 180, 371, 261)
+        self.pic.setScaledContents(True)
+        pixmap = QtGui.QPixmap('mode1.png')
+        self.pic.setPixmap(pixmap)
+        # self.frame.setFrameShape(QtGui.QFrame.StyledPanel)
+        # self.frame.setFrameShadow(QtGui.QFrame.Raised)
+        # self.frame.setObjectName(_fromUtf8("frame"))
         self.retranslateUi(fifDialog)
         QtCore.QMetaObject.connectSlotsByName(fifDialog)
 
@@ -84,19 +91,28 @@ class Ui_fifDialog(object):
 
 
     def mode1 (self):
+        global pixmap
         parametros.todos['potenciaStep'] = 1
         parametros.todos['tempoStep'] = 1
-        fifDialog.close()
+        pylab_plot.plotMode(self,1)
+        pixmap = QtGui.QPixmap('mode2.png')
+        self.pic.setPixmap(pixmap)  
+        # fifDialog.close()
 
     def mode2 (self):
         parametros.todos['potenciaStep'] = 2.5
         parametros.todos['tempoStep'] = 1
-        fifDialog.close()
+        pylab_plot.plotMode(self,2)
+        pixmap = QtGui.QPixmap('mode3.png')
+        self.pic.setPixmap(pixmap)
+        # fifDialog.close()
 
     def mode3 (self):
         parametros.todos['potenciaStep'] = 5
         parametros.todos['tempoStep'] = 1
-        fifDialog.close()
+        pixmap = QtGui.QPixmap('mode.png')
+        pylab_plot.plotMode(self,3)   
+        # fifDialog.close()
 
 if __name__ == "__main__":
     import sys

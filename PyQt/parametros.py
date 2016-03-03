@@ -4,5 +4,5 @@ todos = {
 'potenciaStep':5, 
 'potenciaFinal': 25,
 'tempo':10,
-'tempoStep':0.1, 
+'tempoStep':1, 
 'modo': 1};
