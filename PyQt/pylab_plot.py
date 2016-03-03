@@ -13,7 +13,6 @@ def plotMode(self,mode):
 	sentence = "rm " + img
 	# print sentence
 	os.system(sentence)
-	# os.system("rm mode1.png")
 	time_step = parametros.todos['tempoStep']
 	timeValue = 0 	#Tempo sempre inicia em zero
 	potStep = parametros.todos['potenciaStep']
@@ -35,13 +34,11 @@ def plotMode(self,mode):
 	else:
 		color = 'red'
 
+	plt.xticks(x, range(interval+1))
 	plt.step(x,y,color)
-	plt.ylabel('some numbers')
+	plt.ylabel('Potencia (W)')
+	plt.xlabel('Tempo (min)')
 	plt.grid()
-	# plt.show()
+	plt.axis([0, interval, 0, 50])
 	plt.savefig(img)
 	plt.close()
-
-
-
-# plotMode(plotMode,1)

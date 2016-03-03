@@ -52,6 +52,7 @@ class Ui_fifDialog(object):
         self.pushButton_2 = QtGui.QPushButton(fifDialog)
         self.pushButton_2.setGeometry(QtCore.QRect(20, 200, 241, 51))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
+        self.pushButton_2.setStyleSheet("background-color: blue")
         self.pushButton_3 = QtGui.QPushButton(fifDialog)
         self.pushButton_3.setGeometry(QtCore.QRect(20, 260, 241, 51))
         self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
@@ -101,6 +102,9 @@ class Ui_fifDialog(object):
         global pixmap
         parametros.todos['potenciaStep'] = 2
         parametros.todos['tempoStep'] = 1
+        self.pushButton_2.setStyleSheet("background-color: blue")
+        self.pushButton_3.setStyleSheet("background-color: white")
+        self.pushButton_4.setStyleSheet("background-color: white")
         pylab_plot.plotMode(self,1)
         pixmap = QtGui.QPixmap('mode1.png')
         self.pic.setPixmap(pixmap)  
@@ -109,14 +113,21 @@ class Ui_fifDialog(object):
     def mode2 (self):
         parametros.todos['potenciaStep'] = 2.5
         parametros.todos['tempoStep'] = 1
+        self.pushButton_2.setStyleSheet("background-color: white")
+        self.pushButton_3.setStyleSheet("background-color: green")
+        self.pushButton_4.setStyleSheet("background-color: white")        
         pylab_plot.plotMode(self,2)
         pixmap = QtGui.QPixmap('mode2.png')
         self.pic.setPixmap(pixmap)
 
 
+
     def mode3 (self):
         parametros.todos['potenciaStep'] = 5
         parametros.todos['tempoStep'] = 1
+        self.pushButton_2.setStyleSheet("background-color: white")
+        self.pushButton_3.setStyleSheet("background-color: white")
+        self.pushButton_4.setStyleSheet("background-color: red")
         pylab_plot.plotMode(self,3) 
         pixmap = QtGui.QPixmap('mode3.png')  
         self.pic.setPixmap(pixmap)  
