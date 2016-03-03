@@ -11,8 +11,9 @@ from PyQt4 import QtCore, QtGui
 from thirddialog import Ui_thirdDialog
 from fifdialog import Ui_fifDialog
 from time_window import Ui_fourthDialog
-from verificacao import Ui_modo_de_op
+from verificacao import Ui_VerifyWindow
 import imagens
+import sys
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -99,15 +100,14 @@ class Ui_SecDialog(object):
         fifDialog.exec_()
 
     def Verify_window(self): # Clicar em tela de verifição
-        modo_de_op = QtGui.QDialog()
-        ui = Ui_modo_de_op()
-        ui.setupUi(modo_de_op)
-        modo_de_op.exec_()
+        VerifyWindow = QtGui.QDialog()
+        ui = Ui_VerifyWindow()
+        ui.setupUi(VerifyWindow)
+        VerifyWindow.exec_()
 
 
 
 if __name__ == "__main__":
-    import sys
     app = QtGui.QApplication(sys.argv)
     SecDialog = QtGui.QDialog()
     ui = Ui_SecDialog()
