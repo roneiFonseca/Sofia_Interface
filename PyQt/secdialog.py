@@ -79,6 +79,7 @@ class Ui_SecDialog(object):
         QtCore.QObject.connect(self.pushButton_8 , QtCore.SIGNAL("clicked()") , self.Timer_Func)
         QtCore.QObject.connect(self.pushButton_6 , QtCore.SIGNAL("clicked()") , self.Operation_mode)
         QtCore.QObject.connect(self.pushButton_4 , QtCore.SIGNAL("clicked()") , self.Verify_window)
+       # SecDialog.showFullScreen()
 
 
     def Power_Func(self): # Clicar em Potencia
