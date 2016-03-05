@@ -8,22 +8,19 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-#from thirddialog import *
-import thirddialog
-#import time
+from thirddialog import Ui_thirdDialog
 import imagens
 import sys 
 import parametros
-#import timeStep
 import time
 import math
 
-#from timer_function import timer 
-#import os
+
 
 time_before= 0 
 time_beginning = 0
 minute = 0
+
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -531,8 +528,12 @@ class Ui_moniDialog(object):
         self.line_5.setObjectName(_fromUtf8("line_5"))
         self.timer = QtCore.QTimer(moniDialog)
         self.timer.timeout.connect(self.control)
+
+
         self.retranslateUi(moniDialog)
-        QtCore.QObject.connect(self.pushButton_8, QtCore.SIGNAL(_fromUtf8("clicked()")), moniDialog.close)
+
+
+
         QtCore.QMetaObject.connectSlotsByName(moniDialog)
     
 
@@ -547,8 +548,11 @@ class Ui_moniDialog(object):
         self.pushButton_8.setText(_translate("moniDialog", "DESLIGAR", None))
         self.label_23.setText(_translate("moniDialog", "W", None))
         self.label_24.setText(_translate("moniDialog", "Ω", None))
-
         QtCore.QObject.connect(self.pushButton_7 , QtCore.SIGNAL("clicked()") , self.start)
+        QtCore.QObject.connect(self.pushButton_8, QtCore.SIGNAL(_fromUtf8("clicked()")),self.Reset_Parameters)
+        QtCore.QObject.connect(self.pushButton_8, QtCore.SIGNAL(_fromUtf8("clicked()")),moniDialog.close)
+
+        
     def control(self):
         global time_before, time_beginning, minute
         time_now = time.time()
@@ -574,15 +578,14 @@ class Ui_moniDialog(object):
         time_beginning = time_before
         self.timer.start(1)
 
-    # def Reset_Parameters(self):
-    #     moniDialog.close()
-    #     parametros.todos['potenciaInicial']= 0
-    #     parametros.todos['potenciaRT']= 0
-    #     parametros.todos['potenciaStep']=2 
-    #     parametros.todos['potenciaFinal']= 20
-    #     parametros.todos['tempo']=10
-    #     parametros.todos['tempoStep']=1 
-    #     parametros.todos['modo'] = 1
+    def Reset_Parameters(self):
+        parametros.todos['potenciaInicial']= 0
+        parametros.todos['potenciaRT']= 0
+        parametros.todos['potenciaStep']=2 
+        parametros.todos['potenciaFinal']= 20
+        parametros.todos['tempo']=10
+        parametros.todos['tempoStep']=1 
+        parametros.todos['modo'] = 1
     
 
 if __name__ == "__main__":
@@ -592,4 +595,3 @@ if __name__ == "__main__":
     ui.setupUi(moniDialog)
     moniDialog.show()
     sys.exit(app.exec_())
-

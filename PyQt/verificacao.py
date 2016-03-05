@@ -38,8 +38,7 @@ class Ui_VerifyWindow(object):
         self.label.setObjectName(_fromUtf8("label"))
         self.lcdNumber = QtGui.QLCDNumber(VerifyWindow)
         self.lcdNumber.setGeometry(QtCore.QRect(30, 250, 111, 81))
-        self.lcdNumber.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);\n"
-"color: rgb(255, 255, 255);"))
+        self.lcdNumber.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);"))
         self.lcdNumber.setObjectName(_fromUtf8("lcdNumber"))
         self.lcdNumber_2 = QtGui.QLCDNumber(VerifyWindow)
         self.lcdNumber_2.setGeometry(QtCore.QRect(220, 250, 111, 81))
@@ -119,7 +118,7 @@ class Ui_VerifyWindow(object):
         QtCore.QObject.connect(self.pushButton_2 , QtCore.SIGNAL("clicked()") , VerifyWindow.close)
 
     def Monitoring_Window(self): # Clicar para a tela de monitoramento
-       # VerifyWindow.close()
+        # VerifyWindow.close()
         moniDialog = QtGui.QDialog()
         ui = Ui_moniDialog()
         ui.setupUi(moniDialog)
