@@ -71,14 +71,14 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "Sofia_Gerador_RF", None))
         self.label.setWhatsThis(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-family:\'Calibri\'; font-size:44pt; font-weight:600; color:#000000;\">Gerador RF</span><span style=\" font-family:\'Calibri\'; font-size:44pt; font-weight:600; font-style:italic; color:#000000;\"> – SOFIA</span><span style=\" font-family:\'Calibri\'; font-size:44pt; font-style:italic; color:#000000;\"/></p></body></html>", None))
-<<<<<<< Updated upstream
+# <<<<<<< Updated upstream
         self.label.setText(_translate("MainWindow", "<html><head/><body><br><p><span style=\" font-size:26pt;\">Seja Bem Vindo</span></p><p><span style=\" font-size:26pt;\">ao </span></p><p><span style=\" font-size:26pt;\">Gerador RF – </span><span style=\" font-size:26pt; font-style:italic;\">SOFIA </span></p></body></html>", None))
         QtCore.QTimer.singleShot(500, self.OpenIT)   
         #MainWindow.showFullScreen()
-=======
+# =======
         self.label.setText(_translate("MainWindow", "<html><head/><body><br><p><span style=\" font-size:26pt;\">SEJA BEM VINDO</span></p><p><span style=\" font-size:26pt;\">AO </span></p><p><span style=\" font-size:26pt;\">Gerador RF – </span><span style=\" font-size:26pt; font-style:italic;\">SOFIA </span></p></body></html>", None))
         QtCore.QTimer.singleShot(1000, self.OpenIT)   
->>>>>>> Stashed changes
+# >>>>>>> Stashed changes
     
     def OpenIT(self):
         MainWindow.close()
