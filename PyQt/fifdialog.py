@@ -74,7 +74,6 @@ class Ui_fifDialog(object):
         self.pushButton_6 = QtGui.QPushButton(fifDialog)
         self.pushButton_6.setGeometry(QtCore.QRect(75, 380, 111, 51))
         self.pushButton_6.setStyleSheet(_fromUtf8("font: 14pt \"Arial\";\n""\n"""))
-        pylab_plot.plotMode(self,1)
         self.pic = QtGui.QLabel(fifDialog)
         self.pic.setGeometry(QtCore.QRect(309, 180, 461, 261))
         self.pic.setScaledContents(True)

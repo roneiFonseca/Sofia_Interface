@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import numpy as np
 import parametros
 import os,sys
 
@@ -33,6 +32,9 @@ def plotMode(self,mode):
 		timeValue += time_step
 		x.append(timeValue)
 
+	print x
+	print y
+
 	if mode == 1:
 		color = 'blue'
 	elif mode == 2:
@@ -40,11 +42,14 @@ def plotMode(self,mode):
 	else:
 		color = 'red'
 
+	fig = plt.figure(1)
+	ax = fig.add_subplot(111)	
+	ax.plot(x,y,color,drawstyle='steps-post')
+	ax.patch.set_facecolor('gray')
 	plt.xticks(x, range(interval+1))
-	plt.step(x,y,color)
-	plt.ylabel('Potencia (W)')
-	plt.xlabel('Tempo (min)')
-	plt.grid()
+	plt.ylabel('Potencia (W)',fontsize=16)
+	plt.xlabel('Tempo (min)',fontsize=16)
+	plt.grid(color='white')
 	plt.axis([0, interval, 0, 50])
-	plt.savefig(img)
+	fig.savefig(img, facecolor='gray', edgecolor='black')
 	plt.close()
