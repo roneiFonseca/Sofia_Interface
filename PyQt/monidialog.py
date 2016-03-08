@@ -20,6 +20,12 @@ import math
 time_before= 0 
 time_beginning = 0
 minute = 0
+stop_press = 1
+initial_press = 1
+time_old = 0
+restart = 0
+time_off = 0
+time_now = 0
 
 
 try:
@@ -71,6 +77,7 @@ class Ui_moniDialog(object):
         self.pushButton_7 = QtGui.QPushButton(moniDialog)
         self.pushButton_7.setGeometry(QtCore.QRect(20, 240, 141, 51))
         self.pushButton_7.setObjectName(_fromUtf8("pushButton_7"))
+        self.pushButton_7.setStyleSheet("font-weight:bold;background-color: rgb(40, 255, 0)")
         self.label_20 = QtGui.QLabel(moniDialog)
         self.label_20.setGeometry(QtCore.QRect(650, 290, 47, 13))
         font = QtGui.QFont()
@@ -551,13 +558,29 @@ class Ui_moniDialog(object):
         QtCore.QObject.connect(self.pushButton_7 , QtCore.SIGNAL("clicked()") , self.start)
         QtCore.QObject.connect(self.pushButton_8, QtCore.SIGNAL(_fromUtf8("clicked()")),self.Reset_Parameters)
         QtCore.QObject.connect(self.pushButton_8, QtCore.SIGNAL(_fromUtf8("clicked()")),moniDialog.close)
-
         
     def control(self):
-        global time_before, time_beginning, minute
-        time_now = time.time()
+        global time_before, time_beginning, minute, stop_press, initial_press,time_old, restart, time_off, time_now
+        self.pushButton_7.setText(_translate("moniDialog", "PARAR ", None))
+        self.pushButton_7.setStyleSheet("font-weight:bold;background-color: rgb(234, 26, 24)")
         self.lcd_potencia.display(parametros.todos['potenciaRT'])
-        seconds = round(time_now - time_beginning,0)
+
+        if restart == 0:
+            time_now = time.time() - time_off
+            seconds = round(time_now - time_beginning,0)
+            # print "comeca" + str(float(time_now))
+
+        if restart == 1 :
+            # print "oi"
+            time_off = time.time() - time_old   #duracao do botao desligado
+            time_now = time_old                  #ultimo tempo no qual botao foi desligado
+            seconds = round(time_now - time_beginning,0)
+            # print round(seconds,0)
+            restart = 0
+            time_old = 0
+            # time_off = 0
+
+        stop_press = seconds
         if seconds >= 60:
             minute +=1
             time_beginning = time_now
@@ -571,12 +594,34 @@ class Ui_moniDialog(object):
             # print time_now - time_before
             time_before = time_now
 
+    def stop(self):
+        global time_before, stop_press,initial_press, time_old,restart,time_off,time_now
+        self.pushButton_7.setText(_translate("moniDialog", "INICIAR ", None))
+        self.pushButton_7.setStyleSheet("font-weight:bold;background-color: rgb(40, 255, 0)")
+        time_old = time_now      #salva o ultimo tempo antes de parar contagem
+        
+        self.timer.stop()
+
+        #seta as flags usadas
+        time_off = 0
+        stop_press = 1
+        initial_press = 0
+        restart = 1
 
     def start(self):
-        global time_before,time_beginning
-        time_before = time.time()
-        time_beginning = time_before
-        self.timer.start(1)
+        global time_before,time_beginning,stop_press, initial_press
+
+        if((initial_press == 0) and (stop_press == 1)) :               #condicao para reiniciar a contagem
+             self.timer.start(1)
+        
+        if ((initial_press == 1) and (stop_press == 1)):                #condicao para o primeiro acionamento
+            time_before = time.time()
+            time_beginning = time_before
+            self.timer.start(1)
+
+        if stop_press != 1:                                             #condicao para parar a contagem
+            self.stop()
+
 
     def Reset_Parameters(self):
         parametros.todos['potenciaInicial']= 0
