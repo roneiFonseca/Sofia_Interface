@@ -49,7 +49,7 @@ class Ui_SecDialog(object):
         self.pushButton_4.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);"))
         self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
         self.pushButton_5 = QtGui.QPushButton(SecDialog)
-        self.pushButton_5.setGeometry(QtCore.QRect(440, 340, 101, 61))
+        self.pushButton_5.setGeometry(QtCore.QRect(44;0, 340, 101, 61))
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
         self.pushButton_5.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);\n"))
         # self.pushButton_5.setStyleSheet("border-color:green")
