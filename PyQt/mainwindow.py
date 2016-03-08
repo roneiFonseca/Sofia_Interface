@@ -76,8 +76,8 @@ class Ui_MainWindow(object):
         QtCore.QTimer.singleShot(500, self.OpenIT)   
         #MainWindow.showFullScreen()
 # =======
-        self.label.setText(_translate("MainWindow", "<html><head/><body><br><p><span style=\" font-size:26pt;\">SEJA BEM VINDO</span></p><p><span style=\" font-size:26pt;\">AO </span></p><p><span style=\" font-size:26pt;\">Gerador RF – </span><span style=\" font-size:26pt; font-style:italic;\">SOFIA </span></p></body></html>", None))
-        QtCore.QTimer.singleShot(1000, self.OpenIT)   
+        # self.label.setText(_translate("MainWindow", "<html><head/><body><br><p><span style=\" font-size:26pt;\">SEJA BEM VINDO</span></p><p><span style=\" font-size:26pt;\">AO </span></p><p><span style=\" font-size:26pt;\">Gerador RF – </span><span style=\" font-size:26pt; font-style:italic;\">SOFIA </span></p></body></html>", None))
+        # QtCore.QTimer.singleShot(1000, self.OpenIT)   
 # >>>>>>> Stashed changes
     
     def OpenIT(self):
