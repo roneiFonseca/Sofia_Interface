@@ -599,7 +599,7 @@ class Ui_moniDialog(object):
         self.pushButton_7.setText(_translate("moniDialog", "INICIAR ", None))
         self.pushButton_7.setStyleSheet("font-weight:bold;background-color: rgb(40, 255, 0)")
         time_old = time_now      #salva o ultimo tempo antes de parar contagem
-        
+
         self.timer.stop()
 
         #seta as flags usadas
@@ -624,6 +624,16 @@ class Ui_moniDialog(object):
 
 
     def Reset_Parameters(self):
+        global time_before,time_beginning,minute,stop_press,initial_press,time_old,restart,time_off,time_now
+        time_before= 0 
+        time_beginning = 0
+        minute = 0
+        stop_press = 1
+        initial_press = 1
+        time_old = 0
+        restart = 0
+        time_off = 0
+        time_now = 0
         parametros.todos['potenciaInicial']= 0
         parametros.todos['potenciaRT']= 0
         parametros.todos['potenciaStep']=2 
