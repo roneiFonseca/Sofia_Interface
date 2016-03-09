@@ -10,7 +10,7 @@ import random
 import parametros
 import pylab_plot
 from PyQt4 import QtCore, QtGui
-import imagens
+import imagens2
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -34,7 +34,7 @@ class Ui_fifDialog(object):
         fifDialog.setLayoutDirection(QtCore.Qt.LeftToRight)
         fifDialog.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);color: rgb(255, 255, 255)"))
         self.label_2 = QtGui.QLabel(fifDialog)
-        self.label_2.setGeometry(QtCore.QRect(120, 110, 561, 51))
+        self.label_2.setGeometry(QtCore.QRect(120, 120, 561, 51))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial"))
         font.setPointSize(22)
@@ -51,7 +51,7 @@ class Ui_fifDialog(object):
         self.label.setText(_fromUtf8(""))
         self.label.setObjectName(_fromUtf8("label"))
         self.label_9 = QtGui.QLabel(fifDialog)
-        self.label_9.setGeometry(QtCore.QRect(10, -10, 801, 111))
+        self.label_9.setGeometry(QtCore.QRect(0, 0, 821, 121))
         self.label_9.setText(_fromUtf8(""))
         self.label_9.setPixmap(QtGui.QPixmap(_fromUtf8(":/imagens/logo.png")))
         self.label_9.setObjectName(_fromUtf8("label_9"))

@@ -8,7 +8,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-import imagens
+import imagens2
 from monidialog import Ui_moniDialog
 import parametros
 import sys
@@ -33,7 +33,7 @@ class Ui_VerifyWindow(object):
         VerifyWindow.resize(800, 480)
         VerifyWindow.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);color: rgb(255, 255, 255)"))
         self.label = QtGui.QLabel(VerifyWindow)
-        self.label.setGeometry(QtCore.QRect(260, 100, 301, 61))
+        self.label.setGeometry(QtCore.QRect(260, 120, 301, 61))
         self.label.setStyleSheet(_fromUtf8("font: 26pt \"Arial\";"))
         self.label.setObjectName(_fromUtf8("label"))
         self.lcdNumber = QtGui.QLCDNumber(VerifyWindow)
@@ -89,7 +89,7 @@ class Ui_VerifyWindow(object):
         self.label_8.setStyleSheet(_fromUtf8("font: 10pt \"Arial\";"))
         self.label_8.setObjectName(_fromUtf8("label_8"))
         self.label_9 = QtGui.QLabel(VerifyWindow)
-        self.label_9.setGeometry(QtCore.QRect(10, -10, 801, 111))
+        self.label_9.setGeometry(QtCore.QRect(0, 0, 821, 121))
         self.label_9.setText(_fromUtf8(""))
         self.label_9.setPixmap(QtGui.QPixmap(_fromUtf8(":/imagens/logo.png")))
         self.label_9.setObjectName(_fromUtf8("label_9"))

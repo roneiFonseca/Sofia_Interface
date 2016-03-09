@@ -8,7 +8,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-import imagens
+import imagens2
 import parametros
 
 try:
@@ -48,7 +48,7 @@ class Ui_fourthDialog(object):
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
         self.pushButton_5.setStyleSheet("font-weight:bold;background-color: green")
         self.label = QtGui.QLabel(fourthDialog)
-        self.label.setGeometry(QtCore.QRect(10, 0, 791, 131))
+        self.label.setGeometry(QtCore.QRect(0, 0, 821, 121))
         self.label.setText(_fromUtf8(""))
         self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/imagens/logo.png")))
         self.label.setObjectName(_fromUtf8("label"))

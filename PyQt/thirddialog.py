@@ -8,7 +8,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-import imagens
+import imagens2
 import parametros
 
 try:
@@ -42,7 +42,7 @@ class Ui_thirdDialog(object):
         thirdDialog.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);"))
 # >>>>>>> 8e1625af59691d83c69dd3e5450ac76b17f2ee35
         self.label = QtGui.QLabel(thirdDialog)
-        self.label.setGeometry(QtCore.QRect(20, 0, 711, 111))
+        self.label.setGeometry(QtCore.QRect(0, 0, 821, 121))
         self.label.setText(_fromUtf8(""))
         self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/imagens/logo.png")))
         self.label.setObjectName(_fromUtf8("label"))

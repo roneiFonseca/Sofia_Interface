@@ -12,7 +12,7 @@ from thirddialog import Ui_thirdDialog
 from fifdialog import Ui_fifDialog
 from time_window import Ui_fourthDialog
 from verificacao import Ui_VerifyWindow
-import imagens
+import imagens2
 import sys
 
 try:
@@ -39,7 +39,7 @@ class Ui_SecDialog(object):
         SecDialog.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);"))       
 # >>>>>>> 8e1625af59691d83c69dd3e5450ac76b17f2ee35
         self.label = QtGui.QLabel(SecDialog)
-        self.label.setGeometry(QtCore.QRect(40, 10, 721, 111))
+        self.label.setGeometry(QtCore.QRect(0, 0, 821, 121))
         self.label.setText(_fromUtf8(""))
         self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/imagens/logo.png")))
         self.label.setObjectName(_fromUtf8("label"))

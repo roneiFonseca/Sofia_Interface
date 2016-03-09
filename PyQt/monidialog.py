@@ -9,7 +9,7 @@
 
 from PyQt4 import QtCore, QtGui
 from thirddialog import Ui_thirdDialog
-import imagens
+import imagens2
 import sys 
 import parametros
 import time
@@ -53,7 +53,7 @@ class Ui_moniDialog(object):
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.label = QtGui.QLabel(moniDialog)
-        self.label.setGeometry(QtCore.QRect(20, 0, 721, 111))
+        self.label.setGeometry(QtCore.QRect(0, 0, 821, 121))
         self.label.setText(_fromUtf8(""))
         self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/imagens/logo.png")))
         self.label.setObjectName(_fromUtf8("label"))
