@@ -32,7 +32,7 @@ class Ui_fifDialog(object):
         fifDialog.setFont(font)
         fifDialog.setFocusPolicy(QtCore.Qt.NoFocus)
         fifDialog.setLayoutDirection(QtCore.Qt.LeftToRight)
-        fifDialog.setStyleSheet(_fromUtf8("background-color: rgb(255, 255, 255);"))
+        fifDialog.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);color: rgb(255, 255, 255)"))
         self.label_2 = QtGui.QLabel(fifDialog)
         self.label_2.setGeometry(QtCore.QRect(120, 110, 561, 51))
         font = QtGui.QFont()
@@ -58,13 +58,15 @@ class Ui_fifDialog(object):
         self.pushButton_2 = QtGui.QPushButton(fifDialog)
         self.pushButton_2.setGeometry(QtCore.QRect(20, 200, 241, 51))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
-        self.pushButton_2.setStyleSheet("background-color: blue")
+        self.pushButton_2.setStyleSheet("font-weight:bold;background-color: gray")
         self.pushButton_3 = QtGui.QPushButton(fifDialog)
         self.pushButton_3.setGeometry(QtCore.QRect(20, 260, 241, 51))
         self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
+        self.pushButton_3.setStyleSheet("font-weight:bold;background-color: gray")
         self.pushButton_4 = QtGui.QPushButton(fifDialog)
         self.pushButton_4.setGeometry(QtCore.QRect(20, 320, 241, 51))
         self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
+        self.pushButton_4.setStyleSheet("font-weight:bold;background-color: gray")
 #         self.pushButton_5 = QtGui.QPushButton(fifDialog)
 #         self.pushButton_5.setGeometry(QtCore.QRect(20, 380, 111, 51))
 #         self.pushButton_5.setStyleSheet(_fromUtf8("font: 14pt \"Arial\";\n"
@@ -74,6 +76,7 @@ class Ui_fifDialog(object):
         self.pushButton_6 = QtGui.QPushButton(fifDialog)
         self.pushButton_6.setGeometry(QtCore.QRect(75, 380, 111, 51))
         self.pushButton_6.setStyleSheet(_fromUtf8("font: 14pt \"Arial\";\n""\n"""))
+        self.pushButton_6.setStyleSheet("background-color: green")
         self.pic = QtGui.QLabel(fifDialog)
         self.pic.setGeometry(QtCore.QRect(309, 180, 461, 261))
         self.pic.setScaledContents(True)
@@ -108,9 +111,9 @@ class Ui_fifDialog(object):
         parametros.todos['potenciaStep'] = 2
         parametros.todos['tempoStep'] = 1
         parametros.todos['modo'] = 1
-        self.pushButton_2.setStyleSheet("background-color: blue")
-        self.pushButton_3.setStyleSheet("background-color: white")
-        self.pushButton_4.setStyleSheet("background-color: white")
+        self.pushButton_2.setStyleSheet("font-weight:bold;background-color: blue")
+        self.pushButton_3.setStyleSheet("font-weight:bold;background-color: gray")
+        self.pushButton_4.setStyleSheet("font-weight:bold;background-color: gray")
         pylab_plot.plotMode(self,1)
         pixmap = QtGui.QPixmap('mode1.png')
         self.pic.setPixmap(pixmap)  
@@ -120,9 +123,9 @@ class Ui_fifDialog(object):
         parametros.todos['potenciaStep'] = 2.5
         parametros.todos['tempoStep'] = 1
         parametros.todos['modo'] = 2
-        self.pushButton_2.setStyleSheet("background-color: white")
-        self.pushButton_3.setStyleSheet("background-color: green")
-        self.pushButton_4.setStyleSheet("background-color: white")        
+        self.pushButton_2.setStyleSheet("font-weight:bold;background-color: gray")
+        self.pushButton_3.setStyleSheet("font-weight:bold;background-color: green")
+        self.pushButton_4.setStyleSheet("font-weight:bold;background-color: gray")        
         pylab_plot.plotMode(self,2)
         pixmap = QtGui.QPixmap('mode2.png')
         self.pic.setPixmap(pixmap)
@@ -133,9 +136,9 @@ class Ui_fifDialog(object):
         parametros.todos['potenciaStep'] = 5
         parametros.todos['tempoStep'] = 1
         parametros.todos['modo'] = 3
-        self.pushButton_2.setStyleSheet("background-color: white")
-        self.pushButton_3.setStyleSheet("background-color: white")
-        self.pushButton_4.setStyleSheet("background-color: red")
+        self.pushButton_2.setStyleSheet("font-weight:bold;background-color: gray")
+        self.pushButton_3.setStyleSheet("font-weight:bold;background-color: gray")
+        self.pushButton_4.setStyleSheet("font-weight:bold;background-color: red")
         pylab_plot.plotMode(self,3) 
         pixmap = QtGui.QPixmap('mode3.png')  
         self.pic.setPixmap(pixmap)  
