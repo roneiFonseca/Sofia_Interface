@@ -33,25 +33,25 @@ class Ui_SecDialog(object):
     def setupUi(self, SecDialog):
         SecDialog.setObjectName(_fromUtf8("SecDialog"))
         SecDialog.resize(800, 480)
-<<<<<<< HEAD
+# <<<<<<< HEAD
         SecDialog.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);color: rgb(255, 255, 255)"))
-=======
+# =======
         SecDialog.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);"))       
->>>>>>> 8e1625af59691d83c69dd3e5450ac76b17f2ee35
+# >>>>>>> 8e1625af59691d83c69dd3e5450ac76b17f2ee35
         self.label = QtGui.QLabel(SecDialog)
         self.label.setGeometry(QtCore.QRect(40, 10, 721, 111))
         self.label.setText(_fromUtf8(""))
         self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/imagens/logo.png")))
         self.label.setObjectName(_fromUtf8("label"))
         self.label_2 = QtGui.QLabel(SecDialog)
-<<<<<<< HEAD
+# <<<<<<< HEAD
         self.label_2.setGeometry(QtCore.QRect(200, 140, 390, 71))
         self.label_2.setStyleSheet(_fromUtf8("font: 26pt \"Arial\";"))
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.pushButton_4 = QtGui.QPushButton(SecDialog)
         self.pushButton_4.setGeometry(QtCore.QRect(210, 390, 151, 71))
-=======
+# =======
         self.label_2.setGeometry(QtCore.QRect(260, 130, 301, 71))
         self.label_2.setStyleSheet(_fromUtf8("font: 26pt \"Arial\";\n""color: rgb(0, 255, 0);"))
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
@@ -59,45 +59,45 @@ class Ui_SecDialog(object):
         self.pushButton_4 = QtGui.QPushButton(SecDialog)
         self.pushButton_4.setGeometry(QtCore.QRect(230, 340, 91, 61))
         self.pushButton_4.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);"))
->>>>>>> 8e1625af59691d83c69dd3e5450ac76b17f2ee35
+# >>>>>>> 8e1625af59691d83c69dd3e5450ac76b17f2ee35
         self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
         self.pushButton_4.setStyleSheet("font-weight:bold;background-color: blue")
         self.pushButton_5 = QtGui.QPushButton(SecDialog)
-<<<<<<< HEAD
+# <<<<<<< HEAD
         self.pushButton_5.setGeometry(QtCore.QRect(440, 390, 151, 71))
         self.pushButton_5.setStyleSheet(_fromUtf8("border-color: rgb(0, 0, 0);"))
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
         self.pushButton_5.setStyleSheet("font-weight:bold;background-color: red")
-=======
-        self.pushButton_5.setGeometry(QtCore.QRect(44;0, 340, 101, 61))
+# =======
+        self.pushButton_5.setGeometry(QtCore.QRect(440, 340, 101, 61))
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
         self.pushButton_5.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);\n"))
         # self.pushButton_5.setStyleSheet("border-color:green")
->>>>>>> 8e1625af59691d83c69dd3e5450ac76b17f2ee35
+# >>>>>>> 8e1625af59691d83c69dd3e5450ac76b17f2ee35
         self.pushButton_6 = QtGui.QPushButton(SecDialog)
         self.pushButton_6.setGeometry(QtCore.QRect(520, 250, 231, 71))
         self.pushButton_6.setObjectName(_fromUtf8("pushButton_6"))
-<<<<<<< HEAD
+# <<<<<<< HEAD
         self.pushButton_6.setStyleSheet("font-weight:bold;background-color: gray")
-=======
+# =======
         self.pushButton_6.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);"))
->>>>>>> 8e1625af59691d83c69dd3e5450ac76b17f2ee35
+# >>>>>>> 8e1625af59691d83c69dd3e5450ac76b17f2ee35
         self.pushButton_7 = QtGui.QPushButton(SecDialog)
         self.pushButton_7.setGeometry(QtCore.QRect(50,250,151,71))
         self.pushButton_7.setObjectName(_fromUtf8("pushButton_7"))
-<<<<<<< HEAD
+# <<<<<<< HEAD
         self.pushButton_7.setStyleSheet("font-weight:bold;background-color: gray")
-=======
+# =======
         self.pushButton_7.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);"))
->>>>>>> 8e1625af59691d83c69dd3e5450ac76b17f2ee35
+# >>>>>>> 8e1625af59691d83c69dd3e5450ac76b17f2ee35
         self.pushButton_8 = QtGui.QPushButton(SecDialog)
         self.pushButton_8.setGeometry(QtCore.QRect(290, 250, 151, 71))
         self.pushButton_8.setObjectName(_fromUtf8("pushButton_8"))
-<<<<<<< HEAD
+# <<<<<<< HEAD
         self.pushButton_8.setStyleSheet("font-weight:bold;background-color: gray")
-=======
+# =======
         self.pushButton_8.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);"))
->>>>>>> 8e1625af59691d83c69dd3e5450ac76b17f2ee35
+# >>>>>>> 8e1625af59691d83c69dd3e5450ac76b17f2ee35
 
         self.retranslateUi(SecDialog)
         QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), SecDialog.close)
