@@ -9,7 +9,7 @@
 
 from PyQt4 import QtCore, QtGui
 from secdialog import Ui_SecDialog
-import imagens
+import imagens2
 import pylab_plot
 import sys
 
@@ -56,7 +56,7 @@ class Ui_MainWindow(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName(_fromUtf8("label"))
         self.label_2 = QtGui.QLabel(self.centralWidget)
-        self.label_2.setGeometry(QtCore.QRect(0, 0, 800, 111))
+        self.label_2.setGeometry(QtCore.QRect(0, 0, 821, 121))
         self.label_2.setText(_fromUtf8(""))
         self.label_2.setPixmap(QtGui.QPixmap(_fromUtf8(":/imagens/logo.png")))
         self.label_2.setObjectName(_fromUtf8("label_2"))
