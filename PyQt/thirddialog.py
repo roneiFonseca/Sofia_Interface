@@ -8,8 +8,12 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-import imagens2
+# import imagens2
 import parametros
+#from RPIO import PWM
+
+#servo = PWM.Servo()
+#servo.set_servo(17,0)
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -36,26 +40,27 @@ class Ui_thirdDialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         thirdDialog.setFont(font)
-# <<<<<<< HEAD
-        thirdDialog.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);color: rgb(255,255,255)"))
-# =======
-        thirdDialog.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);"))
-# >>>>>>> 8e1625af59691d83c69dd3e5450ac76b17f2ee35
-        self.label = QtGui.QLabel(thirdDialog)
-        self.label.setGeometry(QtCore.QRect(0, 0, 821, 121))
-        self.label.setText(_fromUtf8(""))
-        self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/imagens/logo.png")))
-        self.label.setObjectName(_fromUtf8("label"))
+        thirdDialog.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);color: rgb(255,255,255);"))
+
+        # self.label = QtGui.QLabel(thirdDialog)
+        # self.label.setGeometry(QtCore.QRect(0, 0, 821, 121))
+        # self.label.setText(_fromUtf8(""))
+        # self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/imagens/logo.png")))
+        # self.label.setObjectName(_fromUtf8("label"))
+
+
         self.label_2 = QtGui.QLabel(thirdDialog)
-        self.label_2.setGeometry(QtCore.QRect(220, 130, 301, 71))
-        # self.label_2.setStyleSheet(_fromUtf8("font: 22pt \"Times New Roman\";"))
-        self.label_2.setStyleSheet(_fromUtf8("font: 26pt \"Arial\";\n""color: rgb(0, 255, 0);"))
+        self.label_2.setGeometry(QtCore.QRect(240, 50, 301, 71))
+
+        self.label_2.setStyleSheet(_fromUtf8("font: 26pt \"Arial\";\n""font-weight:bold;"))
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName(_fromUtf8("label_2"))
+
         self.lcdNumber = QtGui.QLCDNumber(thirdDialog)
-        self.lcdNumber.setGeometry(QtCore.QRect(110, 240, 121, 81))
-        self.lcdNumber.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);"))
+        self.lcdNumber.setGeometry(QtCore.QRect(80, 200, 121, 81))
+        self.lcdNumber.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n"))
         self.lcdNumber.display(parametros.todos['potenciaInicial'])
+
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -129,57 +134,57 @@ class Ui_thirdDialog(object):
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
-# <<<<<<< HEAD
         self.lcdNumber.setPalette(palette)
         self.lcdNumber.setStyleSheet(_fromUtf8("background-color: blue;color:white"))
         self.lcdNumber.setObjectName(_fromUtf8("lcdNumber"))
-# =======
-        # self.lcdNumber.setPalette(palette)
-        # self.lcdNumber.setStyleSheet(_fromUtf8("color: rgb(0, 255, 0);"))
-        # self.lcdNumber.setObjectName(_fromUtf8("lcdNumber"))
-# >>>>>>> 8e1625af59691d83c69dd3e5450ac76b17f2ee35
+
         self.pushButton = QtGui.QPushButton(thirdDialog)
-        self.pushButton.setGeometry(QtCore.QRect(290, 240, 51, 41))
-        self.pushButton.setStyleSheet("font-weight:bold;background-color: blue")
+        self.pushButton.setGeometry(QtCore.QRect(250, 180, 61, 61))
+        self.pushButton.setStyleSheet("font-weight:bold;background-color: blue;border-radius: 10px;")
+        # self.pushButton.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);\n""font: 30pt \"Arial\";"))
+        # self.pushButton_2.setStyleSheet("font-weight:bold;background-color: red")
         font = QtGui.QFont()
         font.setPointSize(18)
         self.pushButton.setFont(font)
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
-        self.pushButton.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);\n""font: 30pt \"Arial\";"))
+
         self.pushButton_2 = QtGui.QPushButton(thirdDialog)
-        self.pushButton_2.setGeometry(QtCore.QRect(290, 290, 51, 41))
-        self.pushButton_2.setStyleSheet("font-weight:bold;background-color: red")
+        self.pushButton_2.setGeometry(QtCore.QRect(250, 250, 61, 61))
         font = QtGui.QFont()
-        font.setPointSize(22)
+        font.setPointSize(18)
         self.pushButton_2.setFont(font)
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
-        self.pushButton_2.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);\n""font: 30pt \"Arial\";"))
+        # self.pushButton_2.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);\n""font: 30pt \"Arial\";"))
+        self.pushButton_2.setStyleSheet("font-weight:bold;background-color: blue;border-radius: 10px;")
+
+
         self.label_3 = QtGui.QLabel(thirdDialog)
-        self.label_3.setGeometry(QtCore.QRect(130, 330, 91, 21))
+        self.label_3.setGeometry(QtCore.QRect(90, 290, 91, 21))
         # self.label_3.setStyleSheet(_fromUtf8("font: 16pt \"Times New Roman\";"))
-        self.label_3.setStyleSheet(_fromUtf8("font: 16pt \"Arial\";\n""color: rgb(0, 255, 0);"))
+        self.label_3.setStyleSheet(_fromUtf8("font: 16pt \"Arial\";\n"))
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName(_fromUtf8("label_3"))
-        # font = QtGui.QFont()
-        # font.setPointSize(18)
-        # self.pushButton_3.setFont(font)
+
+        
         self.pushButton_3 = QtGui.QPushButton(thirdDialog)
-        self.pushButton_3.setGeometry(QtCore.QRect(590, 235, 51, 41))
+        self.pushButton_3.setFont(font)
+        self.pushButton_3.setGeometry(QtCore.QRect(640, 180, 61, 61))
         self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
-# <<<<<<< HEAD
-        self.pushButton_3.setStyleSheet("font-weight:bold;background-color: blue")
-# =======
-        self.pushButton_3.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);\n""font: 30pt \"Arial\";"))        
-# >>>>>>> 8e1625af59691d83c69dd3e5450ac76b17f2ee35
+        self.pushButton_3.setStyleSheet("font-weight:bold;background-color: blue;border-radius: 10px;")
+        # self.pushButton_3.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);\n""font: 30pt \"Arial\";"))        
+
+
         self.label_4 = QtGui.QLabel(thirdDialog)
-        self.label_4.setGeometry(QtCore.QRect(430, 330, 91, 21))
+        self.label_4.setGeometry(QtCore.QRect(480, 290, 91, 21))
         # self.label_4.setStyleSheet(_fromUtf8("font: 16pt \"Times New Roman\";"))
-        self.label_4.setStyleSheet(_fromUtf8("font: 16pt \"Arial\";\n""color: rgb(0, 255, 0);"))
+        self.label_4.setStyleSheet(_fromUtf8("font: 16pt \"Arial\";\n"))
         self.label_4.setAlignment(QtCore.Qt.AlignCenter)
         self.label_4.setObjectName(_fromUtf8("label_4"))
+
+
         self.lcdNumber_2 = QtGui.QLCDNumber(thirdDialog)
-        self.lcdNumber_2.setGeometry(QtCore.QRect(410, 240, 121, 81))
-        self.lcdNumber_2.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);"))
+        self.lcdNumber_2.setGeometry(QtCore.QRect(470, 200, 121, 81))
+        self.lcdNumber_2.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n"))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -253,65 +258,70 @@ class Ui_thirdDialog(object):
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
-# <<<<<<< HEAD
         self.lcdNumber_2.setPalette(palette)
         self.lcdNumber_2.setStyleSheet(_fromUtf8("background-color: blue;color:white"))
         self.lcdNumber_2.setObjectName(_fromUtf8("lcdNumber_2"))
-# =======
+
         # self.lcdNumber_2.setPalette(palette)
         # self.lcdNumber_2.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);"))
         # self.lcdNumber_2.setObjectName(_fromUtf8("lcdNumber_2"))
-# >>>>>>> 8e1625af59691d83c69dd3e5450ac76b17f2ee35
+
         self.lcdNumber_2.display(parametros.todos['potenciaFinal'])
+
         self.pushButton_4 = QtGui.QPushButton(thirdDialog)
-        self.pushButton_4.setGeometry(QtCore.QRect(590, 290, 51, 41))
-        self.pushButton_4.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);\n""font: 30pt \"Arial\";"))
+        self.pushButton_4.setGeometry(QtCore.QRect(640, 250, 61, 61))
+        # self.pushButton_4.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);\n""font: 30pt \"Arial\";"))
+        self.pushButton_4.setStyleSheet(_fromUtf8("font-weight:bold;background-color: blue;border-radius: 10px;"))
         font = QtGui.QFont()
-        font.setPointSize(22)
+        font.setPointSize(18)
         self.pushButton_4.setFont(font)
         self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
-        self.pushButton_4.setStyleSheet("font-weight:bold;border: 2px solid gray;background-color: rgb(0, 0, 0);color: rgb(0, 255, 0);")
+        # self.pushButton_4.setStyleSheet("font-weight:bold;border: 2px solid gray;background-color: rgb(0, 0, 0);color: rgb(0, 255, 0);")
+        
+
         self.pushButton_5 = QtGui.QPushButton(thirdDialog)
-        self.pushButton_5.setGeometry(QtCore.QRect(330, 380, 100, 70))
+        self.pushButton_5.setGeometry(QtCore.QRect(310, 350, 151, 71))
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
-# <<<<<<< HEAD
-        self.pushButton_5.setStyleSheet("font-weight:bold;background-color: green")
-# =======
-        self.pushButton_5.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);\n""font: 26pt \"Arial\";"))
-# >>>>>>> 8e1625af59691d83c69dd3e5450ac76b17f2ee35
+        self.pushButton_5.setStyleSheet("font-weight:bold;background-color: rgb(40, 255, 0); border-radius: 10px;")
+        # self.pushButton_5.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);\n""font: 26pt \"Arial\";"))
+
         self.label_8 = QtGui.QLabel(thirdDialog)
-        self.label_8.setGeometry(QtCore.QRect(240, 310, 47, 13))
+        self.label_8.setGeometry(QtCore.QRect(210, 280, 40, 13))
         # self.label_8.setStyleSheet(_fromUtf8("font: 75 12pt \"Times New Roman\";"))
-        self.label_8.setStyleSheet(_fromUtf8("font: 12pt \"Arial\";\n""color: rgb(0, 255, 0);"))
+        self.label_8.setStyleSheet(_fromUtf8("font: 12pt \"Arial\";\n"))
         self.label_8.setObjectName(_fromUtf8("label_8"))
+
         self.label_9 = QtGui.QLabel(thirdDialog)
-        self.label_9.setGeometry(QtCore.QRect(540, 300, 47, 13))
+        self.label_9.setGeometry(QtCore.QRect(600, 280, 30, 13))
         # self.label_9.setStyleSheet(_fromUtf8("font: 75 12pt \"Times New Roman\";"))
-        self.label_9.setStyleSheet(_fromUtf8("font: 12pt \"Arial\";\n""color: rgb(0, 255, 0);"))
+        self.label_9.setStyleSheet(_fromUtf8("font: 12pt \"Arial\";\n"))
         self.label_9.setObjectName(_fromUtf8("label_9"))
-        self.line = QtGui.QFrame(thirdDialog)
-        self.line.setGeometry(QtCore.QRect(80, 205, 621, 31))
-        self.line.setFrameShape(QtGui.QFrame.HLine)
-        self.line.setFrameShadow(QtGui.QFrame.Sunken)
-        self.line.setObjectName(_fromUtf8("line"))
-        self.line_2 = QtGui.QFrame(thirdDialog)
-        self.line_2.setGeometry(QtCore.QRect(53, 220, 51, 251))
-        self.line_2.setFrameShape(QtGui.QFrame.VLine)
-        self.line_2.setFrameShadow(QtGui.QFrame.Sunken)
-        self.line_2.setObjectName(_fromUtf8("line_2"))
-        self.line_3 = QtGui.QFrame(thirdDialog)
-        self.line_3.setGeometry(QtCore.QRect(87, 449, 611, 31))
-        self.line_3.setFrameShape(QtGui.QFrame.HLine)
-        self.line_3.setFrameShadow(QtGui.QFrame.Sunken)
-        self.line_3.setObjectName(_fromUtf8("line_3"))
-        self.line_4 = QtGui.QFrame(thirdDialog)
-        self.line_4.setGeometry(QtCore.QRect(663, 220, 71, 241))
-        self.line_4.setFrameShape(QtGui.QFrame.VLine)
-        self.line_4.setFrameShadow(QtGui.QFrame.Sunken)
-        self.line_4.setObjectName(_fromUtf8("line_4"))
+
+        # self.line = QtGui.QFrame(thirdDialog)
+        # self.line.setGeometry(QtCore.QRect(80, 150, 621, 31))
+        # self.line.setFrameShape(QtGui.QFrame.HLine)
+        # self.line.setFrameShadow(QtGui.QFrame.Sunken)
+        # self.line.setObjectName(_fromUtf8("line"))
+        # self.line.setStyleSheet("background-color: white;color: green")
+        # self.line_2 = QtGui.QFrame(thirdDialog)
+        # self.line_2.setGeometry(QtCore.QRect(53, 220, 51, 251))
+        # self.line_2.setFrameShape(QtGui.QFrame.VLine)
+        # self.line_2.setFrameShadow(QtGui.QFrame.Sunken)
+        # self.line_2.setObjectName(_fromUtf8("line_2"))
+        # self.line_3 = QtGui.QFrame(thirdDialog)
+        # self.line_3.setGeometry(QtCore.QRect(87, 449, 611, 31))
+        # self.line_3.setFrameShape(QtGui.QFrame.HLine)
+        # self.line_3.setFrameShadow(QtGui.QFrame.Sunken)
+        # self.line_3.setObjectName(_fromUtf8("line_3"))
+        # self.line_4 = QtGui.QFrame(thirdDialog)
+        # self.line_4.setGeometry(QtCore.QRect(663, 220, 71, 241))
+        # self.line_4.setFrameShape(QtGui.QFrame.VLine)
+        # self.line_4.setFrameShadow(QtGui.QFrame.Sunken)
+        # self.line_4.setObjectName(_fromUtf8("line_4"))
 
         self.retranslateUi(thirdDialog)
         QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")),thirdDialog.close)
+        # QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")),self.PWM_off)
         QtCore.QMetaObject.connectSlotsByName(thirdDialog)
 
     def retranslateUi(self, thirdDialog):
@@ -332,21 +342,33 @@ class Ui_thirdDialog(object):
         QtCore.QObject.connect(self.pushButton_3 , QtCore.SIGNAL("clicked()") , self.final_button_Plus_click)
         QtCore.QObject.connect(self.pushButton_4, QtCore.SIGNAL("clicked()") , self.final_button_Minus_click)
 
+    # def PWM_off():
+    #     servo.stop_servo(17)
+
     def initial_button_Plus_click(self):
+        # global servo
         if parametros.todos['potenciaFinal']> parametros.todos['potenciaInicial']:
             parametros.todos['potenciaInicial'] +=1
         self.lcdNumber.display(parametros.todos['potenciaInicial'])
+        # servo.set_servo(17,parametros.todos['potenciaInicial'])
+
         while parametros.todos['potenciaInicial'] > 50:
             self.lcdNumber.display(50)
             parametros.todos['potenciaInicial'] = 50
+            # servo.set_servo(17,parametros.todos['potenciaInicial'])
         parametros.todos['potenciaRT'] = parametros.todos['potenciaInicial']        
 
     def initial_button_Minus_click(self):
+        # global servo
         parametros.todos['potenciaInicial'] -=1
         self.lcdNumber.display(parametros.todos['potenciaInicial'])
+        # servo.set_servo(17,parametros.todos['potenciaInicial'])
+
         while parametros.todos['potenciaInicial'] < 0:
             self.lcdNumber.display(0)
             parametros.todos['potenciaInicial'] = 0
+            # servo.set_servo(17,parametros.todos['potenciaInicial'])
+
         parametros.todos['potenciaRT'] = parametros.todos['potenciaInicial']
 
     def final_button_Plus_click(self):        

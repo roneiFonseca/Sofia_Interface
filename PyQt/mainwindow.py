@@ -36,7 +36,7 @@ class Ui_MainWindow(object):
         icon.addPixmap(QtGui.QPixmap(_fromUtf8("../../teste/imagens/teste1.JPG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setAutoFillBackground(False)
-        MainWindow.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);color: blue"))
+        MainWindow.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);color: white"))
         MainWindow.setAnimated(True)
         MainWindow.setTabShape(QtGui.QTabWidget.Rounded)
         self.centralWidget = QtGui.QWidget(MainWindow)
