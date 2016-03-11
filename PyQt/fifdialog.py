@@ -6,10 +6,13 @@
 #      by: PyQt4 UI code generator 4.9.4
 #
 # WARNING! All changes made in this file will be lost!
+from __future__ import division
 import random
 import parametros
 import pylab_plot
 from PyQt4 import QtCore, QtGui
+import math
+
 # import imagens2
 
 try:
@@ -46,15 +49,6 @@ class Ui_fifDialog(object):
         self.label_2.setTextFormat(QtCore.Qt.PlainText)
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName(_fromUtf8("label_2"))
-        # self.label = QtGui.QLabel(fifDialog)
-        # self.label.setGeometry(QtCore.QRect(20, 0, 721, 111))
-        # self.label.setText(_fromUtf8(""))
-        # self.label.setObjectName(_fromUtf8("label"))
-        # self.label_9 = QtGui.QLabel(fifDialog)
-        # self.label_9.setGeometry(QtCore.QRect(0, 0, 821, 121))
-        # self.label_9.setText(_fromUtf8(""))
-        # self.label_9.setPixmap(QtGui.QPixmap(_fromUtf8(":/imagens/logo.png")))
-        # self.label_9.setObjectName(_fromUtf8("label_9"))
         self.pushButton_2 = QtGui.QPushButton(fifDialog)
         self.pushButton_2.setGeometry(QtCore.QRect(20, 150, 241, 51))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
@@ -112,6 +106,13 @@ class Ui_fifDialog(object):
         parametros.todos['potenciaStep'] = 2
         parametros.todos['tempoStep'] = 1
         parametros.todos['modo'] = 1
+
+        # pot_diff = parametros.todos['potenciaFinal'] - parametros.todos['potenciaInicial']
+        # parametros.todos['tempoStep'] = pot_diff/parametros.todos['tempo']
+        # parametros.todos['potenciaStep'] = 1
+        # print (parametros.todos['tempoStep'])
+
+
         self.pushButton_2.setStyleSheet("font-weight:bold;background-color: blue;border-radius: 10px;")
         self.pushButton_3.setStyleSheet("font-weight:bold;background-color: gray;border-radius: 10px;")
         self.pushButton_4.setStyleSheet("font-weight:bold;background-color: gray;border-radius: 10px;")
@@ -124,6 +125,13 @@ class Ui_fifDialog(object):
         parametros.todos['potenciaStep'] = 2.5
         parametros.todos['tempoStep'] = 1
         parametros.todos['modo'] = 2
+
+        # pot_diff2 = parametros.todos['potenciaFinal'] - parametros.todos['potenciaInicial']
+        # parametros.todos['tempoStep'] = pot_diff2/parametros.todos['tempo']
+        # parametros.todos['potenciaStep'] = 2
+        # parametros.todos['tempoStep'] = parametros.todos['potenciaStep']*parametros.todos['tempoStep']
+        # print (parametros.todos['tempoStep'])
+
         self.pushButton_2.setStyleSheet("font-weight:bold;background-color: gray;border-radius: 10px;")
         self.pushButton_3.setStyleSheet("font-weight:bold;background-color: green;border-radius: 10px;")
         self.pushButton_4.setStyleSheet("font-weight:bold;background-color: gray;border-radius: 10px;")        
@@ -137,6 +145,13 @@ class Ui_fifDialog(object):
         parametros.todos['potenciaStep'] = 5
         parametros.todos['tempoStep'] = 1
         parametros.todos['modo'] = 3
+
+        # pot_diff2 = parametros.todos['potenciaFinal'] - parametros.todos['potenciaInicial']
+        # parametros.todos['tempoStep'] = pot_diff2/parametros.todos['tempo']
+        # parametros.todos['potenciaStep'] = 3
+        # parametros.todos['tempoStep'] = parametros.todos['potenciaStep']*parametros.todos['tempoStep']
+        # print (parametros.todos['tempoStep'])
+
         self.pushButton_2.setStyleSheet("font-weight:bold;background-color: gray;border-radius: 10px;")
         self.pushButton_3.setStyleSheet("font-weight:bold;background-color: gray;border-radius: 10px;")
         self.pushButton_4.setStyleSheet("font-weight:bold;background-color: red;border-radius: 10px;")
