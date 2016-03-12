@@ -6,7 +6,7 @@
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
-
+from __future__ import division
 from PyQt4 import QtCore, QtGui
 from thirddialog import Ui_thirdDialog
 # import imagens2
@@ -15,6 +15,7 @@ import parametros
 import time
 import math
 import RPi.GPIO as GPIO
+import smbus
 
 
 
@@ -28,11 +29,15 @@ time_old = 0
 restart = 0
 time_off = 0
 time_now = 0
+cont = 0
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(25, GPIO.OUT)
 PWM_FREQ = 1200
 pwm_pin1 = GPIO.PWM(25,PWM_FREQ)
+
+bus = smbus.SMBus(1)
+address = 0x48
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -173,15 +178,46 @@ class Ui_moniDialog(object):
         self.lcd_temp.display("---")
         self.lcd_imp.display("---")
         self.label_15.setText(_translate("moniDialog", "Modo de Operação: Aguardando INICIAR", None))
-
+        self.lcd_potencia.display(parametros.todos['potenciaInicial'])
 
     
 
     def control(self):
-        global time_before, time_beginning, minute, stop_press, initial_press,time_old, restart, time_off, time_now
+        global time_before, time_beginning, minute, stop_press, initial_press,time_old, restart, time_off, time_now, bus, address, cont
         self.pushButton_7.setText(_translate("moniDialog", "PARAR ", None))
         self.pushButton_7.setStyleSheet("font-weight:bold;background-color: red;border-radius: 10px;")
-        self.lcd_potencia.display(parametros.todos['potenciaRT'])
+        # self.lcd_potencia.display(parametros.todos['potenciaRT'])
+
+        cont += 1
+
+        if cont == 60:
+
+            bus.write_byte(address, 0)
+            temp_aux = bus.read_byte(address)
+            temperatura = ((3/5)*temp_aux-73)
+            self.lcd_temp.display(temperatura) 
+
+            bus.write_byte(address, 1)
+            current = bus.read_byte(address)
+
+            bus.write_byte(address, 2)
+            voltage = bus.read_byte(address)
+
+            impedancia = voltage/current
+            power =  voltage*current
+            # print voltage
+            # print current
+
+            self.lcd_imp.display(impedancia)
+            self.lcd_potencia.display(power)
+
+            cont = 0 
+
+
+        # self.lcd_temp.display(temperatura)
+        # self.lcd_imp.display(parametros.todos['potenciaRT'])
+
+
 
         if restart == 0:
             time_now = time.time() - time_off
@@ -203,15 +239,18 @@ class Ui_moniDialog(object):
             minute +=1
             time_beginning = time_now
         if seconds < 10:
+            # self.lcd_temp.display(temperatura)
             str_count = str(minute) + ':0' + str(int(seconds))
+
         else:
             str_count = str(minute) + ':' + str(int(seconds))
-        self.lcd_tempo.display(str_count)      
+        self.lcd_tempo.display(str_count)
+          
         if ( time_now - time_before > float(parametros.todos['tempoStep']*60) ) and (parametros.todos['potenciaRT']<parametros.todos['potenciaFinal']):
             parametros.todos['potenciaRT'] += parametros.todos['potenciaStep']
             print time_now - time_before
             print float(parametros.todos['tempoStep']*60)
-            self.lcd_potencia.display(parametros.todos['potenciaRT'])
+            # self.lcd_potencia.display(parametros.todos['potenciaRT'])
             pwm_pin1.ChangeDutyCycle(parametros.todos['potenciaRT'])
             time_before = time_now
 
@@ -246,6 +285,7 @@ class Ui_moniDialog(object):
         global time_before,time_beginning,stop_press, initial_press,pwm_pin1
 
         pwm_pin1.start(parametros.todos['potenciaRT'])
+
 
         if((initial_press == 0) and (stop_press == 1)) :               #condicao para reiniciar a contagem
              self.timer.start(1)
