@@ -27,13 +27,15 @@ def plotMode(self,mode):
 	interval = parametros.todos['tempo']
 
 	for n in range(interval/time_step):
+	# for n in range(int(interval/time_step)):
+	# for n in range(interval):
 		potValue += potStep
 		y.append(potValue)
 		timeValue += time_step
 		x.append(timeValue)
 
-	print x
-	print y
+	# print x
+	# print y
 
 	if mode == 1:
 		color = 'blue'
@@ -50,6 +52,6 @@ def plotMode(self,mode):
 	plt.ylabel('Potencia (W)',fontsize=16)
 	plt.xlabel('Tempo (min)',fontsize=16)
 	plt.grid(color='white')
-	plt.axis([0, interval, 0, 50])
+	plt.axis([0, (interval), 0, 50])
 	fig.savefig(img, facecolor='gray', edgecolor='black')
 	plt.close()

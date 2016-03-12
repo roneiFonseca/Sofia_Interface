@@ -1,6 +1,8 @@
 import RPi.GPIO as GPIO
 import time
 
+
+
 def pwm(duty_cycle,total_time,step_time):
 	
 	GPIO.setmode(GPIO.BCM)

@@ -207,13 +207,18 @@ class Ui_moniDialog(object):
         else:
             str_count = str(minute) + ':' + str(int(seconds))
         self.lcd_tempo.display(str_count)      
-        if ( time_now - time_before > parametros.todos['tempoStep']*60 ) and (parametros.todos['potenciaRT']<parametros.todos['potenciaFinal']):
+        if ( time_now - time_before > float(parametros.todos['tempoStep']*60) ) and (parametros.todos['potenciaRT']<parametros.todos['potenciaFinal']):
             parametros.todos['potenciaRT'] += parametros.todos['potenciaStep']
-            # print time_now - time_before
-
+            print time_now - time_before
+            print float(parametros.todos['tempoStep']*60)
+            self.lcd_potencia.display(parametros.todos['potenciaRT'])
             pwm_pin1.ChangeDutyCycle(parametros.todos['potenciaRT'])
-
             time_before = time_now
+
+        if (minute == parametros.todos['tempo']) and (seconds == 0):
+            # definir o protocolo de desligamento do aparelho quando o tempo acaba
+            self.timer.stop()
+
 
     def stop(self):
         global time_before, stop_press,initial_press, time_old,restart,time_off,time_now

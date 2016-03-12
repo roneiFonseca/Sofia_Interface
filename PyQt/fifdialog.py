@@ -75,9 +75,11 @@ class Ui_fifDialog(object):
         self.pic.setGeometry(QtCore.QRect(309, 130, 461, 261))
         self.pic.setStyleSheet(_fromUtf8("border: 2px solid white;\n"))
         self.pic.setScaledContents(True)
-        pylab_plot.plotMode(self,1)
-        pixmap = QtGui.QPixmap('mode1.png')
-        self.pic.setPixmap(pixmap)
+
+        # pylab_plot.plotMode(self,1)
+        # pixmap = QtGui.QPixmap('mode1.png')
+        # self.pic.setPixmap(pixmap)
+        
         # self.frame.setFrameShape(QtGui.QFrame.StyledPanel)
         # self.frame.setFrameShadow(QtGui.QFrame.Raised)
         # self.frame.setObjectName(_fromUtf8("frame"))
@@ -102,23 +104,26 @@ class Ui_fifDialog(object):
 
 
     def mode1 (self):
-        global pixmap
+        # global pixmap
         parametros.todos['potenciaStep'] = 2
         parametros.todos['tempoStep'] = 1
         parametros.todos['modo'] = 1
 
-        # pot_diff = parametros.todos['potenciaFinal'] - parametros.todos['potenciaInicial']
-        # parametros.todos['tempoStep'] = pot_diff/parametros.todos['tempo']
-        # parametros.todos['potenciaStep'] = 1
-        # print (parametros.todos['tempoStep'])
+        pot_diff = parametros.todos['potenciaFinal'] - parametros.todos['potenciaInicial']
+        parametros.todos['tempoStep'] = pot_diff/parametros.todos['tempo']
+        time_ratio = parametros.todos['tempo']/parametros.todos['tempoStep']
+        parametros.todos['potenciaStep'] = pot_diff/time_ratio
+
+        print (parametros.todos['tempoStep'])
+        print (parametros.todos['potenciaStep'])
 
 
         self.pushButton_2.setStyleSheet("font-weight:bold;background-color: blue;border-radius: 10px;")
         self.pushButton_3.setStyleSheet("font-weight:bold;background-color: gray;border-radius: 10px;")
         self.pushButton_4.setStyleSheet("font-weight:bold;background-color: gray;border-radius: 10px;")
-        pylab_plot.plotMode(self,1)
-        pixmap = QtGui.QPixmap('mode1.png')
-        self.pic.setPixmap(pixmap)  
+        # pylab_plot.plotMode(self,1)
+        # pixmap = QtGui.QPixmap('mode1.png')
+        # self.pic.setPixmap(pixmap)  
 
 
     def mode2 (self):
@@ -126,18 +131,18 @@ class Ui_fifDialog(object):
         parametros.todos['tempoStep'] = 1
         parametros.todos['modo'] = 2
 
-        # pot_diff2 = parametros.todos['potenciaFinal'] - parametros.todos['potenciaInicial']
-        # parametros.todos['tempoStep'] = pot_diff2/parametros.todos['tempo']
-        # parametros.todos['potenciaStep'] = 2
-        # parametros.todos['tempoStep'] = parametros.todos['potenciaStep']*parametros.todos['tempoStep']
+        pot_diff2 = parametros.todos['potenciaFinal'] - parametros.todos['potenciaInicial']
+        parametros.todos['tempoStep'] = pot_diff2/parametros.todos['tempo']
+        parametros.todos['potenciaStep'] = 2
+        parametros.todos['tempoStep'] = parametros.todos['potenciaStep']*parametros.todos['tempoStep']
         # print (parametros.todos['tempoStep'])
 
         self.pushButton_2.setStyleSheet("font-weight:bold;background-color: gray;border-radius: 10px;")
         self.pushButton_3.setStyleSheet("font-weight:bold;background-color: green;border-radius: 10px;")
         self.pushButton_4.setStyleSheet("font-weight:bold;background-color: gray;border-radius: 10px;")        
-        pylab_plot.plotMode(self,2)
-        pixmap = QtGui.QPixmap('mode2.png')
-        self.pic.setPixmap(pixmap)
+        # pylab_plot.plotMode(self,2)
+        # pixmap = QtGui.QPixmap('mode2.png')
+        # self.pic.setPixmap(pixmap)
 
 
 
@@ -146,18 +151,18 @@ class Ui_fifDialog(object):
         parametros.todos['tempoStep'] = 1
         parametros.todos['modo'] = 3
 
-        # pot_diff2 = parametros.todos['potenciaFinal'] - parametros.todos['potenciaInicial']
-        # parametros.todos['tempoStep'] = pot_diff2/parametros.todos['tempo']
-        # parametros.todos['potenciaStep'] = 3
-        # parametros.todos['tempoStep'] = parametros.todos['potenciaStep']*parametros.todos['tempoStep']
+        pot_diff2 = parametros.todos['potenciaFinal'] - parametros.todos['potenciaInicial']
+        parametros.todos['tempoStep'] = pot_diff2/parametros.todos['tempo']
+        parametros.todos['potenciaStep'] = 3
+        parametros.todos['tempoStep'] = parametros.todos['potenciaStep']*parametros.todos['tempoStep']
         # print (parametros.todos['tempoStep'])
 
         self.pushButton_2.setStyleSheet("font-weight:bold;background-color: gray;border-radius: 10px;")
         self.pushButton_3.setStyleSheet("font-weight:bold;background-color: gray;border-radius: 10px;")
         self.pushButton_4.setStyleSheet("font-weight:bold;background-color: red;border-radius: 10px;")
-        pylab_plot.plotMode(self,3) 
-        pixmap = QtGui.QPixmap('mode3.png') 
-        self.pic.setPixmap(pixmap)  
+        # pylab_plot.plotMode(self,3) 
+        # pixmap = QtGui.QPixmap('mode3.png') 
+        # self.pic.setPixmap(pixmap)  
 
 if __name__ == "__main__":
     import sys
