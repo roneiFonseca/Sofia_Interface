@@ -30,11 +30,17 @@ restart = 0
 time_off = 0
 time_now = 0
 cont = 0
+#=============== PWM ANTIGO===========
+#GPIO.setmode(GPIO.BCM)
+#GPIO.setup(25, GPIO.OUT)
+#PWM_FREQ = 50
+#pwm_pin1 = GPIO.PWM(25,PWM_FREQ)
+#============== PWM NOVO ===============
+#from RPIO import PWM
+#PWMservo = PWM.Servo()
+#pwm_pin1 = 25
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(25, GPIO.OUT)
-PWM_FREQ = 1200
-pwm_pin1 = GPIO.PWM(25,PWM_FREQ)
+#========================================
 
 bus = smbus.SMBus(1)
 address = 0x48
@@ -210,7 +216,8 @@ class Ui_moniDialog(object):
 
             self.lcd_imp.display(impedancia)
             self.lcd_potencia.display(power)
-
+	   # pwm_pin1.ChangeDutyCycle(parametros.todos['potenciaRT'])
+            bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
             cont = 0 
 
 
@@ -251,7 +258,11 @@ class Ui_moniDialog(object):
             print time_now - time_before
             print float(parametros.todos['tempoStep']*60)
             # self.lcd_potencia.display(parametros.todos['potenciaRT'])
-            pwm_pin1.ChangeDutyCycle(parametros.todos['potenciaRT'])
+            
+            #=================== MODIFICADO
+	   # pwm_pin1.ChangeDutyCycle(parametros.todos['potenciaRT'])
+	   # PWMservo.set_servo(pwm_pin1,parametros.todos['potenciaRT']*399)
+           # bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
             time_before = time_now
 
         if (minute == parametros.todos['tempo']) and (seconds == 0):
@@ -263,10 +274,10 @@ class Ui_moniDialog(object):
         global time_before, stop_press,initial_press, time_old,restart,time_off,time_now
         self.pushButton_7.setText(_translate("moniDialog", "INICIAR ", None))
         self.pushButton_7.setStyleSheet("font-weight:bold;background-color: rgb(40, 255, 0);border-radius: 10px;")
-        time_old = time_now      #salva o ultimo tempo antes de parar contagem
+       # time_old = time_now      #salva o ultimo tempo antes de parar contagem
 
         self.timer.stop()
-
+       # writeDA(0x00)
         # pwm_pin1.stop()
 
         #seta as flags usadas
@@ -283,9 +294,9 @@ class Ui_moniDialog(object):
 
     def start(self):
         global time_before,time_beginning,stop_press, initial_press,pwm_pin1
-
-        pwm_pin1.start(parametros.todos['potenciaRT'])
-
+       # pwm_pin1.start(parametros.todos['potenciaRT'])
+       # PWMservo.set_servo(pwm_pin1, parametros.todos['potenciaRT']*399)
+        bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
 
         if((initial_press == 0) and (stop_press == 1)) :               #condicao para reiniciar a contagem
              self.timer.start(1)
@@ -301,11 +312,16 @@ class Ui_moniDialog(object):
 
         if stop_press != 1:                                             #condicao para parar a contagem
             self.stop()
+            bus.write_byte_data(address, 0x44, 0X00)
+           # writeDA(0x00)
 
 
     def Reset_Parameters(self):
         global time_before,time_beginning,minute,stop_press,initial_press,time_old,restart,time_off,time_now
-        pwm_pin1.stop()
+       # pwm_pin1.stop()
+        #PWMservo.stop_servo(pwm_pin1)
+        #writeDA(0x00)
+        bus.write_byte_data(address, 0x44, 0X00)
         time_before= 0 
         time_beginning = 0
         minute = 0
