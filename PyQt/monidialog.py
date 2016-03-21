@@ -17,13 +17,12 @@ import sys
 import parametros
 import time
 import math
-RPI_ON = False;
+RPI_ON = True
 if (RPI_ON):
     import RPi.GPIO as GPIO
     import smbus
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)  
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)  
 
 time_before= 0 
 time_beginning = 0
@@ -184,37 +183,28 @@ class Ui_moniDialog(object):
 
         if cont == 60:
 
-
-            bus.write_byte(address, 0)
-            bus.read_byte(address)
+            if(RPI_ON):
+                bus.write_byte(address, 0)
+                bus.read_byte(address)
             temp_aux = bus.read_byte(address)
             temperatura = 0.6040*temp_aux-72.9358
-	        self.lcd_temp.display(temperatura) 
+            self.lcd_temp.display(temperatura) 
 
-            bus.write_byte(address, 1)
-            bus.read_byte(address)
+            if(RPI_ON):
+                bus.write_byte(address, 1)
+                bus.read_byte(address)
             current = bus.read_byte(address)
-	        current = current*5/255	
+            current = current*5/255	
 
-            bus.write_byte(address, 2)
-	        bus.read_byte(address)
+            if(RPI_ON):
+                bus.write_byte(address, 2)
+                bus.read_byte(address)
             voltage = bus.read_byte(address)
             voltage = voltage*5/255
 
-            if(RPI_ON):
-                bus.write_byte(address, 0) # Solicitando leitura do ADC (CANAL 0)
-                temp_aux = bus.read_byte(address)   # Fazendo leitura do ADC (CANAL 0) <- TEMPERATURA
-            temperatura = ((3/5)*temp_aux-73) # Conversão de temperatura
-            self.lcd_temp.display(temperatura)  # Print da temperatura na tela
-                bus.write_byte(address, 0)
-                temp_aux = bus.read_byte(address)
-                temperatura = 0.6040*temp_aux-72.9358
-                self.lcd_temp.display(temperatura) 
-            if(RPI_ON):
-                bus.write_byte(address, 1)  # Solicitando leitura do ADC (Canal 1)
-                current = bus.read_byte(address)    # Fazendo leitura do ADC (Canal 1) <- Corrente
-                bus.write_byte(address, 2)  # Solicitando leitura do ADC (Canal 2)
-                voltage = bus.read_byte(address) # Fazendo leitura do ADC (Canal 2) <- Tensão
+            print voltage # imprimir valor de tensao
+            print current # imprimir valor de corrente
+            
 
             impedancia = voltage/current
             power =  voltage*current
@@ -287,10 +277,8 @@ class Ui_moniDialog(object):
        # pwm_pin1.start(parametros.todos['potenciaRT'])
        # PWMservo.set_servo(pwm_pin1, parametros.todos['potenciaRT']*399)
         # if(RPI_ON):
-        #     bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)       
+        bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT'])       
         
-        # if(RPI_ON):
-            # bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
         
         if((initial_press == 0) and (stop_press == 1)) :               #condicao para reiniciar a contagem
              self.timer.start(1)
@@ -334,8 +322,8 @@ class Ui_moniDialog(object):
         print "oiiiiii"
     
 
-
-    GPIO.add_event_detect(17, GPIO.FALLING, callback=shutdown_function) 
+    if(RPI_ON):
+        GPIO.add_event_detect(17, GPIO.FALLING, callback=shutdown_function) 
         
 
 if __name__ == "__main__":
