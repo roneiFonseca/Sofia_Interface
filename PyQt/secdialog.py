@@ -14,6 +14,7 @@ from time_window import Ui_fourthDialog
 from verificacao import Ui_VerifyWindow
 # import imagens2
 import sys
+from help_box import Ui_Dialog
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -42,6 +43,10 @@ class Ui_SecDialog(object):
         # self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/imagens/logo.png")))
         # self.label.setObjectName(_fromUtf8("label"))
 
+        self.pushButton_help = QtGui.QPushButton(SecDialog)
+        self.pushButton_help.setGeometry(QtCore.QRect(700, 20, 71, 31))
+        self.pushButton_help.setObjectName(_fromUtf8("pushButton_help"))
+        self.pushButton_help.setStyleSheet("font-weight:bold;background-color: blue;border-radius: 5px;")
 
         self.label_2 = QtGui.QLabel(SecDialog)
         self.label_2.setGeometry(QtCore.QRect(210, 50, 391, 71))
@@ -54,7 +59,7 @@ class Ui_SecDialog(object):
         self.pushButton_4.setGeometry(QtCore.QRect(240, 350, 151, 71))
         # self.pushButton_4.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n"))
         self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
-        self.pushButton_4.setStyleSheet("font-weight:bold;background-color: blue;border-radius: 10px;")
+        self.pushButton_4.setStyleSheet("font-weight:bold;background-color: rgb(40, 255, 0);border-radius: 10px;")
 
 
         self.pushButton_5 = QtGui.QPushButton(SecDialog)
@@ -100,12 +105,13 @@ class Ui_SecDialog(object):
         self.pushButton_7.setText(_translate("SecDialog", "POTÊNCIA", None))
         QtCore.QObject.connect(self.pushButton_7 , QtCore.SIGNAL("clicked()") , self.Power_Func)
         self.pushButton_8.setText(_translate("SecDialog", "TEMPO", None))
+        self.pushButton_help.setText(_translate("SecDialog", "Ajuda", None))
 
         QtCore.QObject.connect(self.pushButton_8 , QtCore.SIGNAL("clicked()") , self.Timer_Func)
         QtCore.QObject.connect(self.pushButton_6 , QtCore.SIGNAL("clicked()") , self.Operation_mode)
         QtCore.QObject.connect(self.pushButton_4 , QtCore.SIGNAL("clicked()") , self.Verify_window)
        # SecDialog.showFullScreen()
-
+        QtCore.QObject.connect(self.pushButton_help , QtCore.SIGNAL("clicked()") , self.Help)
 
     def Power_Func(self): # Clicar em Potencia
         thirdDialog = QtGui.QDialog()
@@ -131,7 +137,11 @@ class Ui_SecDialog(object):
         ui.setupUi(VerifyWindow)
         VerifyWindow.exec_()
 
-
+    def Help(self): # Clicar em Help
+        Dialog = QtGui.QDialog()
+        ui = Ui_Dialog()
+        ui.setupUi(Dialog)
+        Dialog.exec_()
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
