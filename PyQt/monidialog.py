@@ -202,17 +202,14 @@ class Ui_moniDialog(object):
             voltage = voltage*5/255
 
             if(RPI_ON):
-<<<<<<< HEAD
                 bus.write_byte(address, 0) # Solicitando leitura do ADC (CANAL 0)
                 temp_aux = bus.read_byte(address)   # Fazendo leitura do ADC (CANAL 0) <- TEMPERATURA
             temperatura = ((3/5)*temp_aux-73) # Conversão de temperatura
             self.lcd_temp.display(temperatura)  # Print da temperatura na tela
-=======
                 bus.write_byte(address, 0)
                 temp_aux = bus.read_byte(address)
                 temperatura = 0.6040*temp_aux-72.9358
                 self.lcd_temp.display(temperatura) 
->>>>>>> origin/master
             if(RPI_ON):
                 bus.write_byte(address, 1)  # Solicitando leitura do ADC (Canal 1)
                 current = bus.read_byte(address)    # Fazendo leitura do ADC (Canal 1) <- Corrente
@@ -221,20 +218,17 @@ class Ui_moniDialog(object):
 
             impedancia = voltage/current
             power =  voltage*current
-<<<<<<< HEAD
             self.lcd_imp.display(impedancia) #Print Impedancia
             self.lcd_potencia.display(power) #Print power
 	   # pwm_pin1.ChangeDutyCycle(parametros.todos['potenciaRT'])
             # if(RPI_ON):
             #     bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
-=======
             
             self.lcd_imp.display(impedancia)
             self.lcd_potencia.display(power)
 	   
-            if(RPI_ON):
-                bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
->>>>>>> origin/master
+            # if(RPI_ON):
+                # bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
             cont = 0 
 
         if restart == 0:
@@ -290,17 +284,14 @@ class Ui_moniDialog(object):
     def start(self):
         global time_before,time_beginning,stop_press, initial_press,pwm_pin1
         global RPI_ON
-<<<<<<< HEAD
        # pwm_pin1.start(parametros.todos['potenciaRT'])
        # PWMservo.set_servo(pwm_pin1, parametros.todos['potenciaRT']*399)
         # if(RPI_ON):
-        #     bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
-=======
-       
-        if(RPI_ON):
-            bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
->>>>>>> origin/master
-
+        #     bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)       
+        
+        # if(RPI_ON):
+            # bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
+        
         if((initial_press == 0) and (stop_press == 1)) :               #condicao para reiniciar a contagem
              self.timer.start(1)
         
