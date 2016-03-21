@@ -17,8 +17,8 @@ import math
 import RPi.GPIO as GPIO
 import smbus
 
-
-
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)  
 
 time_before= 0 
 time_beginning = 0
@@ -30,6 +30,7 @@ restart = 0
 time_off = 0
 time_now = 0
 cont = 0
+
 #=============== PWM ANTIGO===========
 #GPIO.setmode(GPIO.BCM)
 #GPIO.setup(25, GPIO.OUT)
@@ -339,7 +340,12 @@ class Ui_moniDialog(object):
         parametros.todos['tempoStep']=1 
         parametros.todos['modo'] = 1
     
+    def shutdown_function():
+        print "oiiiiii"
+    
 
+
+    GPIO.add_event_detect(17, GPIO.FALLING, callback=shutdown_function) 
         
 
 if __name__ == "__main__":
