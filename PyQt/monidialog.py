@@ -13,7 +13,6 @@
 from __future__ import division
 from PyQt4 import QtCore, QtGui
 from thirddialog import Ui_thirdDialog
-# import imagens2
 import sys 
 import parametros
 import time
@@ -23,8 +22,8 @@ if (RPI_ON):
     import RPi.GPIO as GPIO
     import smbus
 
-
-
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)  
 
 time_before= 0 
 time_beginning = 0
@@ -36,17 +35,7 @@ restart = 0
 time_off = 0
 time_now = 0
 cont = 0
-#=============== PWM ANTIGO===========
-#GPIO.setmode(GPIO.BCM)
-#GPIO.setup(25, GPIO.OUT)
-#PWM_FREQ = 50
-#pwm_pin1 = GPIO.PWM(25,PWM_FREQ)
-#============== PWM NOVO ===============
-#from RPIO import PWM
-#PWMservo = PWM.Servo()
-#pwm_pin1 = 25
 
-#========================================
 if (RPI_ON):
     bus = smbus.SMBus(1)
     address = 0x48
@@ -75,11 +64,6 @@ class Ui_moniDialog(object):
         self.label_2.setStyleSheet(_fromUtf8("font: 22pt \"Arial\";font-weight:bold;"))
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName(_fromUtf8("label_2"))
-        # self.label = QtGui.QLabel(moniDialog)
-        # self.label.setGeometry(QtCore.QRect(0, 0, 821, 121))
-        # self.label.setText(_fromUtf8(""))
-        # self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/imagens/logo.png")))
-        # self.label.setObjectName(_fromUtf8("label"))
         self.label_14 = QtGui.QLabel(moniDialog)
         self.label_14.setGeometry(QtCore.QRect(760, 240, 47, 13))
         font = QtGui.QFont()
@@ -97,7 +81,6 @@ class Ui_moniDialog(object):
         font.setPointSize(18)
         self.label_15.setFont(font)
         self.label_15.setObjectName(_fromUtf8("label_15"))
-        # self.label_15.setStyleSheet(_fromUtf8("font: 75 40pt \"Arial\";"))
         self.label_15.setStyleSheet("font-weight:bold;")
         self.pushButton_7 = QtGui.QPushButton(moniDialog)
         self.pushButton_7.setGeometry(QtCore.QRect(450, 400, 181, 51))
@@ -118,11 +101,6 @@ class Ui_moniDialog(object):
         self.lcd_tempo.setGeometry(QtCore.QRect(640, 180, 111, 81))
         self.lcd_tempo.setStyleSheet(_fromUtf8("background-color: blue;"))
         self.lcd_tempo.setObjectName(_fromUtf8("lcd_tempo"))
-        # self.label_21 = QtGui.QLabel(moniDialog)
-        # self.label_21.setGeometry(QtCore.QRect(170, 120, 441, 71))
-        # self.label_21.setStyleSheet(_fromUtf8("font: 22pt \"Arial\";"))
-        # self.label_21.setAlignment(QtCore.Qt.AlignCenter)
-        # self.label_21.setObjectName(_fromUtf8("label_21"))
         self.pushButton_8 = QtGui.QPushButton(moniDialog)
         self.pushButton_8.setGeometry(QtCore.QRect(160, 400, 181, 51))
         self.pushButton_8.setStyleSheet(_fromUtf8("font-weight:bold;background-color: red;border-radius: 10px;"))
@@ -205,11 +183,36 @@ class Ui_moniDialog(object):
         cont += 1
 
         if cont == 60:
+
+
+            bus.write_byte(address, 0)
+            bus.read_byte(address)
+            temp_aux = bus.read_byte(address)
+            temperatura = 0.6040*temp_aux-72.9358
+	        self.lcd_temp.display(temperatura) 
+
+            bus.write_byte(address, 1)
+            bus.read_byte(address)
+            current = bus.read_byte(address)
+	        current = current*5/255	
+
+            bus.write_byte(address, 2)
+	        bus.read_byte(address)
+            voltage = bus.read_byte(address)
+            voltage = voltage*5/255
+
             if(RPI_ON):
+<<<<<<< HEAD
                 bus.write_byte(address, 0) # Solicitando leitura do ADC (CANAL 0)
                 temp_aux = bus.read_byte(address)   # Fazendo leitura do ADC (CANAL 0) <- TEMPERATURA
             temperatura = ((3/5)*temp_aux-73) # Conversão de temperatura
             self.lcd_temp.display(temperatura)  # Print da temperatura na tela
+=======
+                bus.write_byte(address, 0)
+                temp_aux = bus.read_byte(address)
+                temperatura = 0.6040*temp_aux-72.9358
+                self.lcd_temp.display(temperatura) 
+>>>>>>> origin/master
             if(RPI_ON):
                 bus.write_byte(address, 1)  # Solicitando leitura do ADC (Canal 1)
                 current = bus.read_byte(address)    # Fazendo leitura do ADC (Canal 1) <- Corrente
@@ -218,40 +221,39 @@ class Ui_moniDialog(object):
 
             impedancia = voltage/current
             power =  voltage*current
+<<<<<<< HEAD
             self.lcd_imp.display(impedancia) #Print Impedancia
             self.lcd_potencia.display(power) #Print power
 	   # pwm_pin1.ChangeDutyCycle(parametros.todos['potenciaRT'])
             # if(RPI_ON):
             #     bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
+=======
+            
+            self.lcd_imp.display(impedancia)
+            self.lcd_potencia.display(power)
+	   
+            if(RPI_ON):
+                bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
+>>>>>>> origin/master
             cont = 0 
-
-
-        # self.lcd_temp.display(temperatura)
-        # self.lcd_imp.display(parametros.todos['potenciaRT'])
-
-
 
         if restart == 0:
             time_now = time.time() - time_off
             seconds = round(time_now - time_beginning,0)
-            # print "comeca" + str(float(time_now))
-
+           
         if restart == 1 :
-            # print "oi"
             time_off = time.time() - time_old   #duracao do botao desligado
             time_now = time_old                  #ultimo tempo no qual botao foi desligado
             seconds = round(time_now - time_beginning,0)
-            # print round(seconds,0)
+           
             restart = 0
             time_old = 0
-            # time_off = 0
-
+          
         stop_press = seconds
         if seconds >= 60:
             minute +=1
             time_beginning = time_now
         if seconds < 10:
-            # self.lcd_temp.display(temperatura)
             str_count = str(minute) + ':0' + str(int(seconds))
 
         else:
@@ -262,12 +264,7 @@ class Ui_moniDialog(object):
             parametros.todos['potenciaRT'] += parametros.todos['potenciaStep']
             print time_now - time_before
             print float(parametros.todos['tempoStep']*60)
-            # self.lcd_potencia.display(parametros.todos['potenciaRT'])
-            
-            #=================== MODIFICADO
-	   # pwm_pin1.ChangeDutyCycle(parametros.todos['potenciaRT'])
-	   # PWMservo.set_servo(pwm_pin1,parametros.todos['potenciaRT']*399)
-           # bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
+           
             time_before = time_now
 
         if (minute == parametros.todos['tempo']) and (seconds == 0):
@@ -279,12 +276,10 @@ class Ui_moniDialog(object):
         global time_before, stop_press,initial_press, time_old,restart,time_off,time_now
         self.pushButton_7.setText(_translate("moniDialog", "INICIAR ", None))
         self.pushButton_7.setStyleSheet("font-weight:bold;background-color: rgb(40, 255, 0);border-radius: 10px;")
-       # time_old = time_now      #salva o ultimo tempo antes de parar contagem
+      
 
         self.timer.stop()
-       # writeDA(0x00)
-        # pwm_pin1.stop()
-
+       
         #seta as flags usadas
         time_off = 0
         stop_press = 1
@@ -292,18 +287,19 @@ class Ui_moniDialog(object):
         restart = 1
 
 
-    # def pwm_init(self,duty_cycle):
-    #     global pwm_pin1
-    #     pwm_pin1.start(duty_cycle)
-
-
     def start(self):
         global time_before,time_beginning,stop_press, initial_press,pwm_pin1
         global RPI_ON
+<<<<<<< HEAD
        # pwm_pin1.start(parametros.todos['potenciaRT'])
        # PWMservo.set_servo(pwm_pin1, parametros.todos['potenciaRT']*399)
         # if(RPI_ON):
         #     bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
+=======
+       
+        if(RPI_ON):
+            bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
+>>>>>>> origin/master
 
         if((initial_press == 0) and (stop_press == 1)) :               #condicao para reiniciar a contagem
              self.timer.start(1)
@@ -314,21 +310,16 @@ class Ui_moniDialog(object):
             time_before = time.time()
             time_beginning = time_before
             self.timer.start(1)
-            # pwm_init(self,parametros.todos['potenciaRT'])
-            # pwm_pin1.start(parametros.todos['potenciaRT'])
-
+           
         if stop_press != 1:                                             #condicao para parar a contagem
             self.stop()
             if(RPI_ON):
                 bus.write_byte_data(address, 0x44, 0X00)
-           # writeDA(0x00)
-
+           
 
     def Reset_Parameters(self):
         global time_before,time_beginning,minute,stop_press,initial_press,time_old,restart,time_off,time_now
-       # pwm_pin1.stop()
-        #PWMservo.stop_servo(pwm_pin1)
-        #writeDA(0x00)
+       
         if(RPI_ON):
             bus.write_byte_data(address, 0x44, 0X00)
         time_before= 0 
@@ -348,7 +339,12 @@ class Ui_moniDialog(object):
         parametros.todos['tempoStep']=1 
         parametros.todos['modo'] = 1
     
+    def shutdown_function():
+        print "oiiiiii"
+    
 
+
+    GPIO.add_event_detect(17, GPIO.FALLING, callback=shutdown_function) 
         
 
 if __name__ == "__main__":
