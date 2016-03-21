@@ -6,6 +6,10 @@
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
+
+
+
+
 from __future__ import division
 from PyQt4 import QtCore, QtGui
 from thirddialog import Ui_thirdDialog
@@ -14,8 +18,10 @@ import sys
 import parametros
 import time
 import math
-import RPi.GPIO as GPIO
-import smbus
+RPI_ON = False;
+if (RPI_ON):
+    import RPi.GPIO as GPIO
+    import smbus
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)  
@@ -42,9 +48,9 @@ cont = 0
 #pwm_pin1 = 25
 
 #========================================
-
-bus = smbus.SMBus(1)
-address = 0x48
+if (RPI_ON):
+    bus = smbus.SMBus(1)
+    address = 0x48
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -190,7 +196,9 @@ class Ui_moniDialog(object):
     
 
     def control(self):
-        global time_before, time_beginning, minute, stop_press, initial_press,time_old, restart, time_off, time_now, bus, address, cont
+        global time_before, time_beginning, minute, stop_press, initial_press,time_old, restart, time_off, time_now, cont
+        if(RPI_ON):
+            global bus, address
         self.pushButton_7.setText(_translate("moniDialog", "PARAR ", None))
         self.pushButton_7.setStyleSheet("font-weight:bold;background-color: red;border-radius: 10px;")
         # self.lcd_potencia.display(parametros.todos['potenciaRT'])
@@ -198,6 +206,7 @@ class Ui_moniDialog(object):
         cont += 1
 
         if cont == 60:
+<<<<<<< HEAD
 
             bus.write_byte(address, 0)
             bus.read_byte(address)
@@ -215,6 +224,18 @@ class Ui_moniDialog(object):
 	    bus.read_byte(address)
             voltage = bus.read_byte(address)
             voltage = voltage*5/255
+=======
+            if(RPI_ON):
+                bus.write_byte(address, 0)
+                temp_aux = bus.read_byte(address)
+            temperatura = ((3/5)*temp_aux-73)
+            self.lcd_temp.display(temperatura) 
+            if(RPI_ON):
+                bus.write_byte(address, 1)
+                current = bus.read_byte(address)
+                bus.write_byte(address, 2)
+                voltage = bus.read_byte(address)
+>>>>>>> cd71f6f0933912f6000ff4b87bab9d9d6d7009b0
 
             impedancia = voltage/current
             power =  voltage*current
@@ -224,7 +245,8 @@ class Ui_moniDialog(object):
             self.lcd_imp.display(impedancia)
             self.lcd_potencia.display(power)
 	   # pwm_pin1.ChangeDutyCycle(parametros.todos['potenciaRT'])
-            bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
+            if(RPI_ON):
+                bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
             cont = 0 
 
 
@@ -301,9 +323,11 @@ class Ui_moniDialog(object):
 
     def start(self):
         global time_before,time_beginning,stop_press, initial_press,pwm_pin1
+        global RPI_ON
        # pwm_pin1.start(parametros.todos['potenciaRT'])
        # PWMservo.set_servo(pwm_pin1, parametros.todos['potenciaRT']*399)
-        bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
+        if(RPI_ON):
+            bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
 
         if((initial_press == 0) and (stop_press == 1)) :               #condicao para reiniciar a contagem
              self.timer.start(1)
@@ -319,7 +343,8 @@ class Ui_moniDialog(object):
 
         if stop_press != 1:                                             #condicao para parar a contagem
             self.stop()
-            bus.write_byte_data(address, 0x44, 0X00)
+            if(RPI_ON):
+                bus.write_byte_data(address, 0x44, 0X00)
            # writeDA(0x00)
 
 
@@ -328,7 +353,8 @@ class Ui_moniDialog(object):
        # pwm_pin1.stop()
         #PWMservo.stop_servo(pwm_pin1)
         #writeDA(0x00)
-        bus.write_byte_data(address, 0x44, 0X00)
+        if(RPI_ON):
+            bus.write_byte_data(address, 0x44, 0X00)
         time_before= 0 
         time_beginning = 0
         minute = 0
