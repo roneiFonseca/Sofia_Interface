@@ -17,8 +17,8 @@ import math
 import RPi.GPIO as GPIO
 import smbus
 
-
-
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)  
 
 time_before= 0 
 time_beginning = 0
@@ -30,6 +30,7 @@ restart = 0
 time_off = 0
 time_now = 0
 cont = 0
+
 #=============== PWM ANTIGO===========
 #GPIO.setmode(GPIO.BCM)
 #GPIO.setup(25, GPIO.OUT)
@@ -199,15 +200,21 @@ class Ui_moniDialog(object):
         if cont == 60:
 
             bus.write_byte(address, 0)
+            bus.read_byte(address)
             temp_aux = bus.read_byte(address)
-            temperatura = ((3/5)*temp_aux-73)
-            self.lcd_temp.display(temperatura) 
+            #temperatura = ((3/5)*temp_aux-73)
+            temperatura = 0.6040*temp_aux-72.9358
+	    self.lcd_temp.display(temperatura) 
 
             bus.write_byte(address, 1)
+            bus.read_byte(address)
             current = bus.read_byte(address)
+	    current = current*5/255	
 
             bus.write_byte(address, 2)
+	    bus.read_byte(address)
             voltage = bus.read_byte(address)
+            voltage = voltage*5/255
 
             impedancia = voltage/current
             power =  voltage*current
@@ -339,7 +346,12 @@ class Ui_moniDialog(object):
         parametros.todos['tempoStep']=1 
         parametros.todos['modo'] = 1
     
+    def shutdown_function():
+        print "oiiiiii"
+    
 
+
+    GPIO.add_event_detect(17, GPIO.FALLING, callback=shutdown_function) 
         
 
 if __name__ == "__main__":
