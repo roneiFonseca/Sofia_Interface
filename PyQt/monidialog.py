@@ -15,6 +15,7 @@ from PyQt4 import QtCore, QtGui
 from thirddialog import Ui_thirdDialog
 import sys 
 import parametros
+import controller
 import time
 import math
 RPI_ON = True
@@ -177,49 +178,49 @@ class Ui_moniDialog(object):
             global bus, address
         self.pushButton_7.setText(_translate("moniDialog", "PARAR ", None))
         self.pushButton_7.setStyleSheet("font-weight:bold;background-color: red;border-radius: 10px;")
-        # self.lcd_potencia.display(parametros.todos['potenciaRT'])
+        self.lcd_potencia.display(parametros.todos['potenciaRT']*5)
 
         cont += 1
+        # if cont == 60:
 
-        if cont == 60:
+        if(RPI_ON):
+            bus.write_byte(address, 0)
+            bus.read_byte(address)
+        temp_aux = bus.read_byte(address)
+        temperatura = 0.6040*temp_aux-72.9358
+        self.lcd_temp.display(temperatura) 
 
-            if(RPI_ON):
-                bus.write_byte(address, 0)
-                bus.read_byte(address)
-            temp_aux = bus.read_byte(address)
-            temperatura = 0.6040*temp_aux-72.9358
-            self.lcd_temp.display(temperatura) 
+        if(RPI_ON):
+            bus.write_byte(address, 1)
+            bus.read_byte(address)
+        current = bus.read_byte(address)
+        current = current*5/255	
 
-            if(RPI_ON):
-                bus.write_byte(address, 1)
-                bus.read_byte(address)
-            current = bus.read_byte(address)
-            current = current*5/255	
+        if(RPI_ON):
+            bus.write_byte(address, 2)
+            bus.read_byte(address)
+        voltage = bus.read_byte(address)
+        voltage = voltage*5/255
 
-            if(RPI_ON):
-                bus.write_byte(address, 2)
-                bus.read_byte(address)
-            voltage = bus.read_byte(address)
-            voltage = voltage*5/255
+        print voltage # imprimir valor de tensao
+        print current # imprimir valor de corrente
+        
 
-            print voltage # imprimir valor de tensao
-            print current # imprimir valor de corrente
+        impedancia = voltage/current
+        power =  voltage*current
+        cont = 0 
+        self.lcd_imp.display(impedancia) #Print Impedancia
+        self.lcd_potencia.display(power) #Print power
             
 
-            impedancia = voltage/current
-            power =  voltage*current
-            self.lcd_imp.display(impedancia) #Print Impedancia
-            self.lcd_potencia.display(power) #Print power
-	   # pwm_pin1.ChangeDutyCycle(parametros.todos['potenciaRT'])
-            # if(RPI_ON):
-            #     bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
-            
-            self.lcd_imp.display(impedancia)
-            self.lcd_potencia.display(power)
-	   
-            # if(RPI_ON):
-                # bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
-            cont = 0 
+#CONTROLE DE TENSAO
+        newVoltage = controller.impedanceCalc(parametros.todos['potenciaRT'],voltage,current)
+        actuatorValue = controller.errorCalc(voltage,newVoltage)
+        print "Tensao de Entra: " +str(actuatorValue)
+        if(RPI_ON):
+            bus.write_byte_data(address, 0x44, actuatorValue)
+
+
 
         if restart == 0:
             time_now = time.time() - time_off
@@ -277,7 +278,7 @@ class Ui_moniDialog(object):
        # pwm_pin1.start(parametros.todos['potenciaRT'])
        # PWMservo.set_servo(pwm_pin1, parametros.todos['potenciaRT']*399)
         # if(RPI_ON):
-        bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT'])       
+        bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)       
         
         
         if((initial_press == 0) and (stop_press == 1)) :               #condicao para reiniciar a contagem
