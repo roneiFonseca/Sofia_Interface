@@ -52,13 +52,36 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        counter = 0
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
         self.pushButton_menos.setText(_translate("MainWindow", "-", None))
         self.pushButton_mais.setText(_translate("MainWindow", "+", None))
+        QtCore.QObject.connect(self.pushButton_menos , QtCore.SIGNAL("clicked()") , self.initial_button_Plus_click)
+        QtCore.QObject.connect(self.pushButton_mais , QtCore.SIGNAL("clicked()") , self.initial_button_Minus_click)
+        
+        counter = 0
 
+    
 
+    def initial_button_Plus_click(self):
+		counter
+		counter +=1
+		self.lcdNumber.display(counter)
+        
+    def initial_button_Minus_click(self):
+        counter -=1 
+        self.lcdNumber.display(counter)
+        
+    def final_button_Plus_click(self):        
+        counter += 1
+        self.lcdNumber_2.display(counter)
+        counter = counter -1
+    def final_button_Minus_click(self):
+		counter -=1 
+		self.lcdNumber_2.display(counter)
+	
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
