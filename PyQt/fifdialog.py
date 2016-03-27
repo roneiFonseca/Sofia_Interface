@@ -9,7 +9,7 @@
 from __future__ import division
 import random
 import parametros
-import pylab_plot
+# import pylab_plot
 from PyQt4 import QtCore, QtGui
 import math
 
