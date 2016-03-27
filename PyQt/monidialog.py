@@ -180,6 +180,7 @@ class Ui_moniDialog(object):
             global bus, address, actuatorValue
         self.pushButton_7.setText(_translate("moniDialog", "PARAR ", None))
         self.pushButton_7.setStyleSheet("font-weight:bold;background-color: red;border-radius: 10px;")
+<<<<<<< HEAD
         self.lcd_potencia.display(parametros.todos['potenciaRT']*5)
         if(RPI_ON):
             bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
@@ -218,6 +219,40 @@ class Ui_moniDialog(object):
         # self.lcd_potencia.display(power) #Print power
             
         # bus.write_byte_data(address, 0x44, )
+=======
+        self.lcd_potencia.display(parametros.todos['potenciaRT']*1)
+
+        cont += 1
+        # if cont == 60:
+
+        if(RPI_ON):
+            bus.write_byte(address, 0)
+            bus.read_byte(address)
+            temp_aux = bus.read_byte(address)
+            temperatura = 0.6040*temp_aux-72.9358
+            self.lcd_temp.display(temperatura) 
+
+        
+            bus.write_byte(address, 1)
+            bus.read_byte(address)
+            current = bus.read_byte(address)
+            current = current*5/255	
+
+            bus.write_byte(address, 2)
+            bus.read_byte(address)
+            voltage = bus.read_byte(address)
+            voltage = voltage*5/255
+            print voltage # imprimir valor de tensao
+            print current # imprimir valor de corrente
+            impedancia = voltage/current
+            power =  voltage*current
+            self.lcd_imp.display(impedancia) #Print Impedancia
+            self.lcd_potencia.display(power) #Print power
+        
+        parametros.todos['potenciaRT'] = 20
+        voltage = 5
+        current = 1
+>>>>>>> origin/master
 
 
 #CONTROLE DE TENSAO
@@ -289,9 +324,15 @@ class Ui_moniDialog(object):
     def start(self):
         global time_before,time_beginning,stop_press, initial_press,pwm_pin1
         global RPI_ON
+<<<<<<< HEAD
        # pwm_pin1.start(parametros.todos['potenciaRT'])
        # PWMservo.set_servo(pwm_pin1, parametros.todos['potenciaRT']*399)
         print "Hey amigo, estou aqui!"       
+=======
+        
+        if(RPI_ON):
+			bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)       
+>>>>>>> origin/master
         
         
         if((initial_press == 0) and (stop_press == 1)) :               #condicao para reiniciar a contagem
