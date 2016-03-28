@@ -17,12 +17,18 @@ import sys
 import parametros
 import time
 import math
+import subprocess
+import signal
+
 RPI_ON = True
+
 if (RPI_ON):
     import RPi.GPIO as GPIO
     import smbus
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)  
+    GPIO.setup(24, GPIO.OUT)
+    GPIO.setup(23, GPIO.OUT)
 
 time_before= 0 
 time_beginning = 0
@@ -34,6 +40,7 @@ restart = 0
 time_off = 0
 time_now = 0
 cont = 0
+teste = 22
 
 if (RPI_ON):
     bus = smbus.SMBus(1)
@@ -54,6 +61,7 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 class Ui_moniDialog(object):
+    trigger = QtCore.pyqtSignal()
     def setupUi(self, moniDialog):
         moniDialog.setObjectName(_fromUtf8("moniDialog"))
         moniDialog.resize(800, 480)
@@ -111,8 +119,7 @@ class Ui_moniDialog(object):
         self.lcd_imp = QtGui.QLCDNumber(moniDialog)
         self.lcd_imp.setGeometry(QtCore.QRect(220, 180, 111, 81))
        
-        self.lcd_imp.setStyleSheet(_fromUtf8("alternate-background-color: rgb(0, 0, 0);\n"
-"background-color: blue;"))
+        self.lcd_imp.setStyleSheet(_fromUtf8("alternate-background-color: rgb(0, 0, 0);background-color: blue;"))
         self.lcd_imp.setObjectName(_fromUtf8("lcd_imp"))
         self.label_23 = QtGui.QLabel(moniDialog)
         self.label_23.setGeometry(QtCore.QRect(150, 240, 55, 16))
@@ -143,13 +150,13 @@ class Ui_moniDialog(object):
         self.timer = QtCore.QTimer(moniDialog)
         self.timer.timeout.connect(self.control)
 
+        
+       
 
         self.retranslateUi(moniDialog)
-
-
-
+        
         QtCore.QMetaObject.connectSlotsByName(moniDialog)
-    
+        
 
     def retranslateUi(self, moniDialog):
         moniDialog.setWindowTitle(_translate("moniDialog", "Dialog", None))
@@ -168,8 +175,10 @@ class Ui_moniDialog(object):
         self.lcd_imp.display("---")
         self.label_15.setText(_translate("moniDialog", "Modo de Operação: Aguardando INICIAR", None))
         self.lcd_potencia.display(parametros.todos['potenciaInicial'])
-
-    
+        
+        
+        # QtCore.QObject.connect(self,QtCore.SIGNAL("newStatuses (statuses)"),self.ERROR_MSG)
+        
 
     def control(self):
         global time_before, time_beginning, minute, stop_press, initial_press,time_old, restart, time_off, time_now, cont
@@ -255,13 +264,11 @@ class Ui_moniDialog(object):
             # definir o protocolo de desligamento do aparelho quando o tempo acaba
             self.timer.stop()
 
-
     def stop(self):
         global time_before, stop_press,initial_press, time_old,restart,time_off,time_now
         self.pushButton_7.setText(_translate("moniDialog", "INICIAR ", None))
         self.pushButton_7.setStyleSheet("font-weight:bold;background-color: rgb(40, 255, 0);border-radius: 10px;")
-      
-
+        time_old = time_now
         self.timer.stop()
        
         #seta as flags usadas
@@ -318,13 +325,32 @@ class Ui_moniDialog(object):
         parametros.todos['tempoStep']=1 
         parametros.todos['modo'] = 1
     
-    def shutdown_function():
-        print "oiiiiii"
     
+    def ERROR_MSG(self):
+        print "teste"
+        if QtGui.QMessageBox.critical(None, '', "Podemos dar tchau?",
+                                QtGui.QMessageBox.Yes | QtGui.QMessageBox.No,
+                                QtGui.QMessageBox.No) == QtGui.QMessageBox.Yes:
+            QtGui.QApplication.quit()   
+        
+    def shutdown_function(self):
+
+        ###########Teste para acionamento dos Reles##################
+        # GPIO.output(24, 1)    
+        # GPIO.output(23, 1) 
+        # ERROR_MSG()
+        # someone = Communicate()
+        # someone.speakNumber.connect(ERROR_MSG)
+        # self.emit(SIGNAL("newStatuses (statuses)"), statuses)
+        self.trigger.connect(self.ERROR_MSG)
+        # QtCore.QObject.connect(self.trigger, self.ERROR_MSG) 
+        self.trigger.emit()
 
     if(RPI_ON):
         GPIO.add_event_detect(17, GPIO.FALLING, callback=shutdown_function) 
-        
+         
+       
+    signal.signal(signal.SIGINT, ERROR_MSG)
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
