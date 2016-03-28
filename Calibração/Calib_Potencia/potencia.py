@@ -12,7 +12,7 @@ import parametros
 import math
 import thread, time
 
-RPI_ON = False
+RPI_ON = True   
 if (RPI_ON):
     import RPi.GPIO as GPIO
     import smbus
@@ -363,29 +363,33 @@ def update_Display(threadname, delay):
 def getPower(threadname, delay):
     
     while (1):
-        print '========== Reading V and I ==========='
-        if (RPI_ON):
-            bus.write_byte(address, 1)
-            bus.read_byte(address)
-            current = bus.read_byte(address)
-            current = current*5/255 
-            
-            bus.write_byte(address, 2)
-            bus.read_byte(address)
-            voltage = bus.read_byte(address)
-            voltage = voltage*5/255
-                    
-            print 'V %f ='% voltage
-            print 'I %f=' %current
-
-            try:
+        print '========== Reading Power==========='
+        try:
+            if (RPI_ON):
+                bus.write_byte(address, 1)
+                bus.read_byte(address)
+                current = bus.read_byte(address)
+                current = current*5/255 
+                
+                bus.write_byte(address, 2)
+                bus.read_byte(address)
+                voltage = bus.read_byte(address)
+                voltage = voltage*5/255
+                        
+                print 'V %f ='% voltage
+                print 'I %f=' %current
+                
                 impedancia = voltage/current
-            except ZeroDivisionError:
-                impedancia =10E9
+                power =  voltage*current
+                parametros.todos['power'] = power
 
-            #impedancia = voltage/current
-            power =  voltage*current
-            parametros.todos['power'] = power
+        except ZeroDivisionError:
+            impedancia =10E9
+        except IOError as e:
+            print "ADC I/O ERRO({0}): {1}".format(e.errno, e.strerror)
+    
+
+            #impedancia = voltage/current   
 
         time.sleep(delay)
 def getTemp(threadname, delay):
