@@ -10,7 +10,7 @@
 from PyQt4 import QtCore, QtGui
 from secdialog import Ui_SecDialog
 import imagens2
-import pylab_plot
+# import pylab_plot
 import sys
 
 try:
