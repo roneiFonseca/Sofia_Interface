@@ -12,14 +12,11 @@
 
 from __future__ import division
 from PyQt4 import QtCore, QtGui
-# from thirddialog import Ui_thirdDialog
 import sys 
 import parametros
 # import controller
 import time
 import math
-import signal
-from help_box import Ui_Dialog
 import os
 
 RPI_ON = True
@@ -180,7 +177,6 @@ class Ui_moniDialog(object):
         self.lcd_potencia.display(parametros.todos['potenciaInicial'])
         
         
-
     def control(self):
         global time_before, time_beginning, minute, stop_press, initial_press,time_old, restart, time_off, time_now, cont
         if(RPI_ON):
