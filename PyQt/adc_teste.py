@@ -3,24 +3,39 @@
 from __future__ import division
 import smbus
 import time
-import os
+import controller
+import math
 
 bus = smbus.SMBus(1)
 address2 = 0x48
 address1 = 0x4c
 # voltageValue =128
+actuator = 0
+
 
 while True:
-
+	# Temperatura 
 	bus.write_byte(address1, 0) #Requisitando leitura do Canal 0 do PCF8591 (1)
-	voltageValue1 = bus.read_byte(address2) #Realizando leitura do Canal 0 do PCF8591 (1)
-	time.sleep(0.5)
-	bus.write_byte(address2, 0) #Requisitando leitura do Canal 0 do PCF8591 (1)
-	voltageValue2 = bus.read_byte(address1) #Realizando leitura do Canal 0 do PCF8591 (1)
-	# time.sleep(0.5)
-	print "Tensão (0x48): " + str(voltageValue1)
-	print "Tensão (0x4c): " + str(voltageValue2)
-	# bus.write_byte_data(address1, 0x44,voltageValue)
+	bus.read_byte(address1)
+	tempValue = bus.read_byte(address1) #Realizando leitura do Canal 0 do PCF8591 (1)
+	# Corrente
+	bus.write_byte(address1, 1) #Requisitando leitura do Canal 0 do PCF8591 (1)
+	bus.read_byte(address1)
+	currentValue = bus.read_byte(address1) #Realizando leitura do Canal 0 do PCF8591 (1)
+	currentValue = (currentValue/255.0)*5.0
+	# Tensao
+	bus.write_byte(address1, 2) #Requisitando leitura do Canal 0 do PCF8591 (1)
+	bus.read_byte(address1)
+	voltageValue = bus.read_byte(address1) #Realizando leitura do Canal 0 do PCF8591 (1)
+	voltageValue = (voltageValue/255.0)*5.0
+	time.sleep(1.0)
+	print "Temperatura: " + str(tempValue)
+	print "Corrente: " + str(currentValue)
+	print "Tensão: " + str(voltageValue)
+
+	voltageNewValue = controller.errorCalc(voltageValue,3.5)
+	actuator +=voltageNewValue
+	bus.write_byte_data(address2, 0x44, actuator)
 
 
 

@@ -15,7 +15,7 @@ from PyQt4 import QtCore, QtGui
 # from thirddialog import Ui_thirdDialog
 import sys 
 import parametros
-# import controller
+import controller
 import time
 import math
 import signal
@@ -51,7 +51,8 @@ actuatorValue = 0
 
 if (RPI_ON):
     bus = smbus.SMBus(1)
-    address = 0x48
+    address1 = 0x48
+    address2 = 0x49
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -190,42 +191,8 @@ class Ui_moniDialog(object):
 
         self.lcd_potencia.display(parametros.todos['potenciaRT']*5)
         if(RPI_ON):
-            bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
+            bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)
 
-        # cont += 1
-        # if cont == 60:
-
-        #     if(RPI_ON):
-        #         bus.write_byte(address, 0)
-        #         bus.read_byte(address)
-        #     temp_aux = bus.read_byte(address)
-        #     temperatura = 0.6040*temp_aux-72.9358
-        #     self.lcd_temp.display(temperatura) 
-
-        #     if(RPI_ON):
-        #         bus.write_byte(address, 1)
-        #         bus.read_byte(address)
-        #     current = bus.read_byte(address)
-        #     current = current*5/255	
-
-        #     if(RPI_ON):
-        #         bus.write_byte(address, 2)
-        #         bus.read_byte(address)
-        #     voltage = bus.read_byte(address)
-        #     voltage = voltage*5/255
-
-        # print voltage # imprimir valor de tensao
-        # print current # imprimir valor de corrente
-        
-
-        # impedancia = voltage/current
-            # impedancia = controller.getImpedance(voltage,current)
-            # power =  voltage*current
-        # cont = 0 
-        # self.lcd_imp.display(impedancia) #Print Impedancia
-        # self.lcd_potencia.display(power) #Print power
-            
-        # bus.write_byte_data(address, 0x44, )
 
         self.lcd_potencia.display(parametros.todos['potenciaRT']*1)
 
@@ -233,49 +200,50 @@ class Ui_moniDialog(object):
         if cont == 60:
 
             if(RPI_ON):
-                bus.write_byte(address, 0)
-                bus.read_byte(address)
-                temp_aux = bus.read_byte(address)
+                bus.write_byte(address2, 0)
+                bus.read_byte(address2)
+                temp_aux = bus.read_byte(address2)
                 temperatura = 0.6040*temp_aux-72.9358
                 self.lcd_temp.display(temperatura) 
 
             
-                bus.write_byte(address, 1)
-                bus.read_byte(address)
-                current = bus.read_byte(address)
+                bus.write_byte(address2, 1)
+                bus.read_byte(address2)
+                current = bus.read_byte(address2)
                 current = current*5/255	
 
-                bus.write_byte(address, 2)
-                bus.read_byte(address)
-                voltage = bus.read_byte(address)
+                bus.write_byte(address2, 2)
+                bus.read_byte(address2)
+                voltage = bus.read_byte(address2)
                 voltage = voltage*5/255
+
                 print voltage # imprimir valor de tensao
                 print current # imprimir valor de corrente
-                impedancia = voltage/current
+                impedancia = controller.getImpedance(voltage,current)
                 power =  voltage*current
                 self.lcd_imp.display(impedancia) #Print Impedancia
                 self.lcd_potencia.display(power) #Print power
+
+
+                newVoltage = controller.impedanceCalc(parametros.todos['potenciaRT'],voltage,current)
+                actuatorValue += controller.errorCalc(voltage,newVoltage)
+                print "Tensao de Entrada: " +str(actuatorValue)
+                if (actuatorValue < 0):
+                    actuatorValue = 0
+                elif(actuatorValue>255):
+                    actuatorValue = 255
+                else:
+                    if(RPI_ON):
+                        bus.write_byte_data(address1, 0x44, actuatorValue)
+                print "Tensao de Entrada(modificada): " +str(actuatorValue) #depois das condicoes
+
                 cont = 0
-        
-        parametros.todos['potenciaRT'] = 20
-        voltage = 5
-        current = 1
 
 
 
         #CONTROLE DE TENSAO
         #Calculando o novo valor de tensao que deve ser colocado
-        # newVoltage = controller.impedanceCalc(parametros.todos['potenciaRT'],voltage,current)
-        # actuatorValue += controller.errorCalc(voltage,newVoltage)
-        # print "Tensao de Entrada: " +str(actuatorValue)
-        # if (actuatorValue < 0):
-        #     actuatorValue = 0
-        # elif(actuatorValue>255):
-        #     actuatorValue = 255
-        # else:
-        #     if(RPI_ON):
-        #         bus.write_byte_data(address, 0x44, actuatorValue)
-        # print "Tensao de Entrada(modificada): " +str(actuatorValue) #depois das condicoes
+
 
 
         if restart == 0:
@@ -336,13 +304,13 @@ class Ui_moniDialog(object):
         print "Hey amigo, estou aqui!"       
 
         
-        if(RPI_ON):
-			bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)       
+   #      if(RPI_ON):
+			# bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)       
 
         
         
         if((initial_press == 0) and (stop_press == 1)) :               #condicao para reiniciar a contagem
-            self.timer.start(1) #1000 miliseconds
+            self.timer.start(1) #1 miliseconds
         
         if ((initial_press == 1) and (stop_press == 1)):                #condicao para o primeiro acionamento
             self.label_15.setText(_translate("moniDialog", "Modo de Operação: " + str (parametros.todos['modo']), None))
@@ -354,7 +322,7 @@ class Ui_moniDialog(object):
         if stop_press != 1:                                             #condicao para parar a contagem
             self.stop()
             if(RPI_ON):
-                bus.write_byte_data(address, 0x44, 0X00)
+                bus.write_byte_data(address1, 0x44, 0X00)
            
 
         
@@ -376,7 +344,7 @@ class Ui_moniDialog(object):
         
 
         if(RPI_ON):
-            bus.write_byte_data(address, 0x44, 0X00)
+            bus.write_byte_data(address1, 0x44, 0X00)
 
 
         time_before= 0 
