@@ -26,6 +26,7 @@ if (RPI_ON):
     import RPi.GPIO as GPIO
     import smbus
     GPIO.setmode(GPIO.BCM)
+    GPIO.setwarnings(False)
     GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)  
     GPIO.setup(24, GPIO.OUT)
     GPIO.setup(23, GPIO.OUT)
@@ -174,9 +175,8 @@ class Ui_moniDialog(object):
         self.lcd_temp.display("---")
         self.lcd_imp.display("---")
         self.label_15.setText(_translate("moniDialog", "Modo de Operação: Aguardando INICIAR", None))
-        self.lcd_potencia.display(parametros.todos['potenciaInicial'])
-        
-        
+        self.lcd_potencia.display(parametros.todos['potenciaInicial'])     
+
     def control(self):
         global time_before, time_beginning, minute, stop_press, initial_press,time_old, restart, time_off, time_now, cont
         if(RPI_ON):
@@ -356,15 +356,18 @@ class Ui_moniDialog(object):
         
     def shutdown_function(self):
 
+        GPIO.output(24, 0)        #ajusta os reles
+        GPIO.output(23, 0)
        
         ui.timer.stop()           #para o clock 
         ui.Reset_Parameters()     #coloca as variaveis no padrao default
-        GPIO.output(24, 0)        #ajusta os reles
-        GPIO.output(23, 0)
+
 
         print "Aumento súbito de corrente. Verifique IRF540 e se o circuito está em aberto."
         os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
+        GPIO.cleanup()
         moniDialog.close()
+
 
 
     def Reset_Parameters(self):
