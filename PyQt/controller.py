@@ -1,18 +1,22 @@
 # coding=utf-8
 import math
+import parametros
 
 actuatorValue = 0
+parametros.flag('impedance') = False
+parametros.flag('temperature') = False
 
 def getImpedance(measuredVoltage,measuredCurrent):
 
    if(measuredCurrent>0.0):
       impedance = measuredVoltage/measuredCurrent
       # print "Impedancia (ADC): " + str(impedance)
-      return impedance
    else:
       impedance = "INF"
-      # print "Impedancia: INF"
-      return impedance
+      parametros.flag('impedance') = True
+      print "Impedancia: INF"
+   return impedance
+
 
 def getPower(measuredVoltage,measuredCurrent):
    power = measuredVoltage*measuredCurrent
@@ -25,7 +29,7 @@ def impedanceCalc(powerValue,measuredVoltage,measuredCurrent):
    print "Tensao Medida: " + str(measuredVoltage)
    print "Corrente Medida: " + str(measuredCurrent)
    if (measuredCurrent < 0.2) or (measuredVoltage<0.2): #Se a corrente for desprezível
-      impedance = 100 # impedancia base (chutando impedancia)
+      impedance = 50 # impedancia base (chutando impedancia)
    else:
       impedance = measuredVoltage/measuredCurrent
    print "Impedancia calculada: " + str(impedance) 
@@ -47,7 +51,6 @@ def errorCalc(measuredValue,idealValue):
 
    dacResolution = 0.01960784314
    smallestError = 0.02
-<<<<<<< HEAD
 
    print "Valor Medido: "+str(measuredValue)
    print "Valor Ideal: " + str(idealValue)
@@ -75,36 +78,21 @@ def errorCalc(measuredValue,idealValue):
          increment = -errorBits
       else:
          increment = 0
-
+   print "Error (bits) modificado: " + str(increment)
    return increment
 
-print errorCalc(5.0,2.5)
-=======
-   while(absError > smallestError)
-      print "Valor Medido: "+str(measuredValue)
-      print "Valor Ideal: " + str(idealValue)
+def controlImpedance(measuredImpedance):
+   impMinValue = 0.2
+   impMaxValue = 500
+   if(measuredImpedance<impMinValue): #Impedancia muito baixa (Curto-circuito)
+      parametros.flag('impedance') = True
+   elif(measuredImpedance>=impMaxValue): # Impedancia muito alta (Circuito aberto)
+      parametros.flag('impedance') = True
+   return parametros.flag('impedance')
 
-      measuredError = idealValue - measuredValue
-      print "Erro Medido: " + str(measuredError)
-      absError = abs(measuredError)
-      print "Erro Medido(Abs): " + str(absError)
-      errorBits = (absError//dacResolution)
-      print "Erro Medido(Bits): " + str(errorBits)
-   
+def controlTemperature(measuredTemperature):
+   tempMaxValue = 60
+   if(measuredTemperature>=tempMaxValue): # Temperatua muito alta
+      parametros.flag('temperature') = True
+   return parametros.flag('temperature')
 
-      if (absError<smallestError): #Erro menor que resolucao
-         increment = 0 #Nada a fazer aqui
-      elif(absError>=5.0): #Caso o erro seja maior do que a saída máx. do DAC
-         errorBits = 255
-         increment = errorBits   
-      elif(measuredError > 0.0): #Erro positivo
-         increment = errorBits
-      elif(measuredError < 0.0): #Erro negativo
-         increment = -errorBits
-      else:
-         increment = 0
-
-      bus.write_byte_data(address, 0x44, increment)#Atualiza o ADC
-
-   return increment
->>>>>>> origin/master
