@@ -13,6 +13,12 @@ import imagens2
 # import pylab_plot
 import sys
 
+# try:
+#     serial_setup()
+
+# except Exception, e:
+#     raise e
+
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
