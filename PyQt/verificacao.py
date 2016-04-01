@@ -12,6 +12,7 @@ from PyQt4 import QtCore, QtGui
 from monidialog import Ui_moniDialog
 import parametros
 import sys
+import os
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -119,10 +120,12 @@ class Ui_VerifyWindow(object):
 
     def Monitoring_Window(self): # Clicar para a tela de monitoramento
         # VerifyWindow.close()
-        moniDialog = QtGui.QDialog()
-        ui = Ui_moniDialog()
-        ui.setupUi(moniDialog)
-        moniDialog.exec_()
+
+        # moniDialog = QtGui.QDialog()
+        # ui = Ui_moniDialog()
+        # ui.setupUi(moniDialog)
+        # moniDialog.exec_()
+        os.system("sudo /usr/bin/python monidialog.py")
 
 
 
