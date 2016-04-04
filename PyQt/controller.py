@@ -3,8 +3,8 @@ import math
 import parametros
 
 actuatorValue = 0
-parametros.flag('impedance') = False
-parametros.flag('temperature') = False
+parametros.flag['impedance'] = False
+parametros.flag['temperature'] = False
 
 def getImpedance(measuredVoltage,measuredCurrent):
 
@@ -13,7 +13,7 @@ def getImpedance(measuredVoltage,measuredCurrent):
       # print "Impedancia (ADC): " + str(impedance)
    else:
       impedance = "INF"
-      parametros.flag('impedance') = True
+      parametros.flag['impedance'] = True
       print "Impedancia: INF"
    return impedance
 
@@ -82,17 +82,21 @@ def errorCalc(measuredValue,idealValue):
    return increment
 
 def controlImpedance(measuredImpedance):
-   impMinValue = 0.2
-   impMaxValue = 500
+   impMinValue = 0.5
+   impMaxValue = 27.5
    if(measuredImpedance<impMinValue): #Impedancia muito baixa (Curto-circuito)
-      parametros.flag('impedance') = True
+      parametros.flag['impedance'] = True
    elif(measuredImpedance>=impMaxValue): # Impedancia muito alta (Circuito aberto)
-      parametros.flag('impedance') = True
-   return parametros.flag('impedance')
+      parametros.flag['impedance'] = True
+   else:
+         parametros.flag['impedance'] = False
+   return parametros.flag['impedance']
 
 def controlTemperature(measuredTemperature):
-   tempMaxValue = 60
+   tempMaxValue = 25
    if(measuredTemperature>=tempMaxValue): # Temperatua muito alta
-      parametros.flag('temperature') = True
-   return parametros.flag('temperature')
+      parametros.flag['temperature'] = True
+   else:
+      parametros.flag['temperature'] = False      
+   return parametros.flag['temperature']
 

@@ -8,5 +8,7 @@ todos = {
 'modo': 1};
 
 flag = {
-	'impedance': False,
-	'temperature': False}
+	'impedance':False,
+	'temperature':False,
+	'endOfOperation':False}
+

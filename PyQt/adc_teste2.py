@@ -12,9 +12,8 @@ address1 = 0x49
 # voltageValue =128
 actuator = 0
 
-
 while True:
-	# Temperatura 
+
 	bus.write_byte(address1, 0) #Requisitando leitura do Canal 0 do PCF8591 (1)
 	bus.read_byte(address1)
 	tempValue = bus.read_byte(address1) #Realizando leitura do Canal 0 do PCF8591 (1)
@@ -33,9 +32,14 @@ while True:
 	print "Corrente: " + str(currentValue)
 	print "Tensão: " + str(voltageValue)
 
-	voltageNewValue = controller.errorCalc(voltageValue,3.5)
-	actuator +=voltageNewValue
-	bus.write_byte_data(address2, 0x44, actuator)
+	
+	while actuator<255:
+		# actuator = raw_input("Valor para DAC: ")
+		actuator += 1
+		bus.write_byte_data(address2, 0x44, int(actuator))
+	while actuator >0:
+		actuator -=1
+		bus.write_byte_data(address2, 0x44, int(actuator))
 
 
 
