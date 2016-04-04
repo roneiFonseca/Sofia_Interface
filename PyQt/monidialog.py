@@ -32,6 +32,13 @@ if (RPI_ON):
     GPIO.setup(23, GPIO.OUT)
     GPIO.output(24, 1)        #ajusta os reles
     GPIO.output(23, 1)
+    #Teste de relés utilizando LEDS (Matias e Peter 2/4/16)
+    GPIO.setup(19,GPIO.OUT)
+    GPIO.setup(26,GPIO.OUT)
+    GPIO.output(19,0)
+    GPIO.output(26,0)
+
+
 
 time_before= 0 
 time_beginning = 0
@@ -185,33 +192,39 @@ class Ui_moniDialog(object):
         self.pushButton_7.setText(_translate("moniDialog", "PARAR ", None))
         self.pushButton_7.setStyleSheet("font-weight:bold;background-color: red;border-radius: 10px;")
 
-        self.lcd_potencia.display(parametros.todos['potenciaRT']*5)
-        if(RPI_ON):
-            bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)
+        # self.lcd_potencia.display(parametros.todos['potenciaRT']*5)
+        # if(RPI_ON):
+        #     bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)
 
 
-        self.lcd_potencia.display(parametros.todos['potenciaRT']*1)
+        # self.lcd_potencia.display(parametros.todos['potenciaRT']*1)
 
         cont += 1
         if cont == 60:
 
             if(RPI_ON):
+                #Leitura de Tensão
                 bus.write_byte(address2, 0)
+                bus.read_byte(address2)
+                voltage = bus.read_byte(address2)
+                voltage = voltage*5/255
+
+                #Leitura de Corrente
+                bus.write_byte(address2, 1)
+                bus.read_byte(address2)
+                current = bus.read_byte(address2)
+                current = current*5/255 
+
+                #Leitura de Temperatura
+                bus.write_byte(address2, 2)
                 bus.read_byte(address2)
                 temp_aux = bus.read_byte(address2)
                 temperature = 0.6040*temp_aux-72.9358
                 self.lcd_temp.display(temperature) 
 
             
-                bus.write_byte(address2, 1)
-                bus.read_byte(address2)
-                current = bus.read_byte(address2)
-                current = current*5/255	
 
-                bus.write_byte(address2, 2)
-                bus.read_byte(address2)
-                voltage = bus.read_byte(address2)
-                voltage = voltage*5/255
+
 
                 print voltage # imprimir valor de tensao
                 print current # imprimir valor de corrente
@@ -230,17 +243,35 @@ class Ui_moniDialog(object):
                 elif(actuatorValue>255):
                     actuatorValue = 255
                 else:
-                    if(RPI_ON):
-                        bus.write_byte_data(address1, 0x44, actuatorValue)
-                print "Tensao de Entrada(modificada): " +str(actuatorValue) #depois das condicoes
+                    pass
+                if(RPI_ON):
+                    bus.write_byte_data(address1, 0x44, actuatorValue)
+                    time.sleep(1.0)
+                    print "Tensao de Entrada(modificada): " +str(actuatorValue) #depois das condicoes
 
             #CONTROLE DE TEMPERATURA
                 if (controller.controlTemperature(temperature)):
-                    #ATIVAR RELÉ DE IMPEDÂNCIA
+                    GPIO.output(19,1)                     #ATIVAR RELÉ DE IMPEDÂNCIA
+                    print "TEMPERATURA MÁXIMA"
                     if(controller.controlImpedance(impedance)):
-                        #ATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
+                        GPIO.output(26,1)         #ATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
+                        print "IMPEDANCIA MUITO ALTA/BAIXA"
                     else:
-                        parametros.todos['potenciaRT'] -= parametros.todos['potenciaStep']
+                        print "IMPEDANCIA OK!"
+                        GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
+                        if(parametros.todos['potenciaRT']>parametros.todos['potenciaStep']): # Nao diminuir step caso potencia seja 0
+                            parametros.todos['potenciaRT'] -= parametros.todos['potenciaStep']
+                else:
+                    print "TEMPERATURA OK!"
+                    GPIO.output(19,0)                     #DESATIVAR RELÉ DE IMPEDÂNCIA
+
+                if(controller.controlImpedance(impedance)):
+                    print "IMPEDANCIA MUITO ALTA/BAIXA"
+                    GPIO.output(26,1)         #ATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
+                else:
+                    print "IMPEDANCIA OK!"
+                    GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)                    
+
                 cont = 0
 
         if restart == 0:
@@ -267,7 +298,7 @@ class Ui_moniDialog(object):
         self.lcd_tempo.display(str_count)
          
         #Atualizando o valor de potenciaRT  
-        if ( time_now - time_before > float(parametros.todos['tempoStep']*60) ) and (parametros.todos['potenciaRT']<parametros.todos['potenciaFinal'])):
+        if ( time_now - time_before > float(parametros.todos['tempoStep']*60) ) and (parametros.todos['potenciaRT']<parametros.todos['potenciaFinal']):
             parametros.todos['potenciaRT'] += parametros.todos['potenciaStep']
             time_before = time_now
 
@@ -277,6 +308,7 @@ class Ui_moniDialog(object):
         #Verificação do Fim da Operação
         if (minute == parametros.todos['tempo']) and (seconds == 0):
             # definir o protocolo de desligamento do aparelho quando o tempo acaba
+            parametros.flag['endOfOperation'] = True # Flag do fim da operacao
             self.timer.stop()
 
     def stop(self):
@@ -299,7 +331,7 @@ class Ui_moniDialog(object):
 
        # pwm_pin1.start(parametros.todos['potenciaRT'])
        # PWMservo.set_servo(pwm_pin1, parametros.todos['potenciaRT']*399)
-        print "Hey amigo, estou aqui!"       
+        # print "Hey amigo, estou aqui!"       
 
         
    #      if(RPI_ON):
