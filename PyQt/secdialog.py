@@ -12,7 +12,6 @@ from thirddialog import Ui_thirdDialog
 from fifdialog import Ui_fifDialog
 from time_window import Ui_fourthDialog
 from verificacao import Ui_VerifyWindow
-# import imagens2
 import sys
 from help_box import Ui_Dialog
 
@@ -37,12 +36,6 @@ class Ui_SecDialog(object):
 
         SecDialog.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);color: rgb(255, 255, 255)"))
 
-        # self.label = QtGui.QLabel(SecDialog)
-        # self.label.setGeometry(QtCore.QRect(0, 0, 821, 121))
-        # self.label.setText(_fromUtf8(""))
-        # self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/imagens/logo.png")))
-        # self.label.setObjectName(_fromUtf8("label"))
-
         self.pushButton_help = QtGui.QPushButton(SecDialog)
         self.pushButton_help.setGeometry(QtCore.QRect(700, 20, 71, 31))
         self.pushButton_help.setObjectName(_fromUtf8("pushButton_help"))
@@ -57,40 +50,37 @@ class Ui_SecDialog(object):
 
         self.pushButton_4 = QtGui.QPushButton(SecDialog)
         self.pushButton_4.setGeometry(QtCore.QRect(240, 350, 151, 71))
-        # self.pushButton_4.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n"))
         self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
         self.pushButton_4.setStyleSheet("font-weight:bold;background-color: rgb(40, 255, 0);border-radius: 10px;")
 
 
         self.pushButton_5 = QtGui.QPushButton(SecDialog)
         self.pushButton_5.setGeometry(QtCore.QRect(410, 350, 151, 71))
-        # self.pushButton_5.setStyleSheet(_fromUtf8("border-color: rgb(0, 0, 0);"))
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
         self.pushButton_5.setStyleSheet("font-weight:bold;background-color: red;border-radius: 10px;")
-        # self.pushButton_5.setGeometry(QtCore.QRect(440, 340, 101, 61))
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
-        # self.pushButton_5.setStyleSheet(_fromUtf8("font-weight:bold;\n""border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);\n"))
+        
 
 
         self.pushButton_6 = QtGui.QPushButton(SecDialog)
         self.pushButton_6.setGeometry(QtCore.QRect(520, 190, 231, 71))
         self.pushButton_6.setObjectName(_fromUtf8("pushButton_6"))
         self.pushButton_6.setStyleSheet("font-weight:bold;background-color: blue;border-radius: 10px;")
-        # self.pushButton_6.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);"))
+       
 
 
         self.pushButton_7 = QtGui.QPushButton(SecDialog)
         self.pushButton_7.setGeometry(QtCore.QRect(50,190,151,71))
         self.pushButton_7.setObjectName(_fromUtf8("pushButton_7"))
         self.pushButton_7.setStyleSheet("font-weight:bold;background-color: blue;border-radius: 10px;")
-        # self.pushButton_7.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);"))
+       
 
 
         self.pushButton_8 = QtGui.QPushButton(SecDialog)
         self.pushButton_8.setGeometry(QtCore.QRect(290, 190, 151, 71))
         self.pushButton_8.setObjectName(_fromUtf8("pushButton_8"))
         self.pushButton_8.setStyleSheet("font-weight:bold;background-color: blue;border-radius: 10px;")
-        # self.pushButton_8.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);"))
+       
 
         self.retranslateUi(SecDialog)
         QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), SecDialog.close)
@@ -110,7 +100,7 @@ class Ui_SecDialog(object):
         QtCore.QObject.connect(self.pushButton_8 , QtCore.SIGNAL("clicked()") , self.Timer_Func)
         QtCore.QObject.connect(self.pushButton_6 , QtCore.SIGNAL("clicked()") , self.Operation_mode)
         QtCore.QObject.connect(self.pushButton_4 , QtCore.SIGNAL("clicked()") , self.Verify_window)
-       # SecDialog.showFullScreen()
+       
         QtCore.QObject.connect(self.pushButton_help , QtCore.SIGNAL("clicked()") , self.Help)
 
     def Power_Func(self): # Clicar em Potencia

@@ -8,7 +8,6 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-# import imagens2
 from monidialog import Ui_moniDialog
 import parametros
 import sys
@@ -119,17 +118,13 @@ class Ui_VerifyWindow(object):
         QtCore.QObject.connect(self.pushButton_2 , QtCore.SIGNAL("clicked()") , VerifyWindow.close)
 
     def Monitoring_Window(self): # Clicar para a tela de monitoramento
-        # VerifyWindow.close()
 
         # moniDialog = QtGui.QDialog()
         # ui = Ui_moniDialog()
         # ui.setupUi(moniDialog)
         # moniDialog.exec_()
         os.system("sudo /usr/bin/python monidialog.py")
-
-
-
-        
+      
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)

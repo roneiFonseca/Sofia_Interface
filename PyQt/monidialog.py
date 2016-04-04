@@ -8,8 +8,6 @@
 # WARNING! All changes made in this file will be lost!
 
 
-
-
 from __future__ import division
 from PyQt4 import QtCore, QtGui
 import sys 
@@ -19,8 +17,8 @@ import time
 import math
 import os
 
-RPI_ON = True
-# RPI_ON = False
+# RPI_ON = True
+RPI_ON = False
 
 if (RPI_ON):
     import RPi.GPIO as GPIO
@@ -67,7 +65,6 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 class Ui_moniDialog(object):
-    # trigger = QtCore.pyqtSignal()
     def setupUi(self, moniDialog):
         moniDialog.setObjectName(_fromUtf8("moniDialog"))
         moniDialog.resize(800, 480)
@@ -297,15 +294,7 @@ class Ui_moniDialog(object):
         global time_before,time_beginning,stop_press, initial_press,pwm_pin1
         global RPI_ON
 
-       # pwm_pin1.start(parametros.todos['potenciaRT'])
-       # PWMservo.set_servo(pwm_pin1, parametros.todos['potenciaRT']*399)
-        print "Hey amigo, estou aqui!"       
-
-        
-   #      if(RPI_ON):
-			# bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)       
-
-        
+        print "Hey amigo, estou aqui!"               
         
         if((initial_press == 0) and (stop_press == 1)) :               #condicao para reiniciar a contagem
             self.timer.start(1) #1 miliseconds
@@ -315,13 +304,12 @@ class Ui_moniDialog(object):
             self.label_15.setGeometry(QtCore.QRect(280, 280, 300, 90))
             time_before = time.time()
             time_beginning = time_before
-            self.timer.start(1) #1000 miliseconds
+            self.timer.start(1) #1 miliseconds
            
         if stop_press != 1:                                             #condicao para parar a contagem
             self.stop()
             if(RPI_ON):
                 bus.write_byte_data(address1, 0x44, 0X00)
-           
 
         
     def shutdown_function(self):

@@ -8,7 +8,6 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-# import imagens2
 import parametros
 
 try:
@@ -50,11 +49,6 @@ class Ui_fourthDialog(object):
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
         self.pushButton_5.setStyleSheet("font-weight:bold;background-color: rgb(40, 255, 0);border-radius: 10px;")
 
-        # self.label = QtGui.QLabel(fourthDialog)
-        # self.label.setGeometry(QtCore.QRect(0, 0, 821, 121))
-        # self.label.setText(_fromUtf8(""))
-        # self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/imagens/logo.png")))
-        # self.label.setObjectName(_fromUtf8("label"))
 
         self.lcdNumber_2 = QtGui.QLCDNumber(fourthDialog)
         self.lcdNumber_2.setGeometry(QtCore.QRect(310, 190, 151, 101))
@@ -115,10 +109,7 @@ class Ui_fourthDialog(object):
             parametros.todos['tempo'] = 8   
     
 
-           
-
-
-
+        
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)

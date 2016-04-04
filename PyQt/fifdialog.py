@@ -13,8 +13,6 @@ import parametros
 from PyQt4 import QtCore, QtGui
 import math
 
-# import imagens2
-
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -61,12 +59,7 @@ class Ui_fifDialog(object):
         self.pushButton_4.setGeometry(QtCore.QRect(20, 310, 241, 51))
         self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
         self.pushButton_4.setStyleSheet("font-weight:bold;background-color: gray;border-radius: 10px;")
-#         self.pushButton_5 = QtGui.QPushButton(fifDialog)
-#         self.pushButton_5.setGeometry(QtCore.QRect(20, 380, 111, 51))
-#         self.pushButton_5.setStyleSheet(_fromUtf8("font: 14pt \"Arial\";\n"
-# "\n"
-# ""))
-        # self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
+
         self.pushButton_6 = QtGui.QPushButton(fifDialog)
         self.pushButton_6.setGeometry(QtCore.QRect(75, 390, 111, 51))
         self.pushButton_6.setStyleSheet(_fromUtf8("font: 14pt \"Arial\";\n""\n"""))
@@ -92,13 +85,11 @@ class Ui_fifDialog(object):
         self.pushButton_2.setText(QtGui.QApplication.translate("fifDialog", "2 W por minuto", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_3.setText(QtGui.QApplication.translate("fifDialog", "2.5 W por minuto", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_4.setText(QtGui.QApplication.translate("fifDialog", "5 W por minuto", None, QtGui.QApplication.UnicodeUTF8))
-    #    self.pushButton_5.setText(QtGui.QApplication.translate("fifDialog", "VOLTAR", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_6.setText(QtGui.QApplication.translate("fifDialog", "OK", None, QtGui.QApplication.UnicodeUTF8))
 
         QtCore.QObject.connect(self.pushButton_2 , QtCore.SIGNAL("clicked()") , self.mode1)
         QtCore.QObject.connect(self.pushButton_3 , QtCore.SIGNAL("clicked()") , self.mode2)
         QtCore.QObject.connect(self.pushButton_4 , QtCore.SIGNAL("clicked()") , self.mode3)
-        # QtCore.QObject.connect(self.pushButton_5 , QtCore.SIGNAL("clicked()") , fifDialog.close)
         QtCore.QObject.connect(self.pushButton_6 , QtCore.SIGNAL("clicked()") , fifDialog.close)
 
 
