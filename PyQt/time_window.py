@@ -9,6 +9,7 @@
 
 from PyQt4 import QtCore, QtGui
 import parametros
+from verificacao import Ui_VerifyWindow
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -81,7 +82,7 @@ class Ui_fourthDialog(object):
 
 
         self.retranslateUi(fourthDialog)
-        QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), fourthDialog.close)
+        QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Verify_window)
         QtCore.QMetaObject.connectSlotsByName(fourthDialog)
 
     def retranslateUi(self, fourthDialog):
@@ -108,6 +109,11 @@ class Ui_fourthDialog(object):
             self.lcdNumber_2.display(8)
             parametros.todos['tempo'] = 8   
     
+    def Verify_window(self): # Clicar em tela de verifição
+        VerifyWindow = QtGui.QDialog()
+        ui = Ui_VerifyWindow()
+        ui.setupUi(VerifyWindow)
+        VerifyWindow.exec_()
 
         
 if __name__ == "__main__":

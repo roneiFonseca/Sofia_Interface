@@ -326,9 +326,9 @@ class Ui_moniDialog(object):
         global time_before,time_beginning,stop_press, initial_press,pwm_pin1
         global RPI_ON
 
-<<<<<<< HEAD
+
         print "Hey amigo, estou aqui!"               
-=======
+
        # pwm_pin1.start(parametros.todos['potenciaRT'])
        # PWMservo.set_servo(pwm_pin1, parametros.todos['potenciaRT']*399)
         # print "Hey amigo, estou aqui!"       
@@ -338,7 +338,7 @@ class Ui_moniDialog(object):
 			# bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)       
 
         
->>>>>>> b9dcd57472f9ac511d73cdf3bd601ebbc16d5c42
+
         
         if((initial_press == 0) and (stop_press == 1)) :               #condicao para reiniciar a contagem
             self.timer.start(1) #1 miliseconds
