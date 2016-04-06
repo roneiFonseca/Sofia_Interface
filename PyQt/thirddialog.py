@@ -10,6 +10,7 @@
 from PyQt4 import QtCore, QtGui
 import parametros
 from time_window import Ui_fourthDialog
+# from secdialog import Ui_SecDialog
 
 
 try:
@@ -146,6 +147,11 @@ class Ui_thirdDialog(object):
         QtCore.QObject.connect(self.pushButton_3 , QtCore.SIGNAL("clicked()") , self.final_button_Plus_click)
         QtCore.QObject.connect(self.pushButton_4, QtCore.SIGNAL("clicked()") , self.final_button_Minus_click)
         QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Timer_Func)
+        QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), thirdDialog.close)
+
+
+
+        
 
     def initial_button_Plus_click(self):
 
@@ -189,6 +195,8 @@ class Ui_thirdDialog(object):
         ui = Ui_fourthDialog()
         ui.setupUi(fourthDialog)
         fourthDialog.exec_()
+        thirdDialog.close()
+               
 
 if __name__ == "__main__":
     import sys

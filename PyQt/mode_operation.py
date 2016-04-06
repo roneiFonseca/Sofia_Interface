@@ -70,8 +70,8 @@ class Ui_SecDialog(object):
     def retranslateUi(self, SecDialog):
         SecDialog.setWindowTitle(_translate("SecDialog", "Dialog", None))
         self.label_2.setText(_translate("SecDialog", "MODO DE OPERAÇÃO", None))
-        self.pushButton.setText(_translate("SecDialog", "AUTOMÁTICO", None))
-        self.pushButton_2.setText(_translate("SecDialog", "MANUAL", None))
+        self.pushButton.setText(_translate("SecDialog", "MANUAL", None))
+        self.pushButton_2.setText(_translate("SecDialog", "AUTOMÁTICO", None))
         self.pushButton_3.setText(_translate("SecDialog", "PRÉ-CLÍNICO", None))
         self.pushButton_help.setText(_translate("SecDialog", "...", None))
 

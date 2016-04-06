@@ -9,10 +9,7 @@
 
 from PyQt4 import QtCore, QtGui
 # from secdialog import Ui_SecDialog
-<<<<<<< HEAD
-=======
 from choosingScreen import Ui_choosingScreen
->>>>>>> f813ca0397c5a134b20205865fa127f39d5adaa6
 import imagens2
 # import pylab_plot
 import sys
@@ -88,10 +85,13 @@ class Ui_MainWindow(object):
     
     def OpenIT(self):
         MainWindow.close()
-        choosingScreen = QtGui.QDialog()
-        ui = Ui_choosingScreen()
-        ui.setupUi(choosingScreen)
-        choosingScreen.exec_()
+        # choosingScreen = QtGui.QDialog()
+        # ui = Ui_choosingScreen()
+        # ui.setupUi(choosingScreen)
+        SecDialog = QtGui.QDialog()
+        ui = Ui_SecDialog()
+        ui.setupUi(SecDialog)
+        SecDialog.exec_()
 
 
 

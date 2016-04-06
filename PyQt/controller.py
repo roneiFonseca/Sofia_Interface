@@ -15,7 +15,7 @@ def getImpedance(measuredVoltage,measuredCurrent):
       impedance = "INF"
       parametros.flag['impedance'] = True
       print "Impedancia: INF"
-   return impedance
+   return impedance*10     # para colocar dentro do range necessario do AGC -PETE
 
 #Teste Controle AGC - Peter
 def controlAGC (measuredImpedance):
@@ -98,7 +98,7 @@ def errorCalc(measuredValue,idealValue):
 
 def controlImpedance(measuredImpedance):
    impMinValue = 0.5
-   impMaxValue = 27.5
+   impMaxValue = 250
    if(measuredImpedance<impMinValue): #Impedancia muito baixa (Curto-circuito)
       parametros.flag['impedance'] = True
    elif(measuredImpedance>=impMaxValue): # Impedancia muito alta (Circuito aberto)
@@ -108,9 +108,11 @@ def controlImpedance(measuredImpedance):
    return parametros.flag['impedance']
 
 def controlTemperature(measuredTemperature):
-   tempMaxValue = 25
+   tempMaxValue = 30
    if(measuredTemperature>=tempMaxValue): # Temperatua muito alta
       parametros.flag['temperature'] = True
    else:
       parametros.flag['temperature'] = False      
    return parametros.flag['temperature']
+
+# print controlAGC(251)
