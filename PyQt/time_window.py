@@ -110,6 +110,7 @@ class Ui_fourthDialog(object):
             parametros.todos['tempo'] = 5   
     
     def Verify_window(self): # Clicar em tela de verifição
+        # fourthDialog.close()
         VerifyWindow = QtGui.QDialog()
         ui = Ui_VerifyWindow()
         ui.setupUi(VerifyWindow)

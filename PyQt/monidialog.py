@@ -227,12 +227,13 @@ class Ui_moniDialog(object):
                 temperature = 0.6040*temp_aux-72.9358
                 self.lcd_temp.display(temperature) 
 
-            
+                
                 print voltage # imprimir valor de tensao
                 print current # imprimir valor de corrente
                 impedance = controller.getImpedance(voltage,current) #calculando impedancia
                 #Teste controle AGC (Peter 5/4/16)
                 agc = controller.controlAGC(impedance)
+                print agc
                 if(agc == 1):
                     GPIO.output(16,0)
                     GPIO.output(20,0)
@@ -351,7 +352,26 @@ class Ui_moniDialog(object):
         global time_before,time_beginning,stop_press, initial_press,pwm_pin1
         global RPI_ON     
 
+<<<<<<< HEAD
                 
+=======
+
+        print "Hey amigo, estou aqui!"               
+
+       # pwm_pin1.start(parametros.todos['potenciaRT'])
+       # PWMservo.set_servo(pwm_pin1, parametros.todos['potenciaRT']*399)
+        # print "Hey amigo, estou aqui!"       
+
+        
+   #      if(RPI_ON):
+			# bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)       
+
+        
+
+            # bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)       
+       
+        
+>>>>>>> master
         if((initial_press == 0) and (stop_press == 1)) :               #condicao para reiniciar a contagem
             self.timer.start(1) #1 miliseconds
         

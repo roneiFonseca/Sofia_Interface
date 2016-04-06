@@ -85,10 +85,13 @@ class Ui_MainWindow(object):
     
     def OpenIT(self):
         MainWindow.close()
-        choosingScreen = QtGui.QDialog()
-        ui = Ui_choosingScreen()
-        ui.setupUi(choosingScreen)
-        choosingScreen.exec_()
+        # choosingScreen = QtGui.QDialog()
+        # ui = Ui_choosingScreen()
+        # ui.setupUi(choosingScreen)
+        SecDialog = QtGui.QDialog()
+        ui = Ui_SecDialog()
+        ui.setupUi(SecDialog)
+        SecDialog.exec_()
 
 
 

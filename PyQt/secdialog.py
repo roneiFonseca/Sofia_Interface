@@ -124,7 +124,7 @@ class Ui_SecDialog(object):
 
     def Verify_window(self): # Clicar em tela de verifição
 
-        parametros.todos['potenciaStep'] = (parametros.todos['potenciaFinal'] - parametros.todos['potenciaInicial'])//parametros.todos['tempo']
+        # parametros.todos['potenciaStep'] = (parametros.todos['potenciaFinal'] - parametros.todos['potenciaInicial'])//parametros.todos['tempo']
         # print "STEP: "+ str(parametros.todos['potenciaStep']) + " W/min"
         VerifyWindow = QtGui.QDialog()
         ui = Ui_VerifyWindow()

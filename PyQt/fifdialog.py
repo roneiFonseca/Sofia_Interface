@@ -9,7 +9,7 @@
 from __future__ import division
 import random
 import parametros
-# import pylab_plot
+import pylab_plot
 from PyQt4 import QtCore, QtGui
 from verificacao import Ui_VerifyWindow
 import math
@@ -105,7 +105,7 @@ class Ui_fifDialog(object):
 
 
     def mode1 (self):
-        # global pixmap
+        global pixmap
         
         parametros.todos['modo'] = 1
         parametros.todos['potenciaInicial'] = 5

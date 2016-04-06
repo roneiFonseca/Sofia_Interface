@@ -15,7 +15,7 @@ actuator = 0
 
 while True:
 	# Temperatura 
-	bus.write_byte(address1, 0) #Requisitando leitura do Canal 0 do PCF8591 (1)
+	bus.write_byte(address1, 2) #Requisitando leitura do Canal 0 do PCF8591 (1)
 	bus.read_byte(address1)
 	tempValue = bus.read_byte(address1) #Realizando leitura do Canal 0 do PCF8591 (1)
 	# Corrente
@@ -24,7 +24,7 @@ while True:
 	currentValue = bus.read_byte(address1) #Realizando leitura do Canal 0 do PCF8591 (1)
 	currentValue = (currentValue/255.0)*5.0
 	# Tensao
-	bus.write_byte(address1, 2) #Requisitando leitura do Canal 0 do PCF8591 (1)
+	bus.write_byte(address1, 0) #Requisitando leitura do Canal 0 do PCF8591 (1)
 	bus.read_byte(address1)
 	voltageValue = bus.read_byte(address1) #Realizando leitura do Canal 0 do PCF8591 (1)
 	voltageValue = (voltageValue/255.0)*5.0
@@ -33,9 +33,9 @@ while True:
 	print "Corrente: " + str(currentValue)
 	print "Tensão: " + str(voltageValue)
 
-	voltageNewValue = controller.errorCalc(voltageValue,3.5)
-	actuator +=voltageNewValue
-	bus.write_byte_data(address2, 0x44, actuator)
+	# voltageNewValue = controller.errorCalc(voltageValue,3.5)
+	# actuator +=voltageNewValue
+	# bus.write_byte_data(address2, 0x44, actuator)
 
 
 
