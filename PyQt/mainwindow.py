@@ -9,10 +9,7 @@
 
 from PyQt4 import QtCore, QtGui
 # from secdialog import Ui_SecDialog
-<<<<<<< HEAD
-=======
 from choosingScreen import Ui_choosingScreen
->>>>>>> f813ca0397c5a134b20205865fa127f39d5adaa6
 import imagens2
 # import pylab_plot
 import sys
