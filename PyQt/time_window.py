@@ -8,8 +8,8 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-# import imagens2
 import parametros
+from verificacao import Ui_VerifyWindow
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -50,11 +50,6 @@ class Ui_fourthDialog(object):
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
         self.pushButton_5.setStyleSheet("font-weight:bold;background-color: rgb(40, 255, 0);border-radius: 10px;")
 
-        # self.label = QtGui.QLabel(fourthDialog)
-        # self.label.setGeometry(QtCore.QRect(0, 0, 821, 121))
-        # self.label.setText(_fromUtf8(""))
-        # self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/imagens/logo.png")))
-        # self.label.setObjectName(_fromUtf8("label"))
 
         self.lcdNumber_2 = QtGui.QLCDNumber(fourthDialog)
         self.lcdNumber_2.setGeometry(QtCore.QRect(310, 190, 151, 101))
@@ -87,7 +82,7 @@ class Ui_fourthDialog(object):
 
 
         self.retranslateUi(fourthDialog)
-        QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), fourthDialog.close)
+        QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Verify_window)
         QtCore.QMetaObject.connectSlotsByName(fourthDialog)
 
     def retranslateUi(self, fourthDialog):
@@ -103,22 +98,24 @@ class Ui_fourthDialog(object):
     def time_button_Plus_click(self):
         parametros.todos['tempo'] +=1
         self.lcdNumber_2.display(parametros.todos['tempo'])
-        while parametros.todos['tempo'] > 12:
-            self.lcdNumber_2.display(12)
-            parametros.todos['tempo'] = 12      
+        while parametros.todos['tempo'] > 15:
+            self.lcdNumber_2.display(15)
+            parametros.todos['tempo'] = 15      
 
     def time_button_Minus_click(self):
         parametros.todos['tempo'] -=1
         self.lcdNumber_2.display(parametros.todos['tempo'])
-        while parametros.todos['tempo'] < 8:
-            self.lcdNumber_2.display(8)
-            parametros.todos['tempo'] = 8   
+        while parametros.todos['tempo'] < 5:
+            self.lcdNumber_2.display(5)
+            parametros.todos['tempo'] = 5   
     
+    def Verify_window(self): # Clicar em tela de verifição
+        VerifyWindow = QtGui.QDialog()
+        ui = Ui_VerifyWindow()
+        ui.setupUi(VerifyWindow)
+        VerifyWindow.exec_()
 
-           
-
-
-
+        
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)

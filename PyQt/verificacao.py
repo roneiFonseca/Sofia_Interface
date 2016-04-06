@@ -8,10 +8,10 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-# import imagens2
 from monidialog import Ui_moniDialog
 import parametros
 import sys
+import os
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -102,7 +102,10 @@ class Ui_VerifyWindow(object):
         self.label.setText(_translate("VerifyWindow", "VERIFICAÇÃO", None))
         self.label_2.setText(_translate("VerifyWindow", "TEMPO", None))
         self.label_3.setText(_translate("VerifyWindow", "POTÊNCIA INICIAL", None))
-        self.label_4.setText(_translate("VerifyWindow", "MODO", None))
+        if (parametros.flag['manualMode']):
+            self.label_4.setText(_translate("VerifyWindow", "STEP(W/MIN)", None))
+        else:       
+            self.label_4.setText(_translate("VerifyWindow", "MODO", None))
         self.label_5.setText(_translate("VerifyWindow", "min", None))
         self.label_6.setText(_translate("VerifyWindow", "W", None))
         self.pushButton.setText(_translate("VerifyWindow", "CONFIRMAR", None))
@@ -111,22 +114,23 @@ class Ui_VerifyWindow(object):
         self.label_8.setText(_translate("VerifyWindow", "W", None))
         self.lcdNumber.display(parametros.todos['tempo'])
         self.lcdNumber_2.display(parametros.todos['potenciaInicial'])
-        self.lcdNumber_3.display(parametros.todos['modo'])
+        if (parametros.flag['manualMode']):
+            self.lcdNumber_3.display(parametros.todos['potenciaStep'])
+        else:    
+            self.lcdNumber_3.display(parametros.todos['modo'])
         self.lcdNumber_4.display(parametros.todos['potenciaFinal'])
         QtCore.QObject.connect(self.pushButton , QtCore.SIGNAL("clicked()") , self.Monitoring_Window)
         QtCore.QObject.connect(self.pushButton , QtCore.SIGNAL("clicked()") , VerifyWindow.close)
         QtCore.QObject.connect(self.pushButton_2 , QtCore.SIGNAL("clicked()") , VerifyWindow.close)
 
     def Monitoring_Window(self): # Clicar para a tela de monitoramento
-        # VerifyWindow.close()
-        moniDialog = QtGui.QDialog()
-        ui = Ui_moniDialog()
-        ui.setupUi(moniDialog)
-        moniDialog.exec_()
 
-
-
-        
+        # moniDialog = QtGui.QDialog()
+        # ui = Ui_moniDialog()
+        # ui.setupUi(moniDialog)
+        # moniDialog.exec_()
+        os.system("sudo /usr/bin/python monidialog.py")
+      
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)

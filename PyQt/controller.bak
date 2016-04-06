@@ -17,21 +17,6 @@ def getImpedance(measuredVoltage,measuredCurrent):
       print "Impedancia: INF"
    return impedance
 
-#Teste Controle AGC - Peter
-def controlAGC (measuredImpedance):
-   
-   if(measuredImpedance>=50 and measuredImpedance<=100):
-      agc = 1
-   elif(measuredImpedance>100 and measuredImpedance<=150):
-      agc = 2
-   elif(measuredImpedance>150 and measuredImpedance<=200):
-      agc = 3
-   elif(measuredImpedance>200 and measuredImpedance<=250):
-      agc = 4
-   else:
-      agc = 0
-   return agc
-
 
 def getPower(measuredVoltage,measuredCurrent):
    power = measuredVoltage*measuredCurrent
@@ -108,9 +93,10 @@ def controlImpedance(measuredImpedance):
    return parametros.flag['impedance']
 
 def controlTemperature(measuredTemperature):
-   tempMaxValue = 25
+   tempMaxValue = 27
    if(measuredTemperature>=tempMaxValue): # Temperatua muito alta
       parametros.flag['temperature'] = True
    else:
       parametros.flag['temperature'] = False      
    return parametros.flag['temperature']
+
