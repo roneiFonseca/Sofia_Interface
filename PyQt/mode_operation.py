@@ -11,6 +11,8 @@ from PyQt4 import QtCore, QtGui
 from thirddialog import Ui_thirdDialog
 from fifdialog import Ui_fifDialog
 from help_box import Ui_Dialog
+import parametros
+
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -64,6 +66,7 @@ class Ui_SecDialog(object):
         self.pushButton_help.setObjectName(_fromUtf8("pushButton_help"))
         self.pushButton_help.setStyleSheet("color: red;font: 26pt;font-weight:bold;background-color: blue;border-radius: 5px;")
 
+        
         self.retranslateUi(SecDialog)
         QtCore.QMetaObject.connectSlotsByName(SecDialog)
 
@@ -87,12 +90,14 @@ class Ui_SecDialog(object):
         Dialog.exec_()
 
     def Power_Func(self): # Clicar em Potencia
+        parametros.flag['manualMode'] = True
         thirdDialog = QtGui.QDialog()
         ui = Ui_thirdDialog()
         ui.setupUi(thirdDialog)
         thirdDialog.exec_()
 
     def Operation_mode(self): # Clicar em Modo de Operação
+        parametros.flag['manualMode'] = False
         fifDialog = QtGui.QDialog()
         ui = Ui_fifDialog()
         ui.setupUi(fifDialog)
