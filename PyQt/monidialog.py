@@ -35,7 +35,15 @@ if (RPI_ON):
     GPIO.setup(26,GPIO.OUT)
     GPIO.output(19,0)
     GPIO.output(26,0)
-
+    
+    #Teste controle AGC (Peter 5/4/16)
+    GPIO.setup(16,GPIO.OUT)
+    GPIO.setup(20,GPIO.OUT)
+    GPIO.setup(21,GPIO.OUT)
+    GPIO.output(16,0)
+    GPIO.output(20,0)
+    GPIO.output(21,0)
+    
 
 
 time_before= 0 
@@ -200,28 +208,49 @@ class Ui_moniDialog(object):
         if cont == 60:
 
             if(RPI_ON):
-            #Leitura de Tensão
+                #Leitura de Tensão
                 bus.write_byte(address2, 0)
                 bus.read_byte(address2)
                 voltage = bus.read_byte(address2)
                 voltage = voltage*5/255
 
-            #Leitura de Corrente
+                #Leitura de Corrente
                 bus.write_byte(address2, 1)
                 bus.read_byte(address2)
                 current = bus.read_byte(address2)
                 current = current*5/255 
 
-            #Leitura de Temperatura
+                #Leitura de Temperatura
                 bus.write_byte(address2, 2)
                 bus.read_byte(address2)
                 temp_aux = bus.read_byte(address2)
                 temperature = 0.6040*temp_aux-72.9358
                 self.lcd_temp.display(temperature) 
 
+            
                 print voltage # imprimir valor de tensao
                 print current # imprimir valor de corrente
                 impedance = controller.getImpedance(voltage,current) #calculando impedancia
+                #Teste controle AGC (Peter 5/4/16)
+                agc = controller.controlAGC(impedance)
+                if(agc == 1):
+                    GPIO.output(16,0)
+                    GPIO.output(20,0)
+                    GPIO.output(21,1)
+                elif(agc == 2):
+                    GPIO.output(16,0)
+                    GPIO.output(20,1)
+                    GPIO.output(21,0)
+                elif(agc == 3):
+                    GPIO.output(16,0)
+                    GPIO.output(20,1)
+                    GPIO.output(21,1)
+                elif(agc == 4):
+                    GPIO.output(16,1)
+                    GPIO.output(20,0)
+                    GPIO.output(21,0)
+                else:
+                    print "Valor de Impedancia fora de range - AGC"
                 power =  controller.getPower(voltage,current) #calculando potencia
                 self.lcd_imp.display(impedance) #Print Impedancia
                 self.lcd_potencia.display(power) #Print power
@@ -247,9 +276,8 @@ class Ui_moniDialog(object):
                     GPIO.output(19,1)                     #ATIVAR RELÉ DE IMPEDÂNCIA
                     print "TEMPERATURA MÁXIMA"
                     if(controller.controlImpedance(impedance)):
-                        print "IMPEDANCIA MUITO ALTA/BAIXA"
                         GPIO.output(26,1)         #ATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
-                        self.timer.stop()
+                        print "IMPEDANCIA MUITO ALTA/BAIXA"
                     else:
                         print "IMPEDANCIA OK!"
                         GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
@@ -258,7 +286,15 @@ class Ui_moniDialog(object):
                 else:
                     print "TEMPERATURA OK!"
                     GPIO.output(19,0)                     #DESATIVAR RELÉ DE IMPEDÂNCIA
-        # cont = 0
+
+                if(controller.controlImpedance(impedance)):
+                    print "IMPEDANCIA MUITO ALTA/BAIXA"
+                    GPIO.output(26,1)         #ATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
+                else:
+                    print "IMPEDANCIA OK!"
+                    GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)                    
+
+                cont = 0
 
         if restart == 0:
             time_now = time.time() - time_off
@@ -282,29 +318,20 @@ class Ui_moniDialog(object):
         else:
             str_count = str(minute) + ':' + str(int(seconds))
         self.lcd_tempo.display(str_count)
-       
-    #Atualizando o valor de potenciaRT  
+         
+        #Atualizando o valor de potenciaRT  
         if ( time_now - time_before > float(parametros.todos['tempoStep']*60) ) and (parametros.todos['potenciaRT']<parametros.todos['potenciaFinal']):
-            if (minute == parametros.todos['tempo']) and (seconds == 0):    #Verificação do Fim da Operação
-                # definir o protocolo de desligamento do aparelho quando o tempo acaba
-                parametros.flag['endOfOperation'] = True # Flag do fim da operacao
-                self.timer.stop()
-            else:    
-                parametros.todos['potenciaRT'] += parametros.todos['potenciaStep']
-                time_before = time_now  
+            parametros.todos['potenciaRT'] += parametros.todos['potenciaStep']
+            time_before = time_now
 
-        if cont == 60:
-        # Verificar se impedancia esta muito alta:
-            if(controller.controlImpedance(impedance)):
-                print "IMPEDANCIA MUITO ALTA/BAIXA"
-                GPIO.output(26,1)         #ATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
-            else:
-                print "IMPEDANCIA OK!"
-                GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)  
-            cont = 0                
+            # print time_now - time_before
+            # print float(parametros.todos['tempoStep']*60)
 
-
-
+        #Verificação do Fim da Operação
+        if (minute == parametros.todos['tempo']) and (seconds == 0):
+            # definir o protocolo de desligamento do aparelho quando o tempo acaba
+            parametros.flag['endOfOperation'] = True # Flag do fim da operacao
+            self.timer.stop()
 
     def stop(self):
         global time_before, stop_press,initial_press, time_old,restart,time_off,time_now
@@ -324,19 +351,17 @@ class Ui_moniDialog(object):
         global time_before,time_beginning,stop_press, initial_press,pwm_pin1
         global RPI_ON
 
-<<<<<<< HEAD
+
         print "Hey amigo, estou aqui!"               
-=======
+
        # pwm_pin1.start(parametros.todos['potenciaRT'])
        # PWMservo.set_servo(pwm_pin1, parametros.todos['potenciaRT']*399)
         # print "Hey amigo, estou aqui!"       
 
         
    #      if(RPI_ON):
-			# bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)       
-
-        
->>>>>>> b9dcd57472f9ac511d73cdf3bd601ebbc16d5c42
+            # bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)       
+       
         
         if((initial_press == 0) and (stop_press == 1)) :               #condicao para reiniciar a contagem
             self.timer.start(1) #1 miliseconds
