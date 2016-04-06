@@ -12,6 +12,7 @@ from thirddialog import Ui_thirdDialog
 from fifdialog import Ui_fifDialog
 from time_window import Ui_fourthDialog
 from verificacao import Ui_VerifyWindow
+import parametros
 import sys
 from help_box import Ui_Dialog
 
@@ -62,22 +63,22 @@ class Ui_SecDialog(object):
         
 
 
-        self.pushButton_6 = QtGui.QPushButton(SecDialog)
-        self.pushButton_6.setGeometry(QtCore.QRect(520, 190, 231, 71))
-        self.pushButton_6.setObjectName(_fromUtf8("pushButton_6"))
-        self.pushButton_6.setStyleSheet("font-weight:bold;background-color: blue;border-radius: 10px;")
+        # self.pushButton_6 = QtGui.QPushButton(SecDialog)
+        # self.pushButton_6.setGeometry(QtCore.QRect(520, 190, 231, 71))
+        # self.pushButton_6.setObjectName(_fromUtf8("pushButton_6"))
+        # self.pushButton_6.setStyleSheet("font-weight:bold;background-color: blue;border-radius: 10px;")
        
 
 
         self.pushButton_7 = QtGui.QPushButton(SecDialog)
-        self.pushButton_7.setGeometry(QtCore.QRect(50,190,151,71))
+        self.pushButton_7.setGeometry(QtCore.QRect(150,190,151,71))
         self.pushButton_7.setObjectName(_fromUtf8("pushButton_7"))
         self.pushButton_7.setStyleSheet("font-weight:bold;background-color: blue;border-radius: 10px;")
        
 
 
         self.pushButton_8 = QtGui.QPushButton(SecDialog)
-        self.pushButton_8.setGeometry(QtCore.QRect(290, 190, 151, 71))
+        self.pushButton_8.setGeometry(QtCore.QRect(490, 190, 151, 71))
         self.pushButton_8.setObjectName(_fromUtf8("pushButton_8"))
         self.pushButton_8.setStyleSheet("font-weight:bold;background-color: blue;border-radius: 10px;")
        
@@ -91,14 +92,14 @@ class Ui_SecDialog(object):
         self.label_2.setText(_translate("SecDialog", "CONFIGURAÇÕES", None))
         self.pushButton_4.setText(_translate("SecDialog", "INICIAR", None))
         self.pushButton_5.setText(_translate("SecDialog", "DESLIGAR", None))
-        self.pushButton_6.setText(_translate("SecDialog", "MODO DE OPERAÇÃO", None))
+        # self.pushButton_6.setText(_translate("SecDialog", "MODO DE OPERAÇÃO", None))
         self.pushButton_7.setText(_translate("SecDialog", "POTÊNCIA", None))
         QtCore.QObject.connect(self.pushButton_7 , QtCore.SIGNAL("clicked()") , self.Power_Func)
         self.pushButton_8.setText(_translate("SecDialog", "TEMPO", None))
         self.pushButton_help.setText(_translate("SecDialog", "Ajuda", None))
 
         QtCore.QObject.connect(self.pushButton_8 , QtCore.SIGNAL("clicked()") , self.Timer_Func)
-        QtCore.QObject.connect(self.pushButton_6 , QtCore.SIGNAL("clicked()") , self.Operation_mode)
+        # QtCore.QObject.connect(self.pushButton_6 , QtCore.SIGNAL("clicked()") , self.Operation_mode)
         QtCore.QObject.connect(self.pushButton_4 , QtCore.SIGNAL("clicked()") , self.Verify_window)
        
         QtCore.QObject.connect(self.pushButton_help , QtCore.SIGNAL("clicked()") , self.Help)
@@ -122,6 +123,9 @@ class Ui_SecDialog(object):
         fifDialog.exec_()
 
     def Verify_window(self): # Clicar em tela de verifição
+
+        parametros.todos['potenciaStep'] = (parametros.todos['potenciaFinal'] - parametros.todos['potenciaInicial'])//parametros.todos['tempo']
+        print parametros.todos['potenciaStep']
         VerifyWindow = QtGui.QDialog()
         ui = Ui_VerifyWindow()
         ui.setupUi(VerifyWindow)

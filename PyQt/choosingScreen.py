@@ -10,6 +10,7 @@
 from PyQt4 import QtCore, QtGui
 from secdialog import Ui_SecDialog
 from fifdialog import Ui_fifDialog
+import parametros
 import sys
 
 try:
@@ -63,6 +64,7 @@ class Ui_choosingScreen(object):
 
     def automatic(self):
         # choosingScreen.close()
+        parametros.flag['manualMode'] = False
         fifDialog = QtGui.QDialog()
         ui = Ui_fifDialog()
         ui.setupUi(fifDialog)
@@ -70,6 +72,7 @@ class Ui_choosingScreen(object):
 
     def manual(self):
         # choosingScreen.close()
+        parametros.flag['manualMode'] = True
         secDialog = QtGui.QDialog()
         ui = Ui_SecDialog()
         ui.setupUi(secDialog)
