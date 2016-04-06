@@ -10,5 +10,6 @@ todos = {
 flag = {
 	'impedance':False,
 	'temperature':False,
-	'endOfOperation':False}
+	'endOfOperation':False,
+	'manualMode':False}
 

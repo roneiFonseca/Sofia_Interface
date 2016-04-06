@@ -35,7 +35,15 @@ if (RPI_ON):
     GPIO.setup(26,GPIO.OUT)
     GPIO.output(19,0)
     GPIO.output(26,0)
-
+    
+    #Teste controle AGC (Peter 5/4/16)
+    GPIO.setup(16,GPIO.OUT)
+    GPIO.setup(20,GPIO.OUT)
+    GPIO.setup(21,GPIO.OUT)
+    GPIO.output(16,0)
+    GPIO.output(20,0)
+    GPIO.output(21,0)
+    
 
 
 time_before= 0 
@@ -220,12 +228,29 @@ class Ui_moniDialog(object):
                 self.lcd_temp.display(temperature) 
 
             
-
-
-
                 print voltage # imprimir valor de tensao
                 print current # imprimir valor de corrente
                 impedance = controller.getImpedance(voltage,current) #calculando impedancia
+                #Teste controle AGC (Peter 5/4/16)
+                agc = controller.controlAGC(impedance)
+                if(agc == 1):
+                    GPIO.output(16,0)
+                    GPIO.output(20,0)
+                    GPIO.output(21,1)
+                elif(agc == 2):
+                    GPIO.output(16,0)
+                    GPIO.output(20,1)
+                    GPIO.output(21,0)
+                elif(agc == 3):
+                    GPIO.output(16,0)
+                    GPIO.output(20,1)
+                    GPIO.output(21,1)
+                elif(agc == 4):
+                    GPIO.output(16,1)
+                    GPIO.output(20,0)
+                    GPIO.output(21,0)
+                else:
+                    print "Valor de Impedancia fora de range - AGC"
                 power =  controller.getPower(voltage,current) #calculando potencia
                 self.lcd_imp.display(impedance) #Print Impedancia
                 self.lcd_potencia.display(power) #Print power
@@ -335,10 +360,15 @@ class Ui_moniDialog(object):
 
         
    #      if(RPI_ON):
+<<<<<<< HEAD
 			# bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)       
 
         
 
+=======
+            # bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)       
+       
+>>>>>>> f813ca0397c5a134b20205865fa127f39d5adaa6
         
         if((initial_press == 0) and (stop_press == 1)) :               #condicao para reiniciar a contagem
             self.timer.start(1) #1 miliseconds

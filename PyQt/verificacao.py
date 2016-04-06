@@ -102,7 +102,10 @@ class Ui_VerifyWindow(object):
         self.label.setText(_translate("VerifyWindow", "VERIFICAÇÃO", None))
         self.label_2.setText(_translate("VerifyWindow", "TEMPO", None))
         self.label_3.setText(_translate("VerifyWindow", "POTÊNCIA INICIAL", None))
-        self.label_4.setText(_translate("VerifyWindow", "MODO", None))
+        if (parametros.flag['manualMode']):
+            self.label_4.setText(_translate("VerifyWindow", "STEP(W/MIN)", None))
+        else:       
+            self.label_4.setText(_translate("VerifyWindow", "MODO", None))
         self.label_5.setText(_translate("VerifyWindow", "min", None))
         self.label_6.setText(_translate("VerifyWindow", "W", None))
         self.pushButton.setText(_translate("VerifyWindow", "CONFIRMAR", None))
@@ -111,7 +114,10 @@ class Ui_VerifyWindow(object):
         self.label_8.setText(_translate("VerifyWindow", "W", None))
         self.lcdNumber.display(parametros.todos['tempo'])
         self.lcdNumber_2.display(parametros.todos['potenciaInicial'])
-        self.lcdNumber_3.display(parametros.todos['modo'])
+        if (parametros.flag['manualMode']):
+            self.lcdNumber_3.display(parametros.todos['potenciaStep'])
+        else:    
+            self.lcdNumber_3.display(parametros.todos['modo'])
         self.lcdNumber_4.display(parametros.todos['potenciaFinal'])
         QtCore.QObject.connect(self.pushButton , QtCore.SIGNAL("clicked()") , self.Monitoring_Window)
         QtCore.QObject.connect(self.pushButton , QtCore.SIGNAL("clicked()") , VerifyWindow.close)
