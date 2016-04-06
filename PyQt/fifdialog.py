@@ -96,7 +96,7 @@ class Ui_fifDialog(object):
 
     def mode1 (self):
         # global pixmap
-        parametros.todos['potenciaStep'] = 2
+        parametros.todos['potenciaStep'] = 0
         parametros.todos['tempoStep'] = 1
         parametros.todos['modo'] = 1
 

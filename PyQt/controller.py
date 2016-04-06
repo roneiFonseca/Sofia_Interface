@@ -93,7 +93,7 @@ def controlImpedance(measuredImpedance):
    return parametros.flag['impedance']
 
 def controlTemperature(measuredTemperature):
-   tempMaxValue = 25
+   tempMaxValue = 27
    if(measuredTemperature>=tempMaxValue): # Temperatua muito alta
       parametros.flag['temperature'] = True
    else:
