@@ -10,8 +10,9 @@
 from PyQt4 import QtCore, QtGui
 import parametros
 import math
+import thread, time
 
-RPI_ON = True
+RPI_ON = False
 if (RPI_ON):
     import RPi.GPIO as GPIO
     import smbus
@@ -33,8 +34,6 @@ try:
 except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
-
-
 
 class Ui_thirdDialog(object):
 
@@ -59,7 +58,7 @@ class Ui_thirdDialog(object):
         self.lcdNumber.setGeometry(QtCore.QRect(80, 200, 121, 81))
         self.lcdNumber.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n"))
     
-        self.lcdNumber.display(parametros.todos['counter'])
+        self.lcdNumber.display(parametros.todos['potenciaInicial'])
 
 
         palette = QtGui.QPalette()
@@ -262,7 +261,7 @@ class Ui_thirdDialog(object):
         self.lcdNumber_2.setStyleSheet(_fromUtf8("background-color: blue;color:white"))
         self.lcdNumber_2.setObjectName(_fromUtf8("lcdNumber_2"))
 
-        self.lcdNumber_2.display(parametros.todos['counter'])
+        self.lcdNumber_2.display(parametros.todos['potenciaInicial'])
 
         self.pushButton_4 = QtGui.QPushButton(thirdDialog)
         self.pushButton_4.setGeometry(QtCore.QRect(640, 250, 61, 61))
@@ -318,57 +317,88 @@ class Ui_thirdDialog(object):
         #QtCore.QObject.connect(self.pushButton_4, QtCore.SIGNAL("clicked()") , self.final_button_Minus_click)
         QtCore.QObject.connect(self.pushButton_5 , QtCore.SIGNAL("clicked()") , self.iniciar_click)
         QtCore.QObject.connect(self.pushButton_6, QtCore.SIGNAL("clicked()") , self.parar_click)
-
-    
-
+        # QtCore.QObject.connect(self.pushButton_5 , QtCore.SIGNAL("clicked()") , self.update_Display)
+ 
     def initial_button_Plus_click(self):
-	parametros.todos['counter'] +=1
-	self.lcdNumber.display(parametros.todos['counter'])
+        parametros.todos['potenciaInicial'] +=1
+        self.lcdNumber.display(parametros.todos['potenciaInicial'])
         
     def initial_button_Minus_click(self):
-        parametros.todos['counter'] -=1 
-        self.lcdNumber.display(parametros.todos['counter'])
+        parametros.todos['potenciaInicial'] -=1 
+        self.lcdNumber.display(parametros.todos['potenciaInicial'])
         
     def final_button_Plus_click(self):        
-        parametros.todos['counter'] += 1
-        self.lcdNumber_2.display(parametros.todos['counter'])
-        parametros.todos['counter']-=1
+        parametros.todos['potenciaInicial'] += 1
+        self.lcdNumber_2.display(parametros.todos['potenciaInicial'])
+        parametros.todos['potenciaInicial']-=1
+    
     def final_button_Minus_click(self):
-	parametros.todos['counter'] -=1 
-	self.lcdNumber_2.display(parametros.todos['counter'])
+        parametros.todos['potenciaInicial'] -=1 
+        self.lcdNumber_2.display(parametros.todos['potenciaInicial'])
+    
     def iniciar_click(self):
-	print '========== New power set ==========='
-	print parametros.todos['counter']    
-	bus.write_byte_data(address, 0x44, parametros.todos['counter'])
-	
-        bus.write_byte(address, 1)
-	bus.read_byte(address)
-	current = bus.read_byte(address)
-	current = current*5/255	
-	
-	bus.write_byte(address, 2)
-	bus.read_byte(address)
-	voltage = bus.read_byte(address)
-	voltage = voltage*5/255
-	
-        print '========== Reading V and I ==========='
-	print 'V %f ='% voltage
-        print 'I %f=' %current
-
-    	try:
-        	impedancia = voltage/current
-        except ZeroDivisionError:
-   	        impedancia =10E9
-
-	#impedancia = voltage/current
-	power =  voltage*current
-   	self.lcdNumber_2.display(power)
-				 
-        
-        
+        print '========== New power set ==========='
+        print parametros.todos['potenciaInicial']    
+        if (RPI_ON):
+            bus.write_byte_data(address, 0x44, parametros.todos['potenciaInicial'])
+        # while 1 :
+        #     print'========== update_Display ==========='
+        #     self.lcdNumber_2.display(10)   
+        #     # time.sleep(1)   
+        # pass
+            
     def parar_click(self):
-	print'========== swithing off ADC ==========='
-	bus.write_byte_data(address, 0x44, 0X00)
+        print'========== swithing off ADC ==========='
+        if (RPI_ON):
+            bus.write_byte_data(address, 0x44, 0X00)
+
+def update_Display(threadname, delay):
+    print'========== update_Display ==========='
+    while 1 :
+        print'========== update_Display ==========='
+        ui.lcdNumber_2.display(parametros.todos['power'])   
+        time.sleep(delay)   
+        pass  
+
+def getPower(threadname, delay):
+    
+    while (1):
+        print '========== Reading V and I ==========='
+        if (RPI_ON):
+            bus.write_byte(address, 1)
+            bus.read_byte(address)
+            current = bus.read_byte(address)
+            current = current*5/255 
+            
+            bus.write_byte(address, 2)
+            bus.read_byte(address)
+            voltage = bus.read_byte(address)
+            voltage = voltage*5/255
+                    
+            print 'V %f ='% voltage
+            print 'I %f=' %current
+
+            try:
+                impedancia = voltage/current
+            except ZeroDivisionError:
+                impedancia =10E9
+
+            #impedancia = voltage/current
+            power =  voltage*current
+            parametros.todos['power'] = power
+
+        time.sleep(delay)
+def getTemp(threadname, delay):
+    while (1):
+        print '========== Reading temperatura ==========='
+        if (RPI_ON):
+            bus.write_byte(address, 0)
+            bus.read_byte(address)
+            temp_aux = bus.read_byte(address)
+            temperatura = 0.6040*temp_aux-72.9358
+            parametros.todos['temperatura'] = temperatura 
+        time.sleep(delay)
+
 
 if __name__ == "__main__":
     import sys
@@ -377,7 +407,14 @@ if __name__ == "__main__":
     ui = Ui_thirdDialog()
     ui.setupUi(thirdDialog)
     thirdDialog.show()
+    print '========== newTread.. ==========='
+    thread.start_new_thread( getPower, ("GetPowerThread", 1, ) )
+    thread.start_new_thread( update_Display, ("DisplayThread", 2, ) )
+    thread.start_new_thread( getTemp, ("TempThread", 1, ) )
+
     sys.exit(app.exec_())
+    
+
    
 
 

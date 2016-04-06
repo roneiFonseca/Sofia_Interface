@@ -15,12 +15,11 @@ from PyQt4 import QtCore, QtGui
 # from thirddialog import Ui_thirdDialog
 import sys 
 import parametros
-import controller
+# import controller
 import time
 import math
 import signal
-from help_box import Ui_Dialog
-import os
+import thread, time
 
 RPI_ON = True
 # RPI_ON = False
@@ -32,8 +31,6 @@ if (RPI_ON):
     GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)  
     GPIO.setup(24, GPIO.OUT)
     GPIO.setup(23, GPIO.OUT)
-    GPIO.output(24, 1)        #ajusta os reles
-    GPIO.output(23, 1)
 
 time_before= 0 
 time_beginning = 0
@@ -51,8 +48,7 @@ actuatorValue = 0
 
 if (RPI_ON):
     bus = smbus.SMBus(1)
-    address1 = 0x48
-    address2 = 0x49
+    address = 0x48
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -69,7 +65,7 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 class Ui_moniDialog(object):
-    # trigger = QtCore.pyqtSignal()
+    trigger = QtCore.pyqtSignal()
     def setupUi(self, moniDialog):
         moniDialog.setObjectName(_fromUtf8("moniDialog"))
         moniDialog.resize(800, 480)
@@ -191,61 +187,92 @@ class Ui_moniDialog(object):
 
         self.lcd_potencia.display(parametros.todos['potenciaRT']*5)
         if(RPI_ON):
-            bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)
+            bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)
 
+        # cont += 1
+        # if cont == 60:
+
+        #     if(RPI_ON):
+        #         bus.write_byte(address, 0)
+        #         bus.read_byte(address)
+        #     temp_aux = bus.read_byte(address)
+        #     temperatura = 0.6040*temp_aux-72.9358
+        #     self.lcd_temp.display(temperatura) 
+
+        #     if(RPI_ON):
+        #         bus.write_byte(address, 1)
+        #         bus.read_byte(address)
+        #     current = bus.read_byte(address)
+        #     current = current*5/255	
+
+        #     if(RPI_ON):
+        #         bus.write_byte(address, 2)
+        #         bus.read_byte(address)
+        #     voltage = bus.read_byte(address)
+        #     voltage = voltage*5/255
+
+        # print voltage # imprimir valor de tensao
+        # print current # imprimir valor de corrente
+        
+
+        # impedancia = voltage/current
+            # impedancia = controller.getImpedance(voltage,current)
+            # power =  voltage*current
+        # cont = 0 
+        # self.lcd_imp.display(impedancia) #Print Impedancia
+        # self.lcd_potencia.display(power) #Print power
+            
+        # bus.write_byte_data(address, 0x44, )
 
         self.lcd_potencia.display(parametros.todos['potenciaRT']*1)
 
         cont += 1
-        if cont == 60:
+        # if cont == 60:
 
-            if(RPI_ON):
-                bus.write_byte(address2, 0)
-                bus.read_byte(address2)
-                temp_aux = bus.read_byte(address2)
-                temperature = 0.6040*temp_aux-72.9358
-                self.lcd_temp.display(temperature) 
+        if(RPI_ON):
+            bus.write_byte(address, 0)
+            bus.read_byte(address)
+            temp_aux = bus.read_byte(address)
+            temperatura = 0.6040*temp_aux-72.9358
+            self.lcd_temp.display(temperatura) 
 
-            
-                bus.write_byte(address2, 1)
-                bus.read_byte(address2)
-                current = bus.read_byte(address2)
-                current = current*5/255	
+        
+            bus.write_byte(address, 1)
+            bus.read_byte(address)
+            current = bus.read_byte(address)
+            current = current*5/255	
 
-                bus.write_byte(address2, 2)
-                bus.read_byte(address2)
-                voltage = bus.read_byte(address2)
-                voltage = voltage*5/255
+            bus.write_byte(address, 2)
+            bus.read_byte(address)
+            voltage = bus.read_byte(address)
+            voltage = voltage*5/255
+            print voltage # imprimir valor de tensao
+            print current # imprimir valor de corrente
+            impedancia = voltage/current
+            power =  voltage*current
+            self.lcd_imp.display(impedancia) #Print Impedancia
+            self.lcd_potencia.display(power) #Print power
+        
+        parametros.todos['potenciaRT'] = 20
+        voltage = 5
+        current = 1
 
-                print voltage # imprimir valor de tensao
-                print current # imprimir valor de corrente
-                impedance = controller.getImpedance(voltage,current) #calculando impedancia
-                power =  controller.getPower(voltage,current) #calculando potencia
-                self.lcd_imp.display(impedance) #Print Impedancia
-                self.lcd_potencia.display(power) #Print power
 
-            #CONTROLE DE TENSAO
-            #Calculando o novo valor de tensao que deve ser colocado
-                newVoltage = controller.impedanceCalc(parametros.todos['potenciaRT'],voltage,current)
-                actuatorValue += controller.errorCalc(voltage,newVoltage)
-                print "Tensao de Entrada: " +str(actuatorValue)
-                if (actuatorValue < 0):
-                    actuatorValue = 0
-                elif(actuatorValue>255):
-                    actuatorValue = 255
-                else:
-                    if(RPI_ON):
-                        bus.write_byte_data(address1, 0x44, actuatorValue)
-                print "Tensao de Entrada(modificada): " +str(actuatorValue) #depois das condicoes
 
-            #CONTROLE DE TEMPERATURA
-                if (controller.controlTemperature(temperature)):
-                    #ATIVAR RELÉ DE IMPEDÂNCIA
-                    if(controller.controlImpedance(impedance)):
-                        #ATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
-                    else:
-                        parametros.todos['potenciaRT'] -= parametros.todos['potenciaStep']
-                cont = 0
+#CONTROLE DE TENSAO
+        #Calculando o novo valor de tensao que deve ser colocado
+        # newVoltage = controller.impedanceCalc(parametros.todos['potenciaRT'],voltage,current)
+        # actuatorValue += controller.errorCalc(voltage,newVoltage)
+        # print "Tensao de Entrada: " +str(actuatorValue)
+        # if (actuatorValue < 0):
+        #     actuatorValue = 0
+        # elif(actuatorValue>255):
+        #     actuatorValue = 255
+        # else:
+        #     if(RPI_ON):
+        #         bus.write_byte_data(address, 0x44, actuatorValue)
+        # print "Tensao de Entrada(modificada): " +str(actuatorValue) #depois das condicoes
+
 
         if restart == 0:
             time_now = time.time() - time_off
@@ -271,14 +298,13 @@ class Ui_moniDialog(object):
         self.lcd_tempo.display(str_count)
          
         #Atualizando o valor de potenciaRT  
-        if ( time_now - time_before > float(parametros.todos['tempoStep']*60) ) and (parametros.todos['potenciaRT']<parametros.todos['potenciaFinal'])):
+        if ( time_now - time_before > float(parametros.todos['tempoStep']*60) ) and (parametros.todos['potenciaRT']<parametros.todos['potenciaFinal']):
             parametros.todos['potenciaRT'] += parametros.todos['potenciaStep']
+            print time_now - time_before
+            print float(parametros.todos['tempoStep']*60)
+           
             time_before = time_now
 
-            # print time_now - time_before
-            # print float(parametros.todos['tempoStep']*60)
-
-        #Verificação do Fim da Operação
         if (minute == parametros.todos['tempo']) and (seconds == 0):
             # definir o protocolo de desligamento do aparelho quando o tempo acaba
             self.timer.stop()
@@ -306,13 +332,13 @@ class Ui_moniDialog(object):
         print "Hey amigo, estou aqui!"       
 
         
-   #      if(RPI_ON):
-			# bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)       
+        if(RPI_ON):
+			bus.write_byte_data(address, 0x44, parametros.todos['potenciaRT']*5)       
 
         
         
         if((initial_press == 0) and (stop_press == 1)) :               #condicao para reiniciar a contagem
-            self.timer.start(1) #1 miliseconds
+            self.timer.start(1) #1000 miliseconds
         
         if ((initial_press == 1) and (stop_press == 1)):                #condicao para o primeiro acionamento
             self.label_15.setText(_translate("moniDialog", "Modo de Operação: " + str (parametros.todos['modo']), None))
@@ -324,31 +350,14 @@ class Ui_moniDialog(object):
         if stop_press != 1:                                             #condicao para parar a contagem
             self.stop()
             if(RPI_ON):
-                bus.write_byte_data(address1, 0x44, 0X00)
+                bus.write_byte_data(address, 0x44, 0X00)
            
-
-        
-    def shutdown_function(self):
-
-       
-        ui.timer.stop()           #para o clock 
-        ui.Reset_Parameters()     #coloca as variaveis no padrao default
-        GPIO.output(24, 0)        #ajusta os reles
-        GPIO.output(23, 0)
-
-        print "Aumento súbito de corrente. Verifique IRF540 e se o circuito está em aberto."
-        os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
-        moniDialog.close()
-
 
     def Reset_Parameters(self):
         global time_before,time_beginning,minute,stop_press,initial_press,time_old,restart,time_off,time_now
-        
-
+       
         if(RPI_ON):
-            bus.write_byte_data(address1, 0x44, 0X00)
-
-
+            bus.write_byte_data(address, 0x44, 0X00)
         time_before= 0 
         time_beginning = 0
         minute = 0
@@ -365,10 +374,41 @@ class Ui_moniDialog(object):
         parametros.todos['tempo']=10
         parametros.todos['tempoStep']=1 
         parametros.todos['modo'] = 1
-     
-    if(RPI_ON):
-        GPIO.add_event_detect(17, GPIO.FALLING, callback=shutdown_function) 
+    
+    
+def ERROR_MSG(threadname, delay):
+    print "teste"
+    falhaFlag = 0
+    while falhaFlag != 0:
+        falhaFlag = GPIO.input(17)
+        pass
 
+    if QtGui.QMessageBox.critical(None, '', "Podemos dar tchau?",
+                            QtGui.QMessageBox.Yes | QtGui.QMessageBox.No,
+                            QtGui.QMessageBox.No) == QtGui.QMessageBox.Yes:
+        QtGui.QApplication.quit()   
+    
+    def shutdown_function(self):
+        trigger = QtCore.SIGNAL()
+        ###########Teste para acionamento dos Reles##################
+        # GPIO.output(24, 1)    
+        # GPIO.output(23, 1) 
+        # ERROR_MSG()
+        # someone = Communicate()
+        # someone.speakNumber.connect(ERROR_MSG)
+        # self.emit(SIGNAL("newStatuses (statuses)"), statuses)
+        # trigger.connect(self.ERROR_MSG)
+        # QtCore.QObject.connect(self.moniDialog, QtCore.SIGNAL("trigger"), self.ERROR_MSG)
+        # # QtCore.QObject.connect(self.trigger, self.ERROR_MSG) 
+        # trigger.emit()
+
+        # thread.start_new_thread( getPower, ("ERROR_MSG", 1, ) )
+
+    # if(RPI_ON):
+    #     GPIO.add_event_detect(17, GPIO.FALLING, callback=shutdown_function) 
+         
+       
+    signal.signal(signal.SIGINT, ERROR_MSG)
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
@@ -376,4 +416,5 @@ if __name__ == "__main__":
     ui = Ui_moniDialog()
     ui.setupUi(moniDialog)
     moniDialog.show()
+    # thread.start_new_thread( ERROR_MSG, ("ERROR_MSG_TTHREAD", 1, ) )
     sys.exit(app.exec_())

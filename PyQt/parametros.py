@@ -6,3 +6,7 @@ todos = {
 'tempo':10,
 'tempoStep':1, 
 'modo': 1};
+
+flag = {
+	'impedance': False,
+	'temperature': False}

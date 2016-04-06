@@ -203,8 +203,8 @@ class Ui_moniDialog(object):
                 bus.write_byte(address2, 0)
                 bus.read_byte(address2)
                 temp_aux = bus.read_byte(address2)
-                temperature = 0.6040*temp_aux-72.9358
-                self.lcd_temp.display(temperature) 
+                temperatura = 0.6040*temp_aux-72.9358
+                self.lcd_temp.display(temperatura) 
 
             
                 bus.write_byte(address2, 1)
@@ -219,13 +219,13 @@ class Ui_moniDialog(object):
 
                 print voltage # imprimir valor de tensao
                 print current # imprimir valor de corrente
-                impedance = controller.getImpedance(voltage,current) #calculando impedancia
+                impedancia = controller.getImpedance(voltage,current) #calculando impedancia
                 power =  controller.getPower(voltage,current) #calculando potencia
-                self.lcd_imp.display(impedance) #Print Impedancia
+                self.lcd_imp.display(impedancia) #Print Impedancia
                 self.lcd_potencia.display(power) #Print power
 
-            #CONTROLE DE TENSAO
-            #Calculando o novo valor de tensao que deve ser colocado
+#CONTROLE DE TENSAO
+#Calculando o novo valor de tensao que deve ser colocado
                 newVoltage = controller.impedanceCalc(parametros.todos['potenciaRT'],voltage,current)
                 actuatorValue += controller.errorCalc(voltage,newVoltage)
                 print "Tensao de Entrada: " +str(actuatorValue)
@@ -238,14 +238,13 @@ class Ui_moniDialog(object):
                         bus.write_byte_data(address1, 0x44, actuatorValue)
                 print "Tensao de Entrada(modificada): " +str(actuatorValue) #depois das condicoes
 
-            #CONTROLE DE TEMPERATURA
-                if (controller.controlTemperature(temperature)):
-                    #ATIVAR RELÉ DE IMPEDÂNCIA
-                    if(controller.controlImpedance(impedance)):
-                        #ATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
-                    else:
-                        parametros.todos['potenciaRT'] -= parametros.todos['potenciaStep']
                 cont = 0
+
+
+
+
+
+
 
         if restart == 0:
             time_now = time.time() - time_off
@@ -271,14 +270,13 @@ class Ui_moniDialog(object):
         self.lcd_tempo.display(str_count)
          
         #Atualizando o valor de potenciaRT  
-        if ( time_now - time_before > float(parametros.todos['tempoStep']*60) ) and (parametros.todos['potenciaRT']<parametros.todos['potenciaFinal'])):
+        if ( time_now - time_before > float(parametros.todos['tempoStep']*60) ) and (parametros.todos['potenciaRT']<parametros.todos['potenciaFinal']):
             parametros.todos['potenciaRT'] += parametros.todos['potenciaStep']
+            print time_now - time_before
+            print float(parametros.todos['tempoStep']*60)
+           
             time_before = time_now
 
-            # print time_now - time_before
-            # print float(parametros.todos['tempoStep']*60)
-
-        #Verificação do Fim da Operação
         if (minute == parametros.todos['tempo']) and (seconds == 0):
             # definir o protocolo de desligamento do aparelho quando o tempo acaba
             self.timer.stop()
