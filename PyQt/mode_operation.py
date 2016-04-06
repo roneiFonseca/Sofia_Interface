@@ -76,7 +76,7 @@ class Ui_SecDialog(object):
         self.pushButton.setText(_translate("SecDialog", "MANUAL", None))
         self.pushButton_2.setText(_translate("SecDialog", "AUTOMÁTICO", None))
         self.pushButton_3.setText(_translate("SecDialog", "PRÉ-CLÍNICO", None))
-        self.pushButton_help.setText(_translate("SecDialog", "...", None))
+        self.pushButton_help.setText(_translate("SecDialog", "?", None))
 
         QtCore.QObject.connect(self.pushButton_help , QtCore.SIGNAL("clicked()") , self.Help)
         QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL("clicked()") , self.Power_Func)
