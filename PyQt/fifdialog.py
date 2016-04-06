@@ -62,9 +62,15 @@ class Ui_fifDialog(object):
         self.pushButton_4.setStyleSheet("font-weight:bold;background-color: gray;border-radius: 10px;")
 
         self.pushButton_6 = QtGui.QPushButton(fifDialog)
-        self.pushButton_6.setGeometry(QtCore.QRect(75, 390, 111, 51))
+        self.pushButton_6.setGeometry(QtCore.QRect(145, 390, 111, 51))
         self.pushButton_6.setStyleSheet(_fromUtf8("font: 14pt \"Arial\";\n""\n"""))
         self.pushButton_6.setStyleSheet("font-weight:bold;background-color:rgb(40, 255, 0);border-radius: 10px;")
+        
+        self.pushButton_7 = QtGui.QPushButton(fifDialog)
+        self.pushButton_7.setGeometry(QtCore.QRect(25, 390, 111, 51))
+        self.pushButton_7.setStyleSheet(_fromUtf8("font: 14pt \"Arial\";\n""\n"""))
+        self.pushButton_7.setStyleSheet("font-weight:bold;background-color:red;border-radius: 10px;")
+        
         self.pic = QtGui.QLabel(fifDialog)
         self.pic.setGeometry(QtCore.QRect(309, 130, 461, 261))
         self.pic.setStyleSheet(_fromUtf8("border: 2px solid white;\n"))
@@ -87,11 +93,14 @@ class Ui_fifDialog(object):
         self.pushButton_3.setText(QtGui.QApplication.translate("fifDialog", "12min 2.5W 1W-31W", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_4.setText(QtGui.QApplication.translate("fifDialog", "15min 1W 10W-25W", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_6.setText(QtGui.QApplication.translate("fifDialog", "OK", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_7.setText(QtGui.QApplication.translate("fifDialog", "Voltar", None, QtGui.QApplication.UnicodeUTF8))
+
 
         QtCore.QObject.connect(self.pushButton_2 , QtCore.SIGNAL("clicked()") , self.mode1)
         QtCore.QObject.connect(self.pushButton_3 , QtCore.SIGNAL("clicked()") , self.mode2)
         QtCore.QObject.connect(self.pushButton_4 , QtCore.SIGNAL("clicked()") , self.mode3)
         QtCore.QObject.connect(self.pushButton_6 , QtCore.SIGNAL("clicked()") , self.ok)
+        QtCore.QObject.connect(self.pushButton_7 , QtCore.SIGNAL("clicked()") , fifDialog.close)
 
 
 
