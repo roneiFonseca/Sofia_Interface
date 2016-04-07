@@ -63,7 +63,6 @@ class Ui_choosingScreen(object):
 
 
     def automatic(self):
-        # choosingScreen.close()
         parametros.flag['manualMode'] = False
         fifDialog = QtGui.QDialog()
         ui = Ui_fifDialog()
@@ -71,7 +70,6 @@ class Ui_choosingScreen(object):
         fifDialog.exec_()
 
     def manual(self):
-        # choosingScreen.close()
         parametros.flag['manualMode'] = True
         secDialog = QtGui.QDialog()
         ui = Ui_SecDialog()
