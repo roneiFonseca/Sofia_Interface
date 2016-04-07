@@ -288,14 +288,6 @@ class Ui_moniDialog(object):
                     print "TEMPERATURA OK!"
                     GPIO.output(19,0)                     #DESATIVAR RELÉ DE IMPEDÂNCIA
 
-                if(controller.controlImpedance(impedance)):
-                    print "IMPEDANCIA MUITO ALTA/BAIXA"
-                    GPIO.output(26,1)         #ATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
-                else:
-                    print "IMPEDANCIA OK!"
-                    GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)                    
-
-                cont = 0
 
         if restart == 0:
             time_now = time.time() - time_off
@@ -322,17 +314,26 @@ class Ui_moniDialog(object):
          
         #Atualizando o valor de potenciaRT  
         if ( time_now - time_before > float(parametros.todos['tempoStep']*60) ) and (parametros.todos['potenciaRT']<parametros.todos['potenciaFinal']):
-            parametros.todos['potenciaRT'] += parametros.todos['potenciaStep']
-            time_before = time_now
+            if (minute == parametros.todos['tempo']) and (seconds == 0): #Verificação do Fim da Operação
+                # definir o protocolo de desligamento do aparelho quando o tempo acaba
+                parametros.flag['endOfOperation'] = True # Flag do fim da operacao
+                self.timer.stop() #"Desligar"
+            else:
+                parametros.todos['potenciaRT'] += parametros.todos['potenciaStep']
+            time_before = time_now #Atualizar contagem
 
-            # print time_now - time_before
-            # print float(parametros.todos['tempoStep']*60)
+        #CONTROLE DE IMPEDÂNCIA
+        if cont == 60: #Esta verificacao é feita a cada 60 ms
+            if(controller.controlImpedance(impedance)):
+                print "IMPEDANCIA MUITO ALTA/BAIXA"
+                GPIO.output(26,1)         #ATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
+                self.timer.stop() #"Desligar"
+            else:
+                print "IMPEDANCIA OK!"
+                GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)                    
 
-        #Verificação do Fim da Operação
-        if (minute == parametros.todos['tempo']) and (seconds == 0):
-            # definir o protocolo de desligamento do aparelho quando o tempo acaba
-            parametros.flag['endOfOperation'] = True # Flag do fim da operacao
-            self.timer.stop()
+            cont = 0
+
 
     def stop(self):
         global time_before, stop_press,initial_press, time_old,restart,time_off,time_now
