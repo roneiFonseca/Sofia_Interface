@@ -11,5 +11,6 @@ flag = {
 	'impedance':False,
 	'temperature':False,
 	'endOfOperation':False,
-	'manualMode':False}
+	'manualMode':False,
+	'stepDown':False}
 

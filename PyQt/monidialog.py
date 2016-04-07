@@ -45,7 +45,7 @@ if (RPI_ON):
     GPIO.output(21,0)
     
 
-
+# Variaveis para contagem de step
 time_before= 0 
 time_beginning = 0
 minute = 0
@@ -57,6 +57,11 @@ time_off = 0
 time_now = 0
 cont = 0
 teste = 22
+
+#Contadores do Step Down de Potencia
+stepDownTop = 0
+stepDownBottom = 0
+
 
 actuatorValue = 0
 
@@ -192,6 +197,7 @@ class Ui_moniDialog(object):
 
     def control(self):
         global time_before, time_beginning, minute, stop_press, initial_press,time_old, restart, time_off, time_now, cont
+        global stepDownCounter
         if(RPI_ON):
             global bus, address, actuatorValue
         self.pushButton_7.setText(_translate("moniDialog", "PARAR ", None))
@@ -274,16 +280,26 @@ class Ui_moniDialog(object):
 
             #CONTROLE DE TEMPERATURA
                 if (controller.controlTemperature(temperature)):
-                    GPIO.output(19,1)                     #ATIVAR RELÉ DE IMPEDÂNCIA
+                    GPIO.output(19,1)                     #ATIVAR RELÉ DE TEMPERATURA
                     print "TEMPERATURA MÁXIMA"
                     if(controller.controlImpedance(impedance)):
-                        GPIO.output(26,1)         #ATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
+                        GPIO.output(26,1)         #ATIVAR RELÉ DE IMPEDÂNCIA (DESLIGAR APARELHO)
                         print "IMPEDANCIA MUITO ALTA/BAIXA"
                     else:
                         print "IMPEDANCIA OK!"
                         GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
                         if(parametros.todos['potenciaRT']>parametros.todos['potenciaStep']): # Nao diminuir step caso potencia seja 0
-                            parametros.todos['potenciaRT'] -= parametros.todos['potenciaStep']
+                            if(not(parametros.flags['stepDown'])):
+                                parametros.todos['potenciaRT'] -= parametros.todos['potenciaStep']
+                                parametros.flags['stepDown'] = True # Significa que a potência já foi abaixada
+                                stepDownTop = time.time() # Começa a contar
+                                stepDownBottom = stepDownTop
+                            else:
+                                stepDownTop = time.time()
+                                if (stepDownTop - stepDownBottom > float(parametros.todos['tempoStep']*60)):
+                                    parametros.flags['stepDown'] = False #Libera para mais um step-Down
+                                
+
                 else:
                     print "TEMPERATURA OK!"
                     GPIO.output(19,0)                     #DESATIVAR RELÉ DE IMPEDÂNCIA
