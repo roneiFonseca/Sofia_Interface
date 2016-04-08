@@ -268,7 +268,6 @@ class Ui_moniDialog(object):
                         break #sai do for se chegar aqui
                     except Exception, e:
                         logger.error('Erro na leitura ADC Temperatura', exc_info=True)
-
                 print voltage # imprimir valor de tensao
                 print current # imprimir valor de corrente
                 impedance = controller.getImpedance(voltage,current) #calculando impedancia
