@@ -32,7 +32,7 @@ logger.addHandler(handler)
 
 
 
-RPI_ON = False
+RPI_ON = True
 
 if (RPI_ON):
     import RPi.GPIO as GPIO
