@@ -335,11 +335,11 @@ class Ui_moniDialog(object):
 
             #CONTROLE DE TEMPERATURA
                 if (controller.controlTemperature(temperature)):
-                    GPIO.output(19,1)                     #ATIVAR RELÉ DE IMPEDÂNCIA
+                    GPIO.output(19,1)                     #ATIVAR RELÉ DE TEMPERATURA
                     print "TEMPERATURA MÁXIMA"
                     logger.warn('Temperarura muito alta - %s',temperature)
                     if(controller.controlImpedance(impedance)):
-                        GPIO.output(26,1)         #ATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
+                        GPIO.output(26,1)         #ATIVAR RELÉ DE IMPEDÂNCIA (DESLIGAR APARELHO)
                         print "IMPEDANCIA MUITO ALTA/BAIXA"
                         logger.warn('Nivel de Impedancia muito Alto/Baixo - %s',impedance)
                     else:
@@ -347,22 +347,19 @@ class Ui_moniDialog(object):
                         logger.info('Nivel de Impedancia de acordo com os limites estabelecidos - %s',impedance)
                         GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
                         if(parametros.todos['potenciaRT']>parametros.todos['potenciaStep']): # Nao diminuir step caso potencia seja 0
-                            parametros.todos['potenciaRT'] -= parametros.todos['potenciaStep']
+                            if(not(parametros.flags['stepDown'])):
+                                parametros.todos['potenciaRT'] -= parametros.todos['potenciaStep']
+                                parametros.flags['stepDown'] = True # Significa que a potência já foi abaixada
+                                stepDownTop = time.time() # Começa a contar
+                                stepDownBottom = stepDownTop
+                            else:
+                                stepDownTop = time.time()
+                                if (stepDownTop - stepDownBottom > float(parametros.todos['tempoStep']*60)):
+                                    parametros.flags['stepDown'] = False #Libera para mais um step-Down
                 else:
                     print "TEMPERATURA OK!"
                     logger.info('Temperatura de acordo com os limites estabelecidos - %s',temperature)
                     GPIO.output(19,0)                     #DESATIVAR RELÉ DE IMPEDÂNCIA
-
-                if(controller.controlImpedance(impedance)):
-                    print "IMPEDANCIA MUITO ALTA/BAIXA"
-                    logger.warn('Nivel de Impedancia muito Alto/Baixo - %s',impedance)
-                    GPIO.output(26,1)         #ATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
-                else:
-                    print "IMPEDANCIA OK!"
-                    logger.info('Nivel de Impedancia de acordo com os limites estabelecidos -%s',impedance)
-                    GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)                    
-
-                cont = 0
 
         if restart == 0:
             time_now = time.time() - time_off
@@ -389,17 +386,27 @@ class Ui_moniDialog(object):
          
         #Atualizando o valor de potenciaRT  
         if ( time_now - time_before > float(parametros.todos['tempoStep']*60) ) and (parametros.todos['potenciaRT']<parametros.todos['potenciaFinal']):
-            parametros.todos['potenciaRT'] += parametros.todos['potenciaStep']
-            time_before = time_now
+            if (minute == parametros.todos['tempo']) and (seconds == 0): #Verificação do Fim da Operação
+                # definir o protocolo de desligamento do aparelho quando o tempo acaba
+                parametros.flag['endOfOperation'] = True # Flag do fim da operacao
+                self.timer.stop() #"Desligar"
+            else:
+                parametros.todos['potenciaRT'] += parametros.todos['potenciaStep']
+            time_before = time_now #Atualizar contagem
 
-            # print time_now - time_before
-            # print float(parametros.todos['tempoStep']*60)
+        #CONTROLE DE IMPEDÂNCIA
+        if cont == 60: #Esta verificacao é feita a cada 60 ms
+            if(controller.controlImpedance(impedance)):
+                print "IMPEDANCIA MUITO ALTA/BAIXA"
+                logger.warn('Nivel de Impedancia muito Alto/Baixo - %s',impedance)
+                GPIO.output(26,1)         #ATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
+                self.timer.stop() #"Desligar"
+            else:
+                print "IMPEDANCIA OK!"
+                logger.info('Nivel de Impedancia de acordo com os limites estabelecidos -%s',impedance)
+                GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)                    
 
-        #Verificação do Fim da Operação
-        if (minute == parametros.todos['tempo']) and (seconds == 0):
-            # definir o protocolo de desligamento do aparelho quando o tempo acaba
-            parametros.flag['endOfOperation'] = True # Flag do fim da operacao
-            self.timer.stop()
+            cont = 0
 
     def stop(self):
         global time_before, stop_press,initial_press, time_old,restart,time_off,time_now
