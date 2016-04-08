@@ -12,6 +12,10 @@ from thirddialog import Ui_thirdDialog
 from fifdialog import Ui_fifDialog
 from help_box import Ui_Dialog
 import parametros
+<<<<<<< HEAD
+=======
+import pylab_plot
+>>>>>>> galho_do_matias
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -111,10 +115,10 @@ class PlotterThread(QtCore.QThread):
     def __init__(self):
         QtCore.QThread.__init__(self)
 
-    def plot(self):
-        # time.sleep(4)
-        while True:
-            print "Done with the thread"
+    def run(self):
+        for option in range(1,4):
+            pylab_plot.plotMode(option)
+        print "Done with the thread"
 
 
 

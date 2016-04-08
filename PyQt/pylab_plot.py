@@ -16,23 +16,27 @@ def plotMode(mode):
 	os.listdir(os.getcwd())
 	img = "mode" + str(mode) + ".png"
 	# print img
-	sentence = [
-	"[ -f mode1.png ] && rm mode1.png",
-	"[ -f mode2.png ] && rm mode2.png",
-	"[ -f mode3.png ] && rm mode3.png"
-	]
+	# sentence = [
+	# "[ -f mode1.png ] && rm mode1.png",
+	# "[ -f mode2.png ] && rm mode2.png",
+	# "[ -f mode3.png ] && rm mode3.png"
+	# ]
+
+	sentence = "[ -f "+img+" ] && rm "+img
+	print sentence
+	os.system(sentence)
 	# print sentence
-	for k in range(len(sentence)):
-		os.system(sentence[k])
+	# for k in range(len(sentence)):
+	# 	os.system(sentence[k])
 
 
-	time_step = tempoStep[mode]
+	time_step = tempoStep[mode-1]
 	timeValue = 0 	#Tempo sempre inicia
-	potStep = potenciaStep[mode]
-	potValue = potenciaInicial[mode]
+	potStep = potenciaStep[mode-1]
+	potValue = potenciaInicial[mode-1]
 	y = [potValue]
 	x=[timeValue]
-	interval = tempo[mode]
+	interval = tempo[mode-1]
 
 	for n in range(interval/time_step):
 	# for n in range(int(interval/time_step)):
@@ -63,4 +67,3 @@ def plotMode(mode):
 	plt.axis([0, (interval), 0, 50])
 	fig.savefig(img, facecolor='gray', edgecolor='black')
 	plt.close()
-
