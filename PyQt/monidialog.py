@@ -17,6 +17,21 @@ import time
 import math
 import os
 
+import logging
+
+#configurando arquivo de log
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+#criando handler file
+handler = logging.FileHandler('Teste.log')
+handler.setLevel(logging.INFO)
+#Formatacao das mensagens de log
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+
+
+
 # RPI_ON = True
 RPI_ON = False
 
@@ -37,15 +52,24 @@ if (RPI_ON):
     GPIO.output(26,0)
     
     #Teste controle AGC (Peter 5/4/16)
+    #Entrada de controle
     GPIO.setup(16,GPIO.OUT)
     GPIO.setup(20,GPIO.OUT)
     GPIO.setup(21,GPIO.OUT)
     GPIO.output(16,0)
     GPIO.output(20,0)
     GPIO.output(21,0)
+    #Saida de controle - Reles
+    GPIO.setup(5,GPIO.OUT)
+    GPIO.setup(6,GPIO.OUT)
+    GPIO.setup(13,GPIO.OUT)
+    GPIO.output(5,0)
+    GPIO.output(6,0)
+    GPIO.output(13,0)
+    
     
 
-# Variaveis para contagem de step
+
 time_before= 0 
 time_beginning = 0
 minute = 0
@@ -197,7 +221,6 @@ class Ui_moniDialog(object):
 
     def control(self):
         global time_before, time_beginning, minute, stop_press, initial_press,time_old, restart, time_off, time_now, cont
-        global stepDownCounter
         if(RPI_ON):
             global bus, address, actuatorValue
         self.pushButton_7.setText(_translate("moniDialog", "PARAR ", None))
@@ -214,50 +237,82 @@ class Ui_moniDialog(object):
         if cont == 60:
 
             if(RPI_ON):
-                #Leitura de Tensão
-                bus.write_byte(address2, 0)
-                bus.read_byte(address2)
-                voltage = bus.read_byte(address2)
-                voltage = voltage*5/255
+                for x in xrange(0,10):
+                    try:
+                        #Leitura de Tensão
+                        bus.write_byte(address2, 0)
+                        bus.read_byte(address2)
+                        voltage = bus.read_byte(address2)
+                        voltage = voltage*5/255
+                        break #sai do for se chegar aqui
+                    except Exception, e:
+                        logger.error('Erro na leitura ADC Tensao', exc_info=True)   
+                for x in xrange(0,10):
+                    try:
+                        #Leitura de corrente
+                        bus.write_byte(address2, 1)
+                        bus.read_byte(address2)
+                        current = bus.read_byte(address2)
+                        current = current*5/255 
+                        break #sai do for se chegar aqui
+                    except Exception, e:
+                        logger.error('Erro na leitura ADC Corrente', exc_info=True)
+                for x in xrange(0,10):
+                    try:
+                        #Leitura de Temperatura
+                        bus.write_byte(address2, 2)
+                        bus.read_byte(address2)
+                        temp_aux = bus.read_byte(address2)
+                        temperature = 0.6040*temp_aux-72.9358
+                        self.lcd_temp.display(temperature) 
+                        break #sai do for se chegar aqui
+                    except Exception, e:
+                        logger.error('Erro na leitura ADC Temperatura', exc_info=True)
 
-                #Leitura de Corrente
-                bus.write_byte(address2, 1)
-                bus.read_byte(address2)
-                current = bus.read_byte(address2)
-                current = current*5/255 
-
-                #Leitura de Temperatura
-                bus.write_byte(address2, 2)
-                bus.read_byte(address2)
-                temp_aux = bus.read_byte(address2)
-                temperature = 0.6040*temp_aux-72.9358
-                self.lcd_temp.display(temperature) 
-
-                
                 print voltage # imprimir valor de tensao
                 print current # imprimir valor de corrente
                 impedance = controller.getImpedance(voltage,current) #calculando impedancia
                 #Teste controle AGC (Peter 5/4/16)
                 agc = controller.controlAGC(impedance)
                 print agc
-                if(agc == 1):
+                if(agc == 0):
+                    GPIO.output(16,0)
+                    GPIO.output(20,0)
+                    GPIO.output(21,0)
+                    GPIO.output(5,0)
+                    GPIO.output(6,0)
+                    GPIO.output(13,0)
+                elif(agc == 1):
                     GPIO.output(16,0)
                     GPIO.output(20,0)
                     GPIO.output(21,1)
+                    GPIO.output(5,0)
+                    GPIO.output(6,0)
+                    GPIO.output(13,1)
                 elif(agc == 2):
                     GPIO.output(16,0)
                     GPIO.output(20,1)
                     GPIO.output(21,0)
+                    GPIO.output(5,0)
+                    GPIO.output(6,1)
+                    GPIO.output(13,0)
                 elif(agc == 3):
                     GPIO.output(16,0)
                     GPIO.output(20,1)
                     GPIO.output(21,1)
+                    GPIO.output(5,0)
+                    GPIO.output(6,1)
+                    GPIO.output(13,1)
                 elif(agc == 4):
                     GPIO.output(16,1)
                     GPIO.output(20,0)
                     GPIO.output(21,0)
+                    GPIO.output(5,1)
+                    GPIO.output(6,0)
+                    GPIO.output(13,0)
                 else:
                     print "Valor de Impedancia fora de range - AGC"
+                    logger.warn('Valor de Impedancia fora de range - AGC')
                 power =  controller.getPower(voltage,current) #calculando potencia
                 self.lcd_imp.display(impedance) #Print Impedancia
                 self.lcd_potencia.display(power) #Print power
@@ -274,19 +329,27 @@ class Ui_moniDialog(object):
                 else:
                     pass
                 if(RPI_ON):
-                    bus.write_byte_data(address1, 0x44, actuatorValue)
-                    time.sleep(1.0)
-                    print "Tensao de Entrada(modificada): " +str(actuatorValue) #depois das condicoes
+                    for x in xrange(0,10):
+                        try:
+                            bus.write_byte_data(address1, 0x44, actuatorValue)
+                            time.sleep(1.0)
+                            print "Tensao de Entrada(modificada): " +str(actuatorValue) #depois das condicoes   
+                            break #sai do for se chegar aqui    
+                        except Exception, e:
+                            logger.error('Erro na escrita do DAC', exc_info=True)
 
             #CONTROLE DE TEMPERATURA
                 if (controller.controlTemperature(temperature)):
                     GPIO.output(19,1)                     #ATIVAR RELÉ DE TEMPERATURA
                     print "TEMPERATURA MÁXIMA"
+                    logger.warn('Temperarura muito alta - %s',temperature)
                     if(controller.controlImpedance(impedance)):
                         GPIO.output(26,1)         #ATIVAR RELÉ DE IMPEDÂNCIA (DESLIGAR APARELHO)
                         print "IMPEDANCIA MUITO ALTA/BAIXA"
+                        logger.warn('Nivel de Impedancia muito Alto/Baixo - %s',impedance)
                     else:
                         print "IMPEDANCIA OK!"
+                        logger.info('Nivel de Impedancia de acordo com os limites estabelecidos - %s',impedance)
                         GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
                         if(parametros.todos['potenciaRT']>parametros.todos['potenciaStep']): # Nao diminuir step caso potencia seja 0
                             if(not(parametros.flags['stepDown'])):
@@ -300,8 +363,8 @@ class Ui_moniDialog(object):
                                     parametros.flags['stepDown'] = False #Libera para mais um step-Down
                 else:
                     print "TEMPERATURA OK!"
+                    logger.info('Temperatura de acordo com os limites estabelecidos - %s',temperature)
                     GPIO.output(19,0)                     #DESATIVAR RELÉ DE IMPEDÂNCIA
-
 
         if restart == 0:
             time_now = time.time() - time_off
@@ -340,17 +403,20 @@ class Ui_moniDialog(object):
         if cont == 60: #Esta verificacao é feita a cada 60 ms
             if(controller.controlImpedance(impedance)):
                 print "IMPEDANCIA MUITO ALTA/BAIXA"
+                logger.warn('Nivel de Impedancia muito Alto/Baixo - %s',impedance)
                 GPIO.output(26,1)         #ATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
                 self.timer.stop() #"Desligar"
             else:
                 print "IMPEDANCIA OK!"
+                logger.info('Nivel de Impedancia de acordo com os limites estabelecidos -%s',impedance)
                 GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)                    
 
             cont = 0
 
-
     def stop(self):
         global time_before, stop_press,initial_press, time_old,restart,time_off,time_now
+        logger.info('Operação pausada')  
+        logger.info('Potencia RT: %s  Tempo: %s  Modo: %s',parametros.todos['potenciaRT'],parametros.todos['tempo'],parametros.todos['modo'])            
         self.pushButton_7.setText(_translate("moniDialog", "INICIAR ", None))
         self.pushButton_7.setStyleSheet("font-weight:bold;background-color: rgb(40, 255, 0);border-radius: 10px;")
         time_old = time_now
@@ -365,8 +431,26 @@ class Ui_moniDialog(object):
 
     def start(self):
         global time_before,time_beginning,stop_press, initial_press,pwm_pin1
-        global RPI_ON     
+        global RPI_ON
 
+
+        print "Hey amigo, estou aqui!" 
+        logger.info('Operação iniciada')  
+        logger.info('Potencia Inicial: %s  Potencia Final: %s  Step de Potencia: %s',parametros.todos['potenciaInicial'],parametros.todos['potenciaFinal'],parametros.todos['potenciaStep'])            
+        logger.info('Tempo: %s  Step de Tempo: %s  Modo: %s',parametros.todos['tempo'],parametros.todos['tempoStep'],parametros.todos['modo'])
+       # pwm_pin1.start(parametros.todos['potenciaRT'])
+       # PWMservo.set_servo(pwm_pin1, parametros.todos['potenciaRT']*399)
+        # print "Hey amigo, estou aqui!"       
+
+        
+   #      if(RPI_ON):
+            # bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)       
+
+        
+
+            # bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)       
+       
+        
         if((initial_press == 0) and (stop_press == 1)) :               #condicao para reiniciar a contagem
             self.timer.start(1) #1 miliseconds
         
@@ -380,8 +464,12 @@ class Ui_moniDialog(object):
         if stop_press != 1:                                             #condicao para parar a contagem
             self.stop()
             if(RPI_ON):
-                bus.write_byte_data(address1, 0x44, 0X00)
-
+                for x in xrange(0,10):
+                    try:
+                        bus.write_byte_data(address1, 0x44, 0X00)
+                        break #sai do for se chegar aqui
+                    except Exception, e:
+                        logger.error('Erro na escrita do DAC', exc_info=True)
         
     def shutdown_function(self):
 
@@ -393,6 +481,7 @@ class Ui_moniDialog(object):
 
 
         print "Aumento súbito de corrente. Verifique IRF540 e se o circuito está em aberto."
+        logger.warn('Aumento súbito de corrente. Verifique IRF540 e se o circuito está em aberto')
         os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
         GPIO.cleanup()
         moniDialog.close()
@@ -404,7 +493,12 @@ class Ui_moniDialog(object):
         
 
         if(RPI_ON):
-            bus.write_byte_data(address1, 0x44, 0X00)
+            for x in xrange(0,10):
+                try:
+                    bus.write_byte_data(address1, 0x44, 0X00)
+                    break #sai do for se chegar aqui
+                except Exception, e:
+                    logger.error('Erro na escrita do DAC', exc_info=True)
 
 
         time_before= 0 
@@ -420,7 +514,7 @@ class Ui_moniDialog(object):
         parametros.todos['potenciaRT']= 0
         parametros.todos['potenciaStep']=2 
         parametros.todos['potenciaFinal']= 20
-        parametros.todos['tempo']=10
+        parametros.todos['tempo']=1
         parametros.todos['tempoStep']=1 
         parametros.todos['modo'] = 1
      
