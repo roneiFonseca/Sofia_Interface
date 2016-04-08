@@ -404,7 +404,7 @@ class Ui_moniDialog(object):
                 print "IMPEDANCIA MUITO ALTA/BAIXA"
                 logger.warn('Nivel de Impedancia muito Alto/Baixo - %s',impedance)
                 GPIO.output(26,1)         #ATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
-                self.timer.stop() #"Desligar"
+                #self.timer.stop() #"Desligar"
             else:
                 print "IMPEDANCIA OK!"
                 logger.info('Nivel de Impedancia de acordo com os limites estabelecidos -%s',impedance)
