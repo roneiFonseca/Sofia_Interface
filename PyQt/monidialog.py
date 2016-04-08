@@ -357,7 +357,7 @@ class Ui_moniDialog(object):
                                 stepDownBottom = stepDownTop
                             else:
                                 stepDownTop = time.time()
-                                if (stepDownTop - stepDownBottom > float(parametros.todos['tempoStep']*60)):
+                                if (stepDownTop - stepDownBottom > 1.0):
                                     parametros.flag['stepDown'] = False #Libera para mais um step-Down
                 else:
                     print "TEMPERATURA OK!"
