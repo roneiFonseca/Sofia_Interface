@@ -220,6 +220,7 @@ class Ui_moniDialog(object):
 
     def control(self):
         global time_before, time_beginning, minute, stop_press, initial_press,time_old, restart, time_off, time_now, cont
+        global stepDownTop,stepDownBottom
         if(RPI_ON):
             global bus, address, actuatorValue
         self.pushButton_7.setText(_translate("moniDialog", "PARAR ", None))
