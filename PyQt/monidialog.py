@@ -349,7 +349,7 @@ class Ui_moniDialog(object):
                         print "IMPEDANCIA OK!"
                         logger.info('Nivel de Impedancia de acordo com os limites estabelecidos - %s',impedance)
                         GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
-                        if(parametros.todos['potenciaRT']>parametros.todos['potenciaStep']): # Nao diminuir step caso potencia seja 0
+                        if(parametros.todos['potenciaRT']>=parametros.todos['potenciaStep']): # Nao diminuir step caso potencia seja 0
                             if(not(parametros.flag['stepDown'])):
                                 parametros.todos['potenciaRT'] -= parametros.todos['potenciaStep']
                                 parametros.flag['stepDown'] = True # Significa que a potência já foi abaixada
