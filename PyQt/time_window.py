@@ -9,7 +9,7 @@
 
 from PyQt4 import QtCore, QtGui
 import parametros
-from verificacao import Ui_VerifyWindow
+from step_configure import Ui_stepDialog
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -86,7 +86,7 @@ class Ui_fourthDialog(object):
         self.pushButton_off.setObjectName(_fromUtf8("pushButton_off"))
 
         self.retranslateUi(fourthDialog)
-        QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Verify_window)
+        QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Step_window)
         QtCore.QMetaObject.connectSlotsByName(fourthDialog)
 
     def retranslateUi(self, fourthDialog):
@@ -115,12 +115,12 @@ class Ui_fourthDialog(object):
             self.lcdNumber_2.display(5)
             parametros.todos['tempo'] = 5   
     
-    def Verify_window(self): # Clicar em tela de verifição
+    def Step_window(self): # Chama tela de Passos
         # fourthDialog.close()
-        VerifyWindow = QtGui.QDialog()
-        ui = Ui_VerifyWindow()
-        ui.setupUi(VerifyWindow)
-        VerifyWindow.exec_()
+        stepDialog = QtGui.QDialog()
+        ui = Ui_stepDialog()
+        ui.setupUi(stepDialog)
+        stepDialog.exec_()
 
         
 if __name__ == "__main__":
