@@ -267,8 +267,6 @@ class Ui_moniDialog(object):
                         break #sai do for se chegar aqui
                     except Exception, e:
                         logger.error('Erro na leitura ADC Temperatura', exc_info=True)
-                print voltage # imprimir valor de tensao
-                print current # imprimir valor de corrente
                 impedance = controller.getImpedance(voltage,current) #calculando impedancia
                 #Teste controle AGC (Peter 5/4/16)
                 agc = controller.controlAGC(impedance)
@@ -350,15 +348,15 @@ class Ui_moniDialog(object):
                         logger.info('Nivel de Impedancia de acordo com os limites estabelecidos - %s',impedance)
                         GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
                         if(parametros.todos['potenciaRT']>parametros.todos['potenciaStep']): # Nao diminuir step caso potencia seja 0
-                            if(not(parametros.flags['stepDown'])):
+                            if(not(parametros.flag['stepDown'])):
                                 parametros.todos['potenciaRT'] -= parametros.todos['potenciaStep']
-                                parametros.flags['stepDown'] = True # Significa que a potência já foi abaixada
+                                parametros.flag['stepDown'] = True # Significa que a potência já foi abaixada
                                 stepDownTop = time.time() # Começa a contar
                                 stepDownBottom = stepDownTop
                             else:
                                 stepDownTop = time.time()
                                 if (stepDownTop - stepDownBottom > float(parametros.todos['tempoStep']*60)):
-                                    parametros.flags['stepDown'] = False #Libera para mais um step-Down
+                                    parametros.flag['stepDown'] = False #Libera para mais um step-Down
                 else:
                     print "TEMPERATURA OK!"
                     logger.info('Temperatura de acordo com os limites estabelecidos - %s',temperature)
