@@ -1,6 +1,7 @@
 # coding=utf-8
 import math
 import parametros
+import logging
 
 actuatorValue = 0
 parametros.flag['impedance'] = False
@@ -19,8 +20,10 @@ def getImpedance(measuredVoltage,measuredCurrent):
 
 #Teste Controle AGC - Peter
 def controlAGC (measuredImpedance):
-   
-   if(measuredImpedance>=50 and measuredImpedance<=100):
+
+   if(measuredImpedance>=0 and measuredImpedance<=50):
+      agc = 0
+   elif(measuredImpedance>50 and measuredImpedance<=100):
       agc = 1
    elif(measuredImpedance>100 and measuredImpedance<=150):
       agc = 2
@@ -29,7 +32,7 @@ def controlAGC (measuredImpedance):
    elif(measuredImpedance>200 and measuredImpedance<=250):
       agc = 4
    else:
-      agc = 0
+      agc = 5
    return agc
 
 
@@ -58,8 +61,13 @@ def applyVoltage(address,dacAddress,desiredValue):
    elif(desiredValue<0):
       desiredValue = 0
    else:
-      actuatorValue += desiredValue
-      bus.write_byte_data(address,dacAddress,desiredValue)
+      for x in xrange(0,10):
+         try:
+            actuatorValue += desiredValue
+            bus.write_byte_data(address,dacAddress,desiredValue)
+            break #sai do for se chegar aqui
+         except Exception, e:
+            logger.error('Erro na escrita do DAC', exc_info=True) 
 
 
 def errorCalc(measuredValue,idealValue):
