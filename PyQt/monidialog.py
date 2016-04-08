@@ -409,8 +409,8 @@ class Ui_moniDialog(object):
                 print "IMPEDANCIA OK!"
                 logger.info('Nivel de Impedancia de acordo com os limites estabelecidos -%s',impedance)
                 GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)                    
-
             cont = 0
+ 
 
     def stop(self):
         global time_before, stop_press,initial_press, time_old,restart,time_off,time_now
