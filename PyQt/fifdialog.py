@@ -77,8 +77,8 @@ class Ui_fifDialog(object):
         self.pic.setScaledContents(True)
 
         # pylab_plot.plotMode(self,1)
-        # pixmap = QtGui.QPixmap('mode1.png')
-        # self.pic.setPixmap(pixmap)
+        pixmap = QtGui.QPixmap('mode1.png')
+        self.pic.setPixmap(pixmap)
         
         # self.frame.setFrameShape(QtGui.QFrame.StyledPanel)
         # self.frame.setFrameShadow(QtGui.QFrame.Raised)
@@ -125,8 +125,8 @@ class Ui_fifDialog(object):
         self.pushButton_3.setStyleSheet("font-weight:bold;background-color: gray;border-radius: 10px;")
         self.pushButton_4.setStyleSheet("font-weight:bold;background-color: gray;border-radius: 10px;")
         # pylab_plot.plotMode(self,1)
-        # pixmap = QtGui.QPixmap('mode1.png')
-        # self.pic.setPixmap(pixmap)  
+        pixmap = QtGui.QPixmap('mode1.png')
+        self.pic.setPixmap(pixmap)  
 
 
     def mode2 (self):
@@ -151,8 +151,8 @@ class Ui_fifDialog(object):
         self.pushButton_3.setStyleSheet("font-weight:bold;background-color: green;border-radius: 10px;")
         self.pushButton_4.setStyleSheet("font-weight:bold;background-color: gray;border-radius: 10px;")        
         # pylab_plot.plotMode(self,2)
-        # pixmap = QtGui.QPixmap('mode2.png')
-        # self.pic.setPixmap(pixmap)
+        pixmap = QtGui.QPixmap('mode2.png')
+        self.pic.setPixmap(pixmap)
 
 
 
@@ -177,8 +177,8 @@ class Ui_fifDialog(object):
         self.pushButton_3.setStyleSheet("font-weight:bold;background-color: gray;border-radius: 10px;")
         self.pushButton_4.setStyleSheet("font-weight:bold;background-color: red;border-radius: 10px;")
         # pylab_plot.plotMode(self,3) 
-        # pixmap = QtGui.QPixmap('mode3.png') 
-        # self.pic.setPixmap(pixmap)
+        pixmap = QtGui.QPixmap('mode3.png') 
+        self.pic.setPixmap(pixmap)
 
 
     def ok (self):
