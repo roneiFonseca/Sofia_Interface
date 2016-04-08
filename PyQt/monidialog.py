@@ -298,8 +298,6 @@ class Ui_moniDialog(object):
                                 stepDownTop = time.time()
                                 if (stepDownTop - stepDownBottom > float(parametros.todos['tempoStep']*60)):
                                     parametros.flags['stepDown'] = False #Libera para mais um step-Down
-                                
-
                 else:
                     print "TEMPERATURA OK!"
                     GPIO.output(19,0)                     #DESATIVAR RELÉ DE IMPEDÂNCIA
