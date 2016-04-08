@@ -32,7 +32,7 @@ logger.addHandler(handler)
 
 
 
-RPI_ON = True
+RPI_ON = False
 
 if (RPI_ON):
     import RPi.GPIO as GPIO
@@ -399,7 +399,7 @@ class Ui_moniDialog(object):
 
         #CONTROLE DE IMPEDÂNCIA
         if cont == 60: #Esta verificacao é feita a cada 60 ms
-        if(controller.controlImpedance(impedance)):
+            if(controller.controlImpedance(impedance)):
                 print "IMPEDANCIA MUITO ALTA/BAIXA"
                 logger.warn('Nivel de Impedancia muito Alto/Baixo - %s',impedance)
                 GPIO.output(26,1)         #ATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
