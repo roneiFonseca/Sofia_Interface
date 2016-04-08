@@ -12,7 +12,8 @@ from thirddialog import Ui_thirdDialog
 from fifdialog import Ui_fifDialog
 from help_box import Ui_Dialog
 import parametros
-import pylab_plot
+# import pylab_plot
+
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -30,8 +31,6 @@ except AttributeError:
 
 class Ui_SecDialog(object):
     def setupUi(self, SecDialog):
-        self.PlotterThread = PlotterThread()
-        self.PlotterThread.start()
         SecDialog.setObjectName(_fromUtf8("SecDialog"))
         SecDialog.resize(800, 480)
         SecDialog.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);color: rgb(255, 255, 255)"))
@@ -47,19 +46,19 @@ class Ui_SecDialog(object):
 
         #PushButton para selecionar o Mode de Operação Automatico
         self.pushButton = QtGui.QPushButton(SecDialog)
-        self.pushButton.setGeometry(QtCore.QRect(80, 110, 201, 101))
+        self.pushButton.setGeometry(QtCore.QRect(130, 130, 201, 101))
         self.pushButton.setStyleSheet(_fromUtf8("font-weight:bold;background-color: blue;border-radius: 5px;"))
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
 
         #PushButton para selecionar o Mode de Operação Manual
         self.pushButton_2 = QtGui.QPushButton(SecDialog)
-        self.pushButton_2.setGeometry(QtCore.QRect(450, 110, 201, 101))
+        self.pushButton_2.setGeometry(QtCore.QRect(500, 130, 201, 101))
         self.pushButton_2.setStyleSheet(_fromUtf8("font-weight:bold;background-color: green;border-radius: 5px;"))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
 
         #PushButton para realizar o diagnostico pré clínico
         self.pushButton_3 = QtGui.QPushButton(SecDialog)
-        self.pushButton_3.setGeometry(QtCore.QRect(260, 300, 201, 101))
+        self.pushButton_3.setGeometry(QtCore.QRect(315, 300, 201, 101))
         self.pushButton_3.setStyleSheet(_fromUtf8("font-weight:bold;background-color: purple;border-radius: 5px;"))
         self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
 
@@ -105,19 +104,6 @@ class Ui_SecDialog(object):
         ui = Ui_fifDialog()
         ui.setupUi(fifDialog)
         fifDialog.exec_()
-
-
-class PlotterThread(QtCore.QThread):
-
-    def __init__(self):
-        QtCore.QThread.__init__(self)
-
-    def run(self):
-        for option in range(1,4):
-            pylab_plot.plotMode(option)
-        print "Done with the thread"
-
-
 
 if __name__ == "__main__":
     import sys

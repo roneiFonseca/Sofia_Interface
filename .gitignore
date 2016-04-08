@@ -9,4 +9,8 @@
 
 *.pyc
 
+<<<<<<< HEAD
 *.pyc
+=======
+*.png
+>>>>>>> master

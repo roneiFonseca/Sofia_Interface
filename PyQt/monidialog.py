@@ -263,7 +263,10 @@ class Ui_moniDialog(object):
                         break #sai do for se chegar aqui
                     except Exception, e:
                         logger.error('Erro na leitura ADC Temperatura', exc_info=True)
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
                 print voltage # imprimir valor de tensao
                 print current # imprimir valor de corrente
                 impedance = controller.getImpedance(voltage,current) #calculando impedancia
@@ -400,13 +403,16 @@ class Ui_moniDialog(object):
                 print "IMPEDANCIA MUITO ALTA/BAIXA"
                 logger.warn('Nivel de Impedancia muito Alto/Baixo - %s',impedance)
                 GPIO.output(26,1)         #ATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
-                self.timer.stop() #"Desligar"
+                #self.timer.stop() #"Desligar"
             else:
                 print "IMPEDANCIA OK!"
                 logger.info('Nivel de Impedancia de acordo com os limites estabelecidos -%s',impedance)
                 GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)                    
-
             cont = 0
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> master
 
     def stop(self):
         global time_before, stop_press,initial_press, time_old,restart,time_off,time_now
@@ -440,9 +446,15 @@ class Ui_moniDialog(object):
         
    #      if(RPI_ON):
             # bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)       
+<<<<<<< HEAD
 
         
 
+=======
+
+        
+
+>>>>>>> master
             # bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)       
        
         
