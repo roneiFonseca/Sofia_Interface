@@ -7,10 +7,9 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from __future__ import division
 from PyQt4 import QtCore, QtGui
-import sys 
+import sys
 import parametros
 import controller
 import time
@@ -30,16 +29,20 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
+#configurando o Log para printar no terminal
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+console.setFormatter(formatter)
+logging.getLogger('').addHandler(console)
 
-
-RPI_ON = True
+RPI_ON = False
 
 if (RPI_ON):
     import RPi.GPIO as GPIO
     import smbus
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
-    GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)  
+    GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
     GPIO.setup(24, GPIO.OUT)
     GPIO.setup(23, GPIO.OUT)
     GPIO.output(24, 1)        #ajusta os reles
@@ -49,7 +52,7 @@ if (RPI_ON):
     GPIO.setup(26,GPIO.OUT)
     GPIO.output(19,0)
     GPIO.output(26,0)
-    
+
     #Teste controle AGC (Peter 5/4/16)
     #Entrada de controle
     GPIO.setup(16,GPIO.OUT)
@@ -65,11 +68,11 @@ if (RPI_ON):
     GPIO.output(5,0)
     GPIO.output(6,0)
     GPIO.output(13,0)
-    
-    
 
 
-time_before= 0 
+
+
+time_before= 0
 time_beginning = 0
 minute = 0
 stop_press = 1
@@ -80,6 +83,9 @@ time_off = 0
 time_now = 0
 cont = 0
 teste = 22
+
+#flag de monitoramento de erro
+flagCallErrorWindow = False
 
 #Contadores do Step Down de Potencia
 stepDownTop = 0
@@ -196,15 +202,15 @@ class Ui_moniDialog(object):
         self.timer.timeout.connect(self.control)
 
         self.retranslateUi(moniDialog)
-        
+
         QtCore.QMetaObject.connectSlotsByName(moniDialog)
-        
+
 
     def retranslateUi(self, moniDialog):
         moniDialog.setWindowTitle(_translate("moniDialog", "Dialog", None))
         self.label_2.setText(_translate("moniDialog", "TELA DE MONITORAMENTO", None))
         self.label_14.setText(_translate("moniDialog", "min", None))
-        
+
         self.pushButton_7.setText(_translate("moniDialog", "INICIAR ", None))
         self.label_20.setText(_translate("moniDialog", "ºC", None))
         self.pushButton_8.setText(_translate("moniDialog", "DESLIGAR", None))
@@ -216,7 +222,7 @@ class Ui_moniDialog(object):
         self.lcd_temp.display("---")
         self.lcd_imp.display("---")
         self.label_15.setText(_translate("moniDialog", "Modo de Operação: Aguardando INICIAR", None))
-        self.lcd_potencia.display(parametros.todos['potenciaInicial'])     
+        self.lcd_potencia.display(parametros.todos['potenciaInicial'])
 
     def control(self):
         global time_before, time_beginning, minute, stop_press, initial_press,time_old, restart, time_off, time_now, cont
@@ -244,19 +250,39 @@ class Ui_moniDialog(object):
                         bus.read_byte(address2)
                         voltage = bus.read_byte(address2)
                         voltage = voltage*5/255
+                        flagCallErrorWindow = False
                         break #sai do for se chegar aqui
                     except Exception, e:
-                        logger.error('Erro na leitura ADC Tensao', exc_info=True)   
+                        logger.error('Erro na leitura ADC Tensao', exc_info=True)
+                        flagCallErrorWindow = True
+
+                if(flagCallErrorWindow):
+                    logger.error('Nao foi possivel realizar a leitura da Tensao - ADC')
+                    os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
+                    GPIO.cleanup()
+                    moniDialog.close()
+
+
                 for x in xrange(0,10):
                     try:
                         #Leitura de corrente
                         bus.write_byte(address2, 1)
                         bus.read_byte(address2)
                         current = bus.read_byte(address2)
-                        current = current*5/255 
+                        current = current*5/255
+                        flagCallErrorWindow = False
                         break #sai do for se chegar aqui
                     except Exception, e:
                         logger.error('Erro na leitura ADC Corrente', exc_info=True)
+                        flagCallErrorWindow = True
+
+                if(flagCallErrorWindow):
+                    logger.error('Nao foi possivel realizar a leitura da Corrente - ADC')
+                    os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
+                    GPIO.cleanup()
+                    moniDialog.close()
+
+
                 for x in xrange(0,10):
                     try:
                         #Leitura de Temperatura
@@ -264,10 +290,20 @@ class Ui_moniDialog(object):
                         bus.read_byte(address2)
                         temp_aux = bus.read_byte(address2)
                         temperature = 0.6040*temp_aux-72.9358
-                        self.lcd_temp.display(temperature) 
+                        self.lcd_temp.display(temperature)
+                        flagCallErrorWindow = False
                         break #sai do for se chegar aqui
                     except Exception, e:
                         logger.error('Erro na leitura ADC Temperatura', exc_info=True)
+                        flagCallErrorWindow = True
+
+                if(flagCallErrorWindow):
+                    logger.error('Nao foi possivel realizar a leitura da Temperatura - ADC')
+                    os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
+                    GPIO.cleanup()
+                    moniDialog.close()
+
+
                 impedance = controller.getImpedance(voltage,current) #calculando impedancia
                 #Teste controle AGC (Peter 5/4/16)
                 agc = controller.controlAGC(impedance)
@@ -330,10 +366,19 @@ class Ui_moniDialog(object):
                         try:
                             bus.write_byte_data(address1, 0x44, actuatorValue)
                             time.sleep(1.0)
-                            print "Tensao de Entrada(modificada): " +str(actuatorValue) #depois das condicoes   
-                            break #sai do for se chegar aqui    
+                            print "Tensao de Entrada(modificada): " +str(actuatorValue) #depois das condicoes
+                            flagCallErrorWindow = False
+                            break #sai do for se chegar aqui
                         except Exception, e:
                             logger.error('Erro na escrita do DAC', exc_info=True)
+                            flagCallErrorWindow = True
+
+                    if(flagCallErrorWindow):
+                        logger.error('Nao foi possivel realizar a escrita no DAC')
+                        os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
+                        GPIO.cleanup()
+                        moniDialog.close()
+
 
             #CONTROLE DE TEMPERATURA
                 if (controller.controlTemperature(temperature)):
@@ -347,7 +392,6 @@ class Ui_moniDialog(object):
                         self.timer.stop()
                     else:
                         print "IMPEDANCIA OK!"
-                        logger.info('Nivel de Impedancia de acordo com os limites estabelecidos - %s',impedance)
                         GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
                         if(parametros.todos['potenciaRT']>=parametros.todos['potenciaStep']): # Nao diminuir step caso potencia seja 0
                             if(not(parametros.flag['stepDown'])):
@@ -361,21 +405,20 @@ class Ui_moniDialog(object):
                                     parametros.flag['stepDown'] = False #Libera para mais um step-Down
                 else:
                     print "TEMPERATURA OK!"
-                    logger.info('Temperatura de acordo com os limites estabelecidos - %s',temperature)
                     GPIO.output(19,0)                     #DESATIVAR RELÉ DE IMPEDÂNCIA
 
         if restart == 0:
             time_now = time.time() - time_off
             seconds = round(time_now - time_beginning,0)
-           
+
         if restart == 1 :
             time_off = time.time() - time_old   #duracao do botao desligado
             time_now = time_old                  #ultimo tempo no qual botao foi desligado
             seconds = round(time_now - time_beginning,0)
-           
+
             restart = 0
             time_old = 0
-          
+
         stop_press = seconds
         if seconds >= 60:
             minute +=1
@@ -386,8 +429,8 @@ class Ui_moniDialog(object):
         else:
             str_count = str(minute) + ':' + str(int(seconds))
         self.lcd_tempo.display(str_count)
-         
-        #Atualizando o valor de potenciaRT  
+
+        #Atualizando o valor de potenciaRT
         if ( time_now - time_before > float(parametros.todos['tempoStep']*60) ) and (parametros.todos['potenciaRT']<parametros.todos['potenciaFinal']):
             if (minute == parametros.todos['tempo']) and (seconds == 0): #Verificação do Fim da Operação
                 # definir o protocolo de desligamento do aparelho quando o tempo acaba
@@ -406,20 +449,19 @@ class Ui_moniDialog(object):
                 #self.timer.stop() #"Desligar"
             else:
                 print "IMPEDANCIA OK!"
-                logger.info('Nivel de Impedancia de acordo com os limites estabelecidos -%s',impedance)
-                GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)                    
+                GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
             cont = 0
- 
+
 
     def stop(self):
         global time_before, stop_press,initial_press, time_old,restart,time_off,time_now
-        logger.info('Operação pausada')  
-        logger.info('Potencia RT: %s  Tempo: %s  Modo: %s',parametros.todos['potenciaRT'],parametros.todos['tempo'],parametros.todos['modo'])            
+        logger.info('Operação pausada')
+        logger.info('Potencia RT: %s  Tempo: %s  Modo: %s',parametros.todos['potenciaRT'],parametros.todos['tempo'],parametros.todos['modo'])
         self.pushButton_7.setText(_translate("moniDialog", "INICIAR ", None))
         self.pushButton_7.setStyleSheet("font-weight:bold;background-color: rgb(40, 255, 0);border-radius: 10px;")
         time_old = time_now
         self.timer.stop()
-       
+
         #seta as flags usadas
         time_off = 0
         stop_press = 1
@@ -432,49 +474,57 @@ class Ui_moniDialog(object):
         global RPI_ON
 
 
-        print "Hey amigo, estou aqui!" 
-        logger.info('Operação iniciada')  
-        logger.info('Potencia Inicial: %s  Potencia Final: %s  Step de Potencia: %s',parametros.todos['potenciaInicial'],parametros.todos['potenciaFinal'],parametros.todos['potenciaStep'])            
-        logger.info('Tempo: %s  Step de Tempo: %s  Modo: %s',parametros.todos['tempo'],parametros.todos['tempoStep'],parametros.todos['modo'])
+        print "Hey amigo, estou aqui!"
+        logger.info('Operação iniciada')
+        logger.info('Potencia Inicial: %s  Potencia Final: %s  Step de Potencia: %s  Tempo: %s  Step de Tempo: %s  Modo: %s',parametros.todos['potenciaInicial'],parametros.todos['potenciaFinal'],parametros.todos['potenciaStep'],parametros.todos['tempo'],parametros.todos['tempoStep'],parametros.todos['modo'])
        # pwm_pin1.start(parametros.todos['potenciaRT'])
        # PWMservo.set_servo(pwm_pin1, parametros.todos['potenciaRT']*399)
-        # print "Hey amigo, estou aqui!"       
+        # print "Hey amigo, estou aqui!"
 
-        
+
    #      if(RPI_ON):
-            # bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)       
+            # bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)
 
-        
 
-            # bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)       
-       
-        
+
+            # bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)
+
+
         if((initial_press == 0) and (stop_press == 1)) :               #condicao para reiniciar a contagem
             self.timer.start(1) #1 miliseconds
-        
+
         if ((initial_press == 1) and (stop_press == 1)):                #condicao para o primeiro acionamento
             self.label_15.setText(_translate("moniDialog", "Modo de Operação: " + str (parametros.todos['modo']), None))
             self.label_15.setGeometry(QtCore.QRect(280, 280, 300, 90))
             time_before = time.time()
             time_beginning = time_before
             self.timer.start(1) #1 miliseconds
-           
+
         if stop_press != 1:                                             #condicao para parar a contagem
             self.stop()
             if(RPI_ON):
                 for x in xrange(0,10):
                     try:
                         bus.write_byte_data(address1, 0x44, 0X00)
+                        flagCallErrorWindow = False
                         break #sai do for se chegar aqui
                     except Exception, e:
                         logger.error('Erro na escrita do DAC', exc_info=True)
-        
+                        flagCallErrorWindow = True
+
+                if(flagCallErrorWindow):
+                    logger.error('Nao foi possivel realizar a escrta no DAC')
+                    os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
+                    GPIO.cleanup()
+                    moniDialog.close()
+
+
     def shutdown_function(self):
 
         GPIO.output(24, 0)        #ajusta os reles
         GPIO.output(23, 0)
-       
-        ui.timer.stop()           #para o clock 
+
+        ui.timer.stop()           #para o clock
         ui.Reset_Parameters()     #coloca as variaveis no padrao default
 
 
@@ -488,18 +538,27 @@ class Ui_moniDialog(object):
 
     def Reset_Parameters(self):
         global time_before,time_beginning,minute,stop_press,initial_press,time_old,restart,time_off,time_now
-        
+
 
         if(RPI_ON):
             for x in xrange(0,10):
                 try:
                     bus.write_byte_data(address1, 0x44, 0X00)
+                    flagCallErrorWindow = False
                     break #sai do for se chegar aqui
                 except Exception, e:
                     logger.error('Erro na escrita do DAC', exc_info=True)
+                    flagCallErrorWindow = True
+
+            if(flagCallErrorWindow):
+                logger.error('Nao foi possivel realizar a escrita no DAC')
+                os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
+                GPIO.cleanup()
+                moniDialog.close()
 
 
-        time_before= 0 
+
+        time_before= 0
         time_beginning = 0
         minute = 0
         stop_press = 1
@@ -510,14 +569,14 @@ class Ui_moniDialog(object):
         time_now = 0
         parametros.todos['potenciaInicial']= 0
         parametros.todos['potenciaRT']= 0
-        parametros.todos['potenciaStep']=2 
+        parametros.todos['potenciaStep']=2
         parametros.todos['potenciaFinal']= 20
         parametros.todos['tempo']=1
-        parametros.todos['tempoStep']=1 
+        parametros.todos['tempoStep']=1
         parametros.todos['modo'] = 1
-     
+
     if(RPI_ON):
-        GPIO.add_event_detect(17, GPIO.FALLING, callback=shutdown_function) 
+        GPIO.add_event_detect(17, GPIO.FALLING, callback=shutdown_function)
 
 
 if __name__ == "__main__":

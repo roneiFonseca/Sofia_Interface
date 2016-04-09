@@ -6,6 +6,7 @@ import logging
 actuatorValue = 0
 parametros.flag['impedance'] = False
 parametros.flag['temperature'] = False
+flagCallErrorWindow = False
 
 def getImpedance(measuredVoltage,measuredCurrent):
 
@@ -50,7 +51,7 @@ def impedanceCalc(powerValue,measuredVoltage,measuredCurrent):
       impedance = 50 # impedancia base (chutando impedancia)
    else:
       impedance = measuredVoltage/measuredCurrent
-   print "Impedancia calculada: " + str(impedance) 
+   print "Impedancia calculada: " + str(impedance)
    newVoltage = math.sqrt(powerValue*impedance)
    return newVoltage
 
@@ -61,13 +62,23 @@ def applyVoltage(address,dacAddress,desiredValue):
    elif(desiredValue<0):
       desiredValue = 0
    else:
-      for x in xrange(0,10):
+       for x in xrange(0,10):
          try:
             actuatorValue += desiredValue
             bus.write_byte_data(address,dacAddress,desiredValue)
+            flagCallErrorWindow = False
             break #sai do for se chegar aqui
          except Exception, e:
-            logger.error('Erro na escrita do DAC', exc_info=True) 
+            logger.error('Erro na escrita do DAC', exc_info=True)
+            flagCallErrorWindow = True
+
+       if(flagCallErrorWindow):
+            logger.error('Nao foi possivel realizar a escrita no DAC')
+            os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
+            GPIO.cleanup()
+            moniDialog.close()
+
+
 
 
 def errorCalc(measuredValue,idealValue):
@@ -92,7 +103,7 @@ def errorCalc(measuredValue,idealValue):
    else: #Erro pode ser corrigido
       if(absError>=5.0): #Caso o erro seja maior do que a saída máx. do DAC
          errorBits = 255
-         increment = errorBits   
+         increment = errorBits
       elif(measuredError > 0.0): #Erro positivo
          print "Positive Error!"
          increment = errorBits
@@ -120,7 +131,7 @@ def controlTemperature(measuredTemperature):
    if(measuredTemperature>=tempMaxValue): # Temperatua muito alta
       parametros.flag['temperature'] = True
    else:
-      parametros.flag['temperature'] = False      
+      parametros.flag['temperature'] = False
    return parametros.flag['temperature']
 
 # print controlAGC(251)
