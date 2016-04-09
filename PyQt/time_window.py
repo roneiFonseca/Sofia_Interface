@@ -9,7 +9,7 @@
 
 from PyQt4 import QtCore, QtGui
 import parametros
-from verificacao import Ui_VerifyWindow
+from step_configure import Ui_stepDialog
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -45,7 +45,7 @@ class Ui_fourthDialog(object):
         self.label_2.setObjectName(_fromUtf8("label_2"))
 
         self.pushButton_5 = QtGui.QPushButton(fourthDialog)
-        self.pushButton_5.setGeometry(QtCore.QRect(310, 380, 151, 71))
+        self.pushButton_5.setGeometry(QtCore.QRect(450, 400, 181, 51))
         self.pushButton_5.setStyleSheet(_fromUtf8("font: 14pt \"Arial\";"))
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
         self.pushButton_5.setStyleSheet("font-weight:bold;background-color: rgb(40, 255, 0);border-radius: 10px;")
@@ -80,9 +80,13 @@ class Ui_fourthDialog(object):
         self.label_12.setStyleSheet(_fromUtf8("font: 75 14pt \"Arial\";"))
         self.label_12.setObjectName(_fromUtf8("label_12"))
 
+        self.pushButton_off = QtGui.QPushButton(fourthDialog)
+        self.pushButton_off.setGeometry(QtCore.QRect(160, 400, 181, 51))
+        self.pushButton_off.setStyleSheet(_fromUtf8("font-weight:bold;background-color: red;border-radius: 10px;"))
+        self.pushButton_off.setObjectName(_fromUtf8("pushButton_off"))
 
         self.retranslateUi(fourthDialog)
-        QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Verify_window)
+        QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Step_window)
         QtCore.QMetaObject.connectSlotsByName(fourthDialog)
 
     def retranslateUi(self, fourthDialog):
@@ -92,8 +96,10 @@ class Ui_fourthDialog(object):
         self.pushButton_3.setText(_translate("fourthDialog", "+", None))
         self.pushButton_4.setText(_translate("fourthDialog", "-", None))
         self.label_12.setText(_translate("fourthDialog", "min", None))
+        self.pushButton_off.setText(_translate("fourthDialog", "VOLTAR", None))
         QtCore.QObject.connect(self.pushButton_3 , QtCore.SIGNAL("clicked()") , self.time_button_Plus_click)
         QtCore.QObject.connect(self.pushButton_4 , QtCore.SIGNAL("clicked()") , self.time_button_Minus_click)
+        QtCore.QObject.connect(self.pushButton_off, QtCore.SIGNAL(_fromUtf8("clicked()")), fourthDialog.close)
 
     def time_button_Plus_click(self):
         parametros.todos['tempo'] +=1
@@ -109,11 +115,12 @@ class Ui_fourthDialog(object):
             self.lcdNumber_2.display(5)
             parametros.todos['tempo'] = 5   
     
-    def Verify_window(self): # Clicar em tela de verifição
-        VerifyWindow = QtGui.QDialog()
-        ui = Ui_VerifyWindow()
-        ui.setupUi(VerifyWindow)
-        VerifyWindow.exec_()
+    def Step_window(self): # Chama tela de Passos
+        # fourthDialog.close()
+        stepDialog = QtGui.QDialog()
+        ui = Ui_stepDialog()
+        ui.setupUi(stepDialog)
+        stepDialog.exec_()
 
         
 if __name__ == "__main__":

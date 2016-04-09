@@ -2,29 +2,41 @@ import matplotlib.pyplot as plt
 import parametros
 import os,sys
 
+potenciaInicial =[0,5,10]
+potenciaFinal = [20,25,55]
+potenciaStep = [2,2.5,3]
+tempo = [11,9,16]
+tempoStep = [1,1,1]
+modo = [1,2,3]
+
 
 # 1 W/ minuto
-def plotMode(self,mode):
-	# os.listdir("/usr/lib/python2.7/dist-packages/PyQt4")
+def plotMode(mode):
+#DELETAR ARQUIVOS PRE-EXISTENTES
 	os.listdir(os.getcwd())
-	#os.listdir("/Users/MatiasPedro25/Professional/2016_1/LAB/Software/EVOLUTION/Sofia_Interface/PyQt")
 	img = "mode" + str(mode) + ".png"
 	# print img
-	sentence = [
-	"[ -f mode1.png ] && rm mode1.png",
-	"[ -f mode2.png ] && rm mode2.png",
-	"[ -f mode3.png ] && rm mode3.png"
-	]
+	# sentence = [
+	# "[ -f mode1.png ] && rm mode1.png",
+	# "[ -f mode2.png ] && rm mode2.png",
+	# "[ -f mode3.png ] && rm mode3.png"
+	# ]
+
+	sentence = "[ -f "+img+" ] && rm "+img
+	print sentence
+	os.system(sentence)
 	# print sentence
-	for k in range(len(sentence)):
-		os.system(sentence[k])
-	time_step = parametros.todos['tempoStep']
-	timeValue = 0 	#Tempo sempre inicia em zero
-	potStep = parametros.todos['potenciaStep']
-	potValue = parametros.todos['potenciaInicial']
+	# for k in range(len(sentence)):
+	# 	os.system(sentence[k])
+
+
+	time_step = tempoStep[mode-1]
+	timeValue = 0 	#Tempo sempre inicia
+	potStep = potenciaStep[mode-1]
+	potValue = potenciaInicial[mode-1]
 	y = [potValue]
 	x=[timeValue]
-	interval = parametros.todos['tempo']
+	interval = tempo[mode-1]
 
 	for n in range(interval/time_step):
 	# for n in range(int(interval/time_step)):

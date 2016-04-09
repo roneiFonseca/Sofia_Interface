@@ -10,6 +10,7 @@
 from PyQt4 import QtCore, QtGui
 import parametros
 from time_window import Ui_fourthDialog
+# from secdialog import Ui_SecDialog
 
 
 try:
@@ -109,9 +110,9 @@ class Ui_thirdDialog(object):
         
 
         self.pushButton_5 = QtGui.QPushButton(thirdDialog)
-        self.pushButton_5.setGeometry(QtCore.QRect(310, 350, 151, 71))
+        self.pushButton_5.setGeometry(QtCore.QRect(450, 400, 181, 51))
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
-        self.pushButton_5.setStyleSheet("font-weight:bold;background-color: rgb(40, 255, 0); border-radius: 10px;")
+        self.pushButton_5.setStyleSheet("font-weight:bold;background-color: rgb(40, 255, 0);border-radius: 10px;")
     
 
         self.label_8 = QtGui.QLabel(thirdDialog)
@@ -124,8 +125,13 @@ class Ui_thirdDialog(object):
         self.label_9.setStyleSheet(_fromUtf8("font: 12pt \"Arial\";\n"))
         self.label_9.setObjectName(_fromUtf8("label_9"))
 
+        self.pushButton_off = QtGui.QPushButton(thirdDialog)
+        self.pushButton_off.setGeometry(QtCore.QRect(160, 400, 181, 51))
+        self.pushButton_off.setStyleSheet(_fromUtf8("font-weight:bold;background-color: red;border-radius: 10px;"))
+        self.pushButton_off.setObjectName(_fromUtf8("pushButton_off"))
         self.retranslateUi(thirdDialog)
         
+
         QtCore.QMetaObject.connectSlotsByName(thirdDialog)
 
     def retranslateUi(self, thirdDialog):
@@ -140,12 +146,19 @@ class Ui_thirdDialog(object):
         self.pushButton_5.setText(_translate("thirdDialog", "OK", None))
         self.label_8.setText(_translate("thirdDialog", "W", None))
         self.label_9.setText(_translate("thirdDialog", "W", None))
+        self.pushButton_off.setText(_translate("thirdDialog", "VOLTAR", None))
+       
 
         QtCore.QObject.connect(self.pushButton , QtCore.SIGNAL("clicked()") , self.initial_button_Plus_click)
         QtCore.QObject.connect(self.pushButton_2 , QtCore.SIGNAL("clicked()") , self.initial_button_Minus_click)
         QtCore.QObject.connect(self.pushButton_3 , QtCore.SIGNAL("clicked()") , self.final_button_Plus_click)
         QtCore.QObject.connect(self.pushButton_4, QtCore.SIGNAL("clicked()") , self.final_button_Minus_click)
         QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Timer_Func)
+        QtCore.QObject.connect(self.pushButton_off, QtCore.SIGNAL(_fromUtf8("clicked()")), thirdDialog.close)
+
+
+
+        
 
     def initial_button_Plus_click(self):
 
@@ -189,6 +202,7 @@ class Ui_thirdDialog(object):
         ui = Ui_fourthDialog()
         ui.setupUi(fourthDialog)
         fourthDialog.exec_()
+               
 
 if __name__ == "__main__":
     import sys

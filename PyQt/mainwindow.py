@@ -9,12 +9,9 @@
 
 from PyQt4 import QtCore, QtGui
 # from secdialog import Ui_SecDialog
-<<<<<<< HEAD
-=======
 from choosingScreen import Ui_choosingScreen
->>>>>>> f813ca0397c5a134b20205865fa127f39d5adaa6
 import imagens2
-# import pylab_plot
+import pylab_plot
 import sys
 from mode_operation import Ui_SecDialog
 
@@ -40,6 +37,8 @@ except AttributeError:
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        self.PlotterThread = PlotterThread()
+        self.PlotterThread.start()
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.setEnabled(True)
         MainWindow.resize(800, 480)
@@ -83,16 +82,32 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Sofia_Gerador_RF", None))
         self.label.setWhatsThis(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-family:\'Calibri\'; font-size:44pt; font-weight:600; color:#000000;\">Gerador RF</span><span style=\" font-family:\'Calibri\'; font-size:44pt; font-weight:600; font-style:italic; color:#000000;\"> – SOFIA</span><span style=\" font-family:\'Calibri\'; font-size:44pt; font-style:italic; color:#000000;\"/></p></body></html>", None))
         self.label.setText(_translate("MainWindow", "<html><head/><body><br><p><span style=\" font-size:26pt;\">Seja Bem Vindo</span></p><p><span style=\" font-size:26pt;\">ao </span></p><p><span style=\" font-size:26pt;\">Gerador RF – </span><span style=\" font-size:26pt; font-style:italic;\">SOFIA </span></p></body></html>", None))
-        QtCore.QTimer.singleShot(3000, self.OpenIT)   
+        QtCore.QTimer.singleShot(5000, self.OpenIT)   
    
     
     def OpenIT(self):
         MainWindow.close()
-        choosingScreen = QtGui.QDialog()
-        ui = Ui_choosingScreen()
-        ui.setupUi(choosingScreen)
-        choosingScreen.exec_()
+        # choosingScreen = QtGui.QDialog()
+        # ui = Ui_choosingScreen()
+        # ui.setupUi(choosingScreen)
+        SecDialog = QtGui.QDialog()
+        ui = Ui_SecDialog()
+        ui.setupUi(SecDialog)
+        SecDialog.exec_()
 
+class PlotterThread(QtCore.QThread):
+
+    def __init__(self):
+        QtCore.QThread.__init__(self)
+
+    def run(self):
+        for option in range(1,4):
+            pylab_plot.plotMode(option)
+        print "Done with the thread"
+        return
+
+    def __del__(self):
+        self.wait()
 
 
 if __name__ == "__main__":

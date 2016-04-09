@@ -1,6 +1,7 @@
 # coding=utf-8
 import math
 import parametros
+import logging
 
 actuatorValue = 0
 parametros.flag['impedance'] = False
@@ -15,12 +16,14 @@ def getImpedance(measuredVoltage,measuredCurrent):
       impedance = "INF"
       parametros.flag['impedance'] = True
       print "Impedancia: INF"
-   return impedance
+   return impedance*10     # para colocar dentro do range necessario do AGC -PETE
 
 #Teste Controle AGC - Peter
 def controlAGC (measuredImpedance):
-   
-   if(measuredImpedance>=50 and measuredImpedance<=100):
+
+   if(measuredImpedance>=0 and measuredImpedance<=50):
+      agc = 0
+   elif(measuredImpedance>50 and measuredImpedance<=100):
       agc = 1
    elif(measuredImpedance>100 and measuredImpedance<=150):
       agc = 2
@@ -29,7 +32,7 @@ def controlAGC (measuredImpedance):
    elif(measuredImpedance>200 and measuredImpedance<=250):
       agc = 4
    else:
-      agc = 0
+      agc = 5
    return agc
 
 
@@ -58,8 +61,13 @@ def applyVoltage(address,dacAddress,desiredValue):
    elif(desiredValue<0):
       desiredValue = 0
    else:
-      actuatorValue += desiredValue
-      bus.write_byte_data(address,dacAddress,desiredValue)
+      for x in xrange(0,10):
+         try:
+            actuatorValue += desiredValue
+            bus.write_byte_data(address,dacAddress,desiredValue)
+            break #sai do for se chegar aqui
+         except Exception, e:
+            logger.error('Erro na escrita do DAC', exc_info=True) 
 
 
 def errorCalc(measuredValue,idealValue):
@@ -98,7 +106,7 @@ def errorCalc(measuredValue,idealValue):
 
 def controlImpedance(measuredImpedance):
    impMinValue = 0.5
-   impMaxValue = 27.5
+   impMaxValue = 250
    if(measuredImpedance<impMinValue): #Impedancia muito baixa (Curto-circuito)
       parametros.flag['impedance'] = True
    elif(measuredImpedance>=impMaxValue): # Impedancia muito alta (Circuito aberto)
@@ -108,9 +116,11 @@ def controlImpedance(measuredImpedance):
    return parametros.flag['impedance']
 
 def controlTemperature(measuredTemperature):
-   tempMaxValue = 25
+   tempMaxValue = 30
    if(measuredTemperature>=tempMaxValue): # Temperatua muito alta
       parametros.flag['temperature'] = True
    else:
       parametros.flag['temperature'] = False      
    return parametros.flag['temperature']
+
+# print controlAGC(251)
