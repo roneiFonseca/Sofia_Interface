@@ -84,8 +84,7 @@ time_now = 0
 cont = 0
 teste = 22
 
-<<<<<<< HEAD
-=======
+
 #flag de monitoramento de erro
 parametros.flag['callErrorWindow'] = False
 
@@ -94,7 +93,6 @@ stepDownTop = 0
 stepDownBottom = 0
 
 
->>>>>>> master
 actuatorValue = 0
 
 if (RPI_ON):
@@ -298,12 +296,8 @@ class Ui_moniDialog(object):
                         break #sai do for se chegar aqui
                     except Exception, e:
                         logger.error('Erro na leitura ADC Temperatura', exc_info=True)
-<<<<<<< HEAD
 
-                print voltage # imprimir valor de tensao
-                print current # imprimir valor de corrente
-=======
-                        callErrorWindow = True
+                callErrorWindow = True
 
                 if(callErrorWindow):
                     logger.error('Nao foi possivel realizar a leitura da Temperatura - ADC')
@@ -312,7 +306,6 @@ class Ui_moniDialog(object):
                     moniDialog.close()
 
 
->>>>>>> master
                 impedance = controller.getImpedance(voltage,current) #calculando impedancia
                 #Teste controle AGC (Peter 5/4/16)
                 agc = controller.controlAGC(impedance)
@@ -460,10 +453,7 @@ class Ui_moniDialog(object):
                 print "IMPEDANCIA OK!"
                 GPIO.output(26,0)         #DESATIVAR RELÉ DE POTÊNCIA (DESLIGAR APARELHO)
             cont = 0
-<<<<<<< HEAD
-=======
 
->>>>>>> master
 
     def stop(self):
         global time_before, stop_press,initial_press, time_old,restart,time_off,time_now
@@ -501,13 +491,7 @@ class Ui_moniDialog(object):
 
             # bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)
 
-<<<<<<< HEAD
-            # bus.write_byte_data(address1, 0x44, parametros.todos['potenciaRT']*5)       
-       
-        
-=======
 
->>>>>>> master
         if((initial_press == 0) and (stop_press == 1)) :               #condicao para reiniciar a contagem
             self.timer.start(1) #1 miliseconds
 
