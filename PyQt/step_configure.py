@@ -13,7 +13,7 @@ import parametros
 
 
 step = 2
-checked = True
+checked = False
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -140,13 +140,14 @@ class Ui_stepDialog(object):
             step = 2
         self.lcdNumber_2.display(step)
         self.calculateSteps()
-        showInfo(checked)
+        self.showInfo(checked)
         # passos menores que 1 
 
 
 
     def state_changed(self):
         global step, checked
+        checked = not checked
         self.showInfo(checked)
 
         #Fazer os calculos de Step de Potencia e Step de Tempo
@@ -162,11 +163,9 @@ class Ui_stepDialog(object):
 
     def showInfo(self,checked):
         if(checked):
-            # self.checkBox.setText(_translate("stepDialog", "Esconder: Step de Potência/Step de Tempo", None))
             self.label.setText(_translate("stepDialog","<html><head/><body><p align=\"left\"><span style= font-size:16pt;>Passo: %d  </span></p><p align=\"left\"><span style= font-size:16pt;>Potência Step [W]: %.2f </span></p><p align=\"left\"><span style= font-size:16pt;>Tempo Step [min]: %.2f </span></p></body></html>" %(step, parametros.todos['potenciaStep'],parametros.todos['tempoStep']), None))
 
         else:
-            self.checkBox.setText(_translate("stepDialog", "Mostrar: Step de Potência/Step de Tempo", None))
             self.label.setText(_translate("stepDialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Insira ao lado as iterações que deseja <br> para o Tempo e Potência <br>setados anteriormente</span></p></body></html>", None))
         
 
