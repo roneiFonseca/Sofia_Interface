@@ -35,7 +35,7 @@ console.setLevel(logging.INFO)
 console.setFormatter(formatter)
 logging.getLogger('').addHandler(console)
 
-RPI_ON = False
+RPI_ON = True
 
 if (RPI_ON):
     import RPi.GPIO as GPIO
@@ -296,8 +296,7 @@ class Ui_moniDialog(object):
                         break #sai do for se chegar aqui
                     except Exception, e:
                         logger.error('Erro na leitura ADC Temperatura', exc_info=True)
-
-                callErrorWindow = True
+                        callErrorWindow = True
 
                 if(callErrorWindow):
                     logger.error('Nao foi possivel realizar a leitura da Temperatura - ADC')
