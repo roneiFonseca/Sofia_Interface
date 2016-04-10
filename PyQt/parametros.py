@@ -12,6 +12,6 @@ flag = {
 	'temperature':False,
 	'endOfOperation':False,
 	'manualMode':False,
-	'stepDown':False
-	'flagCallErrorWindow' = False}
+	'stepDown':False,
+	'callErrorWindow' = False}
 
