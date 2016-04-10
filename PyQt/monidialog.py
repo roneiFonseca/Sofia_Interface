@@ -84,6 +84,7 @@ time_now = 0
 cont = 0
 teste = 22
 
+
 #flag de monitoramento de erro
 parametros.flag['callErrorWindow'] = False
 
@@ -295,7 +296,8 @@ class Ui_moniDialog(object):
                         break #sai do for se chegar aqui
                     except Exception, e:
                         logger.error('Erro na leitura ADC Temperatura', exc_info=True)
-                        callErrorWindow = True
+
+                callErrorWindow = True
 
                 if(callErrorWindow):
                     logger.error('Nao foi possivel realizar a leitura da Temperatura - ADC')
