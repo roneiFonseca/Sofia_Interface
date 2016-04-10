@@ -9,11 +9,10 @@
 
 from PyQt4 import QtCore, QtGui
 # from secdialog import Ui_SecDialog
-from choosingScreen import Ui_choosingScreen
 import imagens2
 import pylab_plot
 import sys
-from mode_operation import Ui_SecDialog
+from choosingScreen import Ui_SecDialog
 
 # try:
 #     serial_setup()

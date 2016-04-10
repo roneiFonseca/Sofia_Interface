@@ -38,11 +38,20 @@ class Ui_SecDialog(object):
 
         #Label para colocar o titulo da janela - CONFIGURAÇÕES
 
-        self.label_2 = QtGui.QLabel(SecDialog)
-        self.label_2.setGeometry(QtCore.QRect(210, 20, 391, 71))
-        self.label_2.setStyleSheet(_fromUtf8("font: 26pt \"Arial\";\n""font-weight:bold;"))
-        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_2.setObjectName(_fromUtf8("label_2"))
+        # self.label_2 = QtGui.QLabel(SecDialog)
+        # self.label_2.setGeometry(QtCore.QRect(210, 20, 391, 71)) #(left,top,right,bottom)
+        # self.label_2.setStyleSheet(_fromUtf8("font: 26pt \"Arial\";\n""font-weight:bold;"))
+        # self.label_2.setAlignment(QtCore.Qt.AlignCenter)
+        # self.label_2.setObjectName(_fromUtf8("label_2"))
+
+
+        #Label para o modo automático
+
+        self.label_3 = QtGui.QLabel(SecDialog)
+        self.label_3.setGeometry(QtCore.QRect(220, 160, 391, 230)) #(left,top,right,bottom)
+        self.label_3.setStyleSheet(_fromUtf8("font: 18pt \"Arial\";\n""font-weight:bold;"))
+        self.label_3.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_3.setObjectName(_fromUtf8("label_3"))
 
         #PushButton para selecionar o Mode de Operação Automatico
         self.pushButton = QtGui.QPushButton(SecDialog)
@@ -61,6 +70,8 @@ class Ui_SecDialog(object):
         self.pushButton_3.setGeometry(QtCore.QRect(315, 300, 201, 101))
         self.pushButton_3.setStyleSheet(_fromUtf8("font-weight:bold;background-color: purple;border-radius: 5px;"))
         self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
+        self.pushButton_3.setIcon(QtGui.QIcon("people.png"))
+        self.pushButton_3.setIconSize(QtCore.QSize(75,75))
 
         #pushButton help
         self.pushButton_help = QtGui.QPushButton(SecDialog)
@@ -74,11 +85,13 @@ class Ui_SecDialog(object):
 
     def retranslateUi(self, SecDialog):
         SecDialog.setWindowTitle(_translate("SecDialog", "Dialog", None))
-        self.label_2.setText(_translate("SecDialog", "MODO DE OPERAÇÃO", None))
+        # self.label_2.setText(_translate("SecDialog", "MODO DE OPERAÇÃO", None))
+        self.label_3.setText(_translate("SecDialog", "PRÉ-CLÍNICO", None))
         self.pushButton.setText(_translate("SecDialog", "MANUAL", None))
         self.pushButton_2.setText(_translate("SecDialog", "AUTOMÁTICO", None))
-        self.pushButton_3.setText(_translate("SecDialog", "PRÉ-CLÍNICO", None))
+        # self.pushButton_3.setText(_translate("SecDialog", "PRÉ-CLÍNICO", None))
         self.pushButton_help.setText(_translate("SecDialog", "?", None))
+
 
         QtCore.QObject.connect(self.pushButton_help , QtCore.SIGNAL("clicked()") , self.Help)
         QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL("clicked()") , self.Power_Func)
