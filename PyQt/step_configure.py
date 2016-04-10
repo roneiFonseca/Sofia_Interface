@@ -13,7 +13,7 @@ import parametros
 
 
 step = 2
-checked = True
+checked = False
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -122,59 +122,58 @@ class Ui_stepDialog(object):
 
     def Plus_click(self):
         # utilizei uma variavel chamada step para depois utilizá-la para calcular o PowerStep e o TimeStep que estão no parametros.py
-
-        self.label.setText(_translate("stepDialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Insira ao lado as iterações que deseja <br> para o Tempo e Potência <br>setados anteriormente</span></p></body></html>", None))
-        self.checkBox.setText(_translate("stepDialog", "Mostrar: Step de Potência/Step de Tempo", None))
-        self.checkBox.setChecked(False)
-        global step
+        global step,checked
         step +=1
-        self.lcdNumber_2.display(step)
-
-        # limitei os passos até 10 só para fins de teste
-        while step > 10:
-            self.lcdNumber_2.display(10)
+        if step > 10:
             step = 10
+        self.lcdNumber_2.display(step)
+        self.calculateSteps()
+        self.showInfo(checked)
+        # limitei os passos até 10 só para fins de teste
+
 
     #decrementa step
     def Minus_click(self):
-        self.label.setText(_translate("stepDialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Insira ao lado as iterações que deseja <br> para o Tempo e Potência <br>setados anteriormente</span></p></body></html>", None))
-        self.checkBox.setText(_translate("stepDialog", "Mostrar: Step de Potência/Step de Tempo", None))
-        self.checkBox.setChecked(False)
-        global step
+        global step,checked
         step -=1
-        self.lcdNumber_2.display(step)
-
-        # passos menores que 1 
-        while step < 2:
-            self.lcdNumber_2.display(2)
+        if step < 2:
             step = 2
+        self.lcdNumber_2.display(step)
+        self.calculateSteps()
+        self.showInfo(checked)
+        # passos menores que 1 
+
 
 
     def state_changed(self):
-
         global step, checked
-
-        self.checkBox.setText(_translate("stepDialog", "Esconder: Step de Potência/Step de Tempo", None))
+        checked = not checked
+        self.showInfo(checked)
 
         #Fazer os calculos de Step de Potencia e Step de Tempo
         Delta_Pot = parametros.todos ['potenciaFinal'] - parametros.todos ['potenciaInicial'] 
 
         parametros.todos['potenciaStep'] = Delta_Pot/step
         parametros.todos['tempoStep'] = parametros.todos['tempo']/step
-
-        # print "%.2f" %(parametros.todos['potenciaStep'])
-        # print "%.2f" %(parametros.todos['tempoStep'])
-
-        self.label.setText(_translate("stepDialog","<html><head/><body><p align=\"left\"><span style= font-size:16pt;>Passo: %d  </span></p><p align=\"left\"><span style= font-size:16pt;>Potência Step [W]: %.2f </span></p><p align=\"left\"><span style= font-size:16pt;>Tempo Step [min]: %.2f </span></p></body></html>" %(step, parametros.todos['potenciaStep'],parametros.todos['tempoStep']), None))
         
-        if (not checked):
-            self.checkBox.setText(_translate("stepDialog", "Mostrar: Step de Potência/Step de Tempo", None))
-            self.label.setText(_translate("stepDialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Insira ao lado as iterações que deseja <br> para o Tempo e Potência <br>setados anteriormente</span></p></body></html>", None))
 
         #Limpando variavel step e checked
-        step = 2 
-        checked = not checked
+        # step = 2 
+        # checked = not checked
+
+    def showInfo(self,checked):
+        if(checked):
+            self.label.setText(_translate("stepDialog","<html><head/><body><p align=\"left\"><span style= font-size:16pt;>Passo: %d  </span></p><p align=\"left\"><span style= font-size:16pt;>Potência Step [W]: %.2f </span></p><p align=\"left\"><span style= font-size:16pt;>Tempo Step [min]: %.2f </span></p></body></html>" %(step, parametros.todos['potenciaStep'],parametros.todos['tempoStep']), None))
+
+        else:
+            self.label.setText(_translate("stepDialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Insira ao lado as iterações que deseja <br> para o Tempo e Potência <br>setados anteriormente</span></p></body></html>", None))
         
+
+    def calculateSteps(self):
+        Delta_Pot = parametros.todos ['potenciaFinal'] - parametros.todos ['potenciaInicial'] 
+        parametros.todos['potenciaStep'] = Delta_Pot/step
+        parametros.todos['tempoStep'] = parametros.todos['tempo']/step
+
 
     def Verify_window(self): # Clicar em tela de verifição
         VerifyWindow = QtGui.QDialog()
