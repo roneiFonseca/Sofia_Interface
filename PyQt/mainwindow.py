@@ -103,6 +103,10 @@ class PlotterThread(QtCore.QThread):
         for option in range(1,4):
             pylab_plot.plotMode(option)
         print "Done with the thread"
+        return
+
+    def __del__(self):
+        self.wait()
 
 
 if __name__ == "__main__":

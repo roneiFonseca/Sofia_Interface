@@ -49,7 +49,7 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         self.pushButton_5.setText(_translate("Dialog", "OK", None))
         Dialog.setWindowTitle(_translate("Atenção Erro", "Atenção", None))
-        self.label_config_infos.setText(_translate("Dialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Atenção!!</span><p align=\"center\"><span style=\" font-size:12pt;\">Aumento súbito de corrente!!</span></p><p align=\"center\"><span style=\" font-size:12pt;\">Por favor, procure uma de nossas assistências técnicas</span></p><p align=\"center\"><br/></p></body></html>", None))
+        self.label_config_infos.setText(_translate("Dialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Atenção!!</span><p align=\"center\"><span style=\" font-size:12pt;\">Falha no Sistema!!</span></p><p align=\"center\"><span style=\" font-size:12pt;\">Por favor, procure uma de nossas assistências técnicas</span></p><p align=\"center\"><br/></p></body></html>", None))
 
 import image_logo_lab_rc
 
@@ -61,4 +61,3 @@ if __name__ == "__main__":
     ui.setupUi(Dialog)
     Dialog.show()
     sys.exit(app.exec_())
-
