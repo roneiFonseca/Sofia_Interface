@@ -13,5 +13,5 @@ flag = {
 	'endOfOperation':False,
 	'manualMode':False,
 	'stepDown':False,
-	'callErrorWindow' = False}
+	'callErrorWindow' : False}
 
