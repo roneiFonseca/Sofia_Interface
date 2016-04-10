@@ -134,11 +134,11 @@ class Ui_fifDialog(object):
         
         parametros.todos['modo'] = 2
         parametros.todos['potenciaInicial'] = 1
-        parametros.todos['potenciaFinal'] = 31
+        parametros.todos['potenciaFinal'] = 25
         parametros.todos['potenciaRT'] = 1
-        parametros.todos['potenciaStep'] = 2.5
+        parametros.todos['potenciaStep'] = 4
         parametros.todos['tempo'] = 12
-        parametros.todos['tempoStep'] = 1
+        parametros.todos['tempoStep'] = 2
 
 
         #pot_diff2 = parametros.todos['potenciaFinal'] - parametros.todos['potenciaInicial']
@@ -163,9 +163,9 @@ class Ui_fifDialog(object):
         parametros.todos['potenciaInicial'] = 10
         parametros.todos['potenciaFinal'] = 25
         parametros.todos['potenciaRT'] = 10
-        parametros.todos['potenciaStep'] = 1
+        parametros.todos['potenciaStep'] = 3
         parametros.todos['tempo'] = 15
-        parametros.todos['tempoStep'] = 1
+        parametros.todos['tempoStep'] = 3
         
         #pot_diff2 = parametros.todos['potenciaFinal'] - parametros.todos['potenciaInicial']
         #parametros.todos['tempoStep'] = pot_diff2/parametros.todos['tempo']
