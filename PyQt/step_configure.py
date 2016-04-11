@@ -157,6 +157,10 @@ class Ui_stepDialog(object):
         parametros.todos['tempoStep'] = parametros.todos['tempo']/step
         
 
+<<<<<<< HEAD
+        #Limpando variavel step e checked 
+        checked = not checked
+=======
         #Limpando variavel step e checked
         # step = 2 
         # checked = not checked
@@ -167,6 +171,7 @@ class Ui_stepDialog(object):
 
         else:
             self.label.setText(_translate("stepDialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Insira ao lado as iterações que deseja <br> para o Tempo e Potência <br>setados anteriormente</span></p></body></html>", None))
+>>>>>>> 20a209486d6f45e9256419d89136f52e84cf68a6
         
 
     def calculateSteps(self):

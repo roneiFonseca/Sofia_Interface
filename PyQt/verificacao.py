@@ -125,11 +125,11 @@ class Ui_VerifyWindow(object):
 
     def Monitoring_Window(self): # Clicar para a tela de monitoramento
 
-        # moniDialog = QtGui.QDialog()
-        # ui = Ui_moniDialog()
-        # ui.setupUi(moniDialog)
-        # moniDialog.exec_()
-        os.system("sudo /usr/bin/python monidialog.py")
+        moniDialog = QtGui.QDialog()
+        ui = Ui_moniDialog()
+        ui.setupUi(moniDialog)
+        moniDialog.exec_()
+        #os.system("sudo /usr/bin/python monidialog.py")
       
 
 if __name__ == "__main__":
