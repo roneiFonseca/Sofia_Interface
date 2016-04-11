@@ -12,7 +12,7 @@ from thirddialog import Ui_thirdDialog
 from fifdialog import Ui_fifDialog
 from help_box import Ui_Dialog
 import parametros
-import pylab_plot
+# import pylab_plot
 
 
 try:
@@ -31,8 +31,6 @@ except AttributeError:
 
 class Ui_SecDialog(object):
     def setupUi(self, SecDialog):
-        self.PlotterThread = PlotterThread()
-        self.PlotterThread.start()
         SecDialog.setObjectName(_fromUtf8("SecDialog"))
         SecDialog.resize(800, 480)
         SecDialog.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);color: rgb(255, 255, 255)"))
@@ -106,19 +104,6 @@ class Ui_SecDialog(object):
         ui = Ui_fifDialog()
         ui.setupUi(fifDialog)
         fifDialog.exec_()
-
-
-class PlotterThread(QtCore.QThread):
-
-    def __init__(self):
-        QtCore.QThread.__init__(self)
-
-    def run(self):
-        for option in range(1,4):
-            pylab_plot.plotMode(option)
-        print "Done with the thread"
-
-
 
 if __name__ == "__main__":
     import sys

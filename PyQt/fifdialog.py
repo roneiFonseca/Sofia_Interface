@@ -79,6 +79,13 @@ class Ui_fifDialog(object):
         # pylab_plot.plotMode(self,1)
         pixmap = QtGui.QPixmap('mode1.png')
         self.pic.setPixmap(pixmap)
+        parametros.todos['modo'] = 1
+        parametros.todos['potenciaInicial'] = 5
+        parametros.todos['potenciaFinal'] = 25
+        parametros.todos['potenciaRT'] = 5
+        parametros.todos['potenciaStep'] = 2
+        parametros.todos['tempo'] = 10
+        parametros.todos['tempoStep'] = 1
         
         # self.frame.setFrameShape(QtGui.QFrame.StyledPanel)
         # self.frame.setFrameShadow(QtGui.QFrame.Raised)
@@ -89,9 +96,9 @@ class Ui_fifDialog(object):
     def retranslateUi(self, fifDialog):
         fifDialog.setWindowTitle(QtGui.QApplication.translate("fifDialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("fifDialog", "MODO DE OPERAÇÃO", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_2.setText(QtGui.QApplication.translate("fifDialog", "10min 2W 5W-25W", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_3.setText(QtGui.QApplication.translate("fifDialog", "12min 2.5W 1W-31W", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_4.setText(QtGui.QApplication.translate("fifDialog", "15min 1W 10W-25W", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_2.setText(QtGui.QApplication.translate("fifDialog", "10min 2W 1min 5W-25W", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_3.setText(QtGui.QApplication.translate("fifDialog", "12min 4W 2min 1W-25W", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_4.setText(QtGui.QApplication.translate("fifDialog", "15min 3W 3min 10W-25W", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_6.setText(QtGui.QApplication.translate("fifDialog", "OK", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_7.setText(QtGui.QApplication.translate("fifDialog", "Voltar", None, QtGui.QApplication.UnicodeUTF8))
 
@@ -134,11 +141,11 @@ class Ui_fifDialog(object):
         
         parametros.todos['modo'] = 2
         parametros.todos['potenciaInicial'] = 1
-        parametros.todos['potenciaFinal'] = 31
+        parametros.todos['potenciaFinal'] = 25
         parametros.todos['potenciaRT'] = 1
-        parametros.todos['potenciaStep'] = 2.5
+        parametros.todos['potenciaStep'] = 4
         parametros.todos['tempo'] = 12
-        parametros.todos['tempoStep'] = 1
+        parametros.todos['tempoStep'] = 2
 
 
         #pot_diff2 = parametros.todos['potenciaFinal'] - parametros.todos['potenciaInicial']
@@ -163,9 +170,9 @@ class Ui_fifDialog(object):
         parametros.todos['potenciaInicial'] = 10
         parametros.todos['potenciaFinal'] = 25
         parametros.todos['potenciaRT'] = 10
-        parametros.todos['potenciaStep'] = 1
+        parametros.todos['potenciaStep'] = 3
         parametros.todos['tempo'] = 15
-        parametros.todos['tempoStep'] = 1
+        parametros.todos['tempoStep'] = 3
         
         #pot_diff2 = parametros.todos['potenciaFinal'] - parametros.todos['potenciaInicial']
         #parametros.todos['tempoStep'] = pot_diff2/parametros.todos['tempo']
