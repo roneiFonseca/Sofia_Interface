@@ -171,8 +171,7 @@ class Ui_stepDialog(object):
             self.checkBox.setText(_translate("stepDialog", "Mostrar: Step de Potência/Step de Tempo", None))
             self.label.setText(_translate("stepDialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Insira ao lado as iterações que deseja <br> para o Tempo e Potência <br>setados anteriormente</span></p></body></html>", None))
 
-        #Limpando variavel step e checked
-        step = 2 
+        #Limpando variavel step e checked 
         checked = not checked
         
 
