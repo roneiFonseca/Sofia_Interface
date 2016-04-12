@@ -94,8 +94,8 @@ class Ui_stepDialog(object):
         self.label_2.setObjectName(_fromUtf8("label_2"))
 
         self.retranslateUi(stepDialog)
-        QtCore.QObject.connect(self.pushButton_OK, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Verify_window)
-        QtCore.QObject.connect(self.pushButton_BACK, QtCore.SIGNAL(_fromUtf8("clicked()")), stepDialog.close)
+        # QtCore.QObject.connect(self.pushButton_OK, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Verify_window)
+        # QtCore.QObject.connect(self.pushButton_BACK, QtCore.SIGNAL(_fromUtf8("clicked()")), stepDialog.close)
         QtCore.QMetaObject.connectSlotsByName(stepDialog)
 
     def retranslateUi(self, stepDialog):
@@ -150,29 +150,12 @@ class Ui_stepDialog(object):
         checked = not checked
         self.showInfo(checked)
 
-        #Fazer os calculos de Step de Potencia e Step de Tempo
-        # Delta_Pot = parametros.todos ['potenciaFinal'] - parametros.todos ['potenciaInicial'] 
-
-        # parametros.todos['potenciaStep'] = Delta_Pot/step
-        # parametros.todos['tempoStep'] = parametros.todos['tempo']/step
-        
-
-# <<<<<<< HEAD
-        #Limpando variavel step e checked 
-        # checked = not checked
-# =======
-        #Limpando variavel step e checked
-        # step = 2 
-        # checked = not checked
-
     def showInfo(self,checked):
         if(checked):
             self.label.setText(_translate("stepDialog","<html><head/><body><p align=\"left\"><span style= font-size:16pt;>Passo: %d  </span></p><p align=\"left\"><span style= font-size:16pt;>Potência Step [W]: %.2f </span></p><p align=\"left\"><span style= font-size:16pt;>Tempo Step [min]: %.2f </span></p></body></html>" %(step, parametros.todos['potenciaStep'],parametros.todos['tempoStep']), None))
 
         else:
-            self.label.setText(_translate("stepDialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Insira ao lado as iterações que deseja <br> para o Tempo e Potência <br>setados anteriormente</span></p></body></html>", None))
-# >>>>>>> 20a209486d6f45e9256419d89136f52e84cf68a6
-        
+            self.label.setText(_translate("stepDialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Insira ao lado as iterações que deseja <br> para o Tempo e Potência <br>setados anteriormente</span></p></body></html>", None))        
 
     def calculateSteps(self):
         Delta_Pot = parametros.todos ['potenciaFinal'] - parametros.todos ['potenciaInicial'] 

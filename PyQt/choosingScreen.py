@@ -9,9 +9,9 @@
 
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtGui import QMessageBox,QWidget
-from thirddialog import Ui_thirdDialog
-from fifdialog import Ui_fifDialog
-from help_box import Ui_Dialog
+# from thirddialog import Ui_thirdDialog
+# from fifdialog import Ui_fifDialog
+# from help_box import Ui_Dialog
 import parametros
 import sys
 
@@ -95,10 +95,7 @@ class Ui_SecDialog(object):
         self.label_4.setText(QtGui.QApplication.translate("SecDialog", "MANUAL", None, QtGui.QApplication.UnicodeUTF8))
         self.label_5.setText(QtGui.QApplication.translate("SecDialog", "PRÉ-CLÍNICO", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_3.setText(QtGui.QApplication.translate("SecDialog", "?", None, QtGui.QApplication.UnicodeUTF8))
-        QtCore.QObject.connect(self.pushButton_2 , QtCore.SIGNAL("clicked()") , self.showDialog)
-        QtCore.QObject.connect(self.pushButton_3 , QtCore.SIGNAL("clicked()") , self.Help)
-        QtCore.QObject.connect(self.pushButton_6, QtCore.SIGNAL("clicked()") , self.Power_Func)
-        QtCore.QObject.connect(self.pushButton_5 , QtCore.SIGNAL("clicked()") , self.Operation_mode)
+
 
         self.textBrowser.setHtml(QtGui.QApplication.translate("SecDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -110,47 +107,12 @@ class Ui_SecDialog(object):
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#ffffff;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ffffff;\">Pré-clínico: Entre com os dados médicos do paciente.</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
 
-    def Help(self): # Clicar em Help
-        Dialog = QtGui.QDialog()
-        ui = Ui_Dialog()
-        ui.setupUi(Dialog)
-        Dialog.exec_()
 
-    def Power_Func(self): # Clicar em Potencia
-        parametros.flag['manualMode'] = True
-        thirdDialog = QtGui.QDialog()
-        ui = Ui_thirdDialog()
-        ui.setupUi(thirdDialog)
-        thirdDialog.exec_()
-
-    def Operation_mode(self): # Clicar em Modo de Operação
-        parametros.flag['manualMode'] = False
-        fifDialog = QtGui.QDialog()
-        ui = Ui_fifDialog()
-        ui.setupUi(fifDialog)
-        fifDialog.exec_()
-
-    def showDialog(self):
-        w = QWidget()
-        result = QMessageBox.question(w, 'Message', "Do you like Python?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-        # palette     = QPalette()
-        # palette.setColor(QPalette.Background, Qt.cyan)
-        # msgBox.setPalette(palette)
-        # msgBox.show()
-         
-        if result == QMessageBox.Yes:
-            print 'Yes.'
-            sys.exit()
-        else:
-            print 'No.' 
-
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    SecDialog = QtGui.QDialog()
-    ui = Ui_SecDialog()
-    ui.setupUi(SecDialog)
-    SecDialog.show()
-    sys.exit(app.exec_())
+# if __name__ == "__main__":
+#     # import sys
+#     app = QtGui.QApplication(sys.argv)
+#     # SecDialog = QtGui.QDialog()
+#     ui = action_select_dialog()
+#     # ui.setupUi(SecDialog)
+#     ui.show()
+#     sys.exit(app.exec_())

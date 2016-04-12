@@ -86,7 +86,7 @@ class Ui_fourthDialog(object):
         self.pushButton_off.setObjectName(_fromUtf8("pushButton_off"))
 
         self.retranslateUi(fourthDialog)
-        QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Step_window)
+        # QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Step_window)
         QtCore.QMetaObject.connectSlotsByName(fourthDialog)
 
     def retranslateUi(self, fourthDialog):
@@ -99,7 +99,7 @@ class Ui_fourthDialog(object):
         self.pushButton_off.setText(_translate("fourthDialog", "VOLTAR", None))
         QtCore.QObject.connect(self.pushButton_3 , QtCore.SIGNAL("clicked()") , self.time_button_Plus_click)
         QtCore.QObject.connect(self.pushButton_4 , QtCore.SIGNAL("clicked()") , self.time_button_Minus_click)
-        QtCore.QObject.connect(self.pushButton_off, QtCore.SIGNAL(_fromUtf8("clicked()")), fourthDialog.close)
+        # QtCore.QObject.connect(self.pushButton_off, QtCore.SIGNAL(_fromUtf8("clicked()")), fourthDialog.close)
 
     def time_button_Plus_click(self):
         parametros.todos['tempo'] +=1

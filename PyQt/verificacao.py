@@ -88,12 +88,6 @@ class Ui_VerifyWindow(object):
         self.label_8.setGeometry(QtCore.QRect(550, 290, 55, 16))
         self.label_8.setStyleSheet(_fromUtf8("font: 10pt \"Arial\";"))
         self.label_8.setObjectName(_fromUtf8("label_8"))
-        # self.label_9 = QtGui.QLabel(VerifyWindow)
-        # self.label_9.setGeometry(QtCore.QRect(0, 0, 821, 121))
-        # self.label_9.setText(_fromUtf8(""))
-        # self.label_9.setPixmap(QtGui.QPixmap(_fromUtf8(":/imagens/logo.png")))
-        # self.label_9.setObjectName(_fromUtf8("label_9"))
-
         self.retranslateUi(VerifyWindow)
         QtCore.QMetaObject.connectSlotsByName(VerifyWindow)
 
@@ -119,24 +113,12 @@ class Ui_VerifyWindow(object):
         else:    
             self.lcdNumber_3.display(parametros.todos['modo'])
         self.lcdNumber_4.display(parametros.todos['potenciaFinal'])
-        QtCore.QObject.connect(self.pushButton , QtCore.SIGNAL("clicked()") , self.Monitoring_Window)
-        QtCore.QObject.connect(self.pushButton , QtCore.SIGNAL("clicked()") , VerifyWindow.close)
-        QtCore.QObject.connect(self.pushButton_2 , QtCore.SIGNAL("clicked()") , VerifyWindow.close)
 
-    def Monitoring_Window(self): # Clicar para a tela de monitoramento
-
-        moniDialog = QtGui.QDialog()
-        ui = Ui_moniDialog()
-        ui.setupUi(moniDialog)
-        moniDialog.exec_()
-        #os.system("sudo /usr/bin/python monidialog.py")
-      
-
-if __name__ == "__main__":
-    app = QtGui.QApplication(sys.argv)
-    VerifyWindow = QtGui.QDialog()
-    ui = Ui_VerifyWindow()
-    ui.setupUi(VerifyWindow)
-    VerifyWindow.show()
-    sys.exit(app.exec_())
+# if __name__ == "__main__":
+#     app = QtGui.QApplication(sys.argv)
+#     VerifyWindow = QtGui.QDialog()
+#     ui = Ui_VerifyWindow()
+#     ui.setupUi(VerifyWindow)
+#     VerifyWindow.show()
+#     sys.exit(app.exec_())
 

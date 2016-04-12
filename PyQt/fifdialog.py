@@ -106,8 +106,8 @@ class Ui_fifDialog(object):
         QtCore.QObject.connect(self.pushButton_2 , QtCore.SIGNAL("clicked()") , self.mode1)
         QtCore.QObject.connect(self.pushButton_3 , QtCore.SIGNAL("clicked()") , self.mode2)
         QtCore.QObject.connect(self.pushButton_4 , QtCore.SIGNAL("clicked()") , self.mode3)
-        QtCore.QObject.connect(self.pushButton_6 , QtCore.SIGNAL("clicked()") , self.ok)
-        QtCore.QObject.connect(self.pushButton_7 , QtCore.SIGNAL("clicked()") , fifDialog.close)
+        # QtCore.QObject.connect(self.pushButton_6 , QtCore.SIGNAL("clicked()") , self.ok)
+        # QtCore.QObject.connect(self.pushButton_7 , QtCore.SIGNAL("clicked()") , fifDialog.close)
 
 
 

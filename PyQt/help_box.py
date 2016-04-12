@@ -9,6 +9,7 @@
 
 from PyQt4 import QtCore, QtGui
 import subprocess
+import image_logo_lab_rc
 import os
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -28,6 +29,7 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName(_fromUtf8("Dialog"))
         Dialog.resize(466, 390)
+        Dialog.setStyleSheet(_fromUtf8("background-color: gray;color: black"))
         self.label_logolab = QtGui.QLabel(Dialog)
         self.label_logolab.setGeometry(QtCore.QRect(120, -20, 231, 181))
         self.label_logolab.setText(_fromUtf8(""))
@@ -49,23 +51,12 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         self.pushButton_5.setText(_translate("Dialog", "OK", None))
         Dialog.setWindowTitle(_translate("Informações", "Informações", None))
-        self.label_config_infos.setText(_translate("Dialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Gerador de Rádio Frequência </span><span style=\" font-size:12pt; font-style:italic;\">Sofia 2000</span></p><p align=\"center\"><span style=\" font-size:12pt;\">Modelo xx - 000 Fabricado em 2016</span></p><p align=\"center\"><span style=\" font-size:12pt;\">Frequência de Operação 500 kHz</span></p><p align=\"center\"><span style=\" font-size:12pt;\">Potência de Saída (50 </span><span style=\" font-family:\'arial,sans-serif\'; font-size:12pt; color:#545454; \">Ω) : 50 W</span></p><p align=\"center\"><a> Para maiores informações sobre o Sofia 2000, veja <a href = /home/pedro/Desktop/DivisorTensaoCorrente.pdf>Manual Sofia</a></a><br/></p></body></html>", None))
-        QtCore.QObject.connect(self.label_config_infos, QtCore.SIGNAL("linkActivated(QString)"), self.Open_Manual)
-        QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.close)
+        self.label_config_infos.setText(_translate("Dialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Gerador de Rádio Frequência </span><span style=\" font-size:12pt; font-style:italic;\">Sofia 2000</span></p><p align=\"center\"><span style=\" font-size:12pt;\">Modelo xx - 000 Fabricado em 2016</span></p><p align=\"center\"><span style=\" font-size:12pt;\">Frequência de Operação 500 kHz</span></p><p align=\"center\"><span style=\" font-size:12pt;\">Potência de Saída (50 </span><span style=\" font-family:\'arial,sans-serif\'; font-size:12pt;\">Ω) : 50 W</span></p><p align=\"center\"><a> Para maiores informações sobre o Sofia 2000, veja <a href = /home/pedro/Desktop/DivisorTensaoCorrente.pdf>Manual Sofia</a></a><br/></p></body></html>", None))
+        # QtCore.QObject.connect(self.label_config_infos, QtCore.SIGNAL("linkActivated(QString)"), self.Open_Manual)
+        # QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.close)
 
 
     def Open_Manual(self): 
         # os.system("evince /home/pedro/Desktop/DivisorTensaoCorrente.pdf")
         os.system("xpdf DivisorTensaoCorrente.pdf")
-
-import image_logo_lab_rc
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    Dialog = QtGui.QDialog()
-    ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
-    sys.exit(app.exec_())
 
