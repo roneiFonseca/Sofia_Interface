@@ -55,7 +55,7 @@ class Ui_SecDialog(object):
         self.pushButton_2.setStyleSheet(_fromUtf8("font: 20pt \"Arial\";\n""background-color: red;color:bla;\n""border-radius: 5px;"))
         self.pushButton_2.setText(_fromUtf8(""))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
-        self.pushButton_2.setIcon(QtGui.QIcon("power.png"))
+        self.pushButton_2.setIcon(QtGui.QIcon(":images/power.png"))
         self.pushButton_2.setIconSize(QtCore.QSize(35,35))
         
 

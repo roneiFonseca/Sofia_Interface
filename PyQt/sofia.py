@@ -61,6 +61,7 @@ class OperationMode (QMainWindow,Ui_SecDialog):
 		self.power.show()
 
 	def auto(self): #Automatic Mode
+		self.close()
 		parametros.flag['manualMode'] = False
 		self.automatic = Automatic(self)
 		self.automatic.show()
