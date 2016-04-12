@@ -7,19 +7,16 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt4 import QtCore, QtGui
-# from secdialog import Ui_SecDialog
-import imagens2
-import pylab_plot
-import sys
-from choosingScreen import Ui_SecDialog
 
-# try:
-#     serial_setup()
+################################### LIBRARIES ###############################################
+from PyQt4 import QtCore, QtGui                                                            ##
+import imagens2                                                                            ##
+import pylab_plot                                                                          ##
+import sys                                                                                 ##
+from choosingScreen import Ui_SecDialog                                                    ##
+#############################################################################################
 
-# except Exception, e:
-#     raise e
-
+################################### ERROR TREATMENT #########################################
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -33,7 +30,9 @@ try:
 except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
+#############################################################################################
 
+################################### UI_MAINDOW ##############################################
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         self.PlotterThread = PlotterThread()
@@ -94,6 +93,9 @@ class Ui_MainWindow(object):
         ui.setupUi(SecDialog)
         SecDialog.exec_()
 
+#############################################################################################
+
+################################### PLOTTER THREAD ##########################################
 class PlotterThread(QtCore.QThread):
 
     def __init__(self):
@@ -107,8 +109,9 @@ class PlotterThread(QtCore.QThread):
 
     def __del__(self):
         self.wait()
+#############################################################################################
 
-
+################################### PLOTTER THREAD ##########################################
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     MainWindow = QtGui.QMainWindow()
