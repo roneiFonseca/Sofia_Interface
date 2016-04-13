@@ -185,7 +185,7 @@ class StartProcedure(QMainWindow,Ui_moniDialog):
 		self.setupUi(self)
 		self.retranslateUi()
 		self.pushButton_8.clicked.connect(self.goBack)
-		self.pushButton_7.clicked.connect(self.begin)
+		# self.pushButton_7.clicked.connect(self.begin)
 
 	def goBack(self):
 		self.close()
