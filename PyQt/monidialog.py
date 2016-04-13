@@ -32,7 +32,7 @@ console.setLevel(logging.INFO)
 console.setFormatter(formatter)
 logging.getLogger('').addHandler(console)
 
-RPI_ON = False
+RPI_ON = True
 
 if (RPI_ON):
     import RPi.GPIO as GPIO
@@ -121,15 +121,15 @@ except AttributeError:
 ################################### UI_MONIDIALOG ###########################################
 class Ui_moniDialog(object):
     def setupUi(self, moniDialog):
-        moniDialog.setObjectName(_fromUtf8("moniDialog"))
-        moniDialog.resize(800, 480)
-        moniDialog.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);color:white"))
-        self.label_2 = QtGui.QLabel(moniDialog)
+        self.setObjectName(_fromUtf8("moniDialog"))
+        self.resize(800, 480)
+        self.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);color:white"))
+        self.label_2 = QtGui.QLabel(self)
         self.label_2.setGeometry(QtCore.QRect(170, 50, 441, 71))
         self.label_2.setStyleSheet(_fromUtf8("font: 22pt \"Arial\";font-weight:bold;"))
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName(_fromUtf8("label_2"))
-        self.label_14 = QtGui.QLabel(moniDialog)
+        self.label_14 = QtGui.QLabel(self)
         self.label_14.setGeometry(QtCore.QRect(760, 240, 47, 13))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial"))
@@ -140,18 +140,18 @@ class Ui_moniDialog(object):
         self.label_14.setFont(font)
         self.label_14.setStyleSheet(_fromUtf8("font: 75 12pt \"Arial\";"))
         self.label_14.setObjectName(_fromUtf8("label_14"))
-        self.label_15 = QtGui.QLabel(moniDialog)
+        self.label_15 = QtGui.QLabel(self)
         self.label_15.setGeometry(QtCore.QRect(168, 280, 500, 90))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.label_15.setFont(font)
         self.label_15.setObjectName(_fromUtf8("label_15"))
         self.label_15.setStyleSheet("font-weight:bold;")
-        self.pushButton_7 = QtGui.QPushButton(moniDialog)
+        self.pushButton_7 = QtGui.QPushButton(self)
         self.pushButton_7.setGeometry(QtCore.QRect(450, 400, 181, 51))
         self.pushButton_7.setObjectName(_fromUtf8("pushButton_7"))
         self.pushButton_7.setStyleSheet("font-weight:bold;background-color: rgb(40, 255, 0);border-radius: 10px;")
-        self.label_20 = QtGui.QLabel(moniDialog)
+        self.label_20 = QtGui.QLabel(self)
         self.label_20.setGeometry(QtCore.QRect(550, 240, 55, 16))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial"))
@@ -162,23 +162,23 @@ class Ui_moniDialog(object):
         self.label_20.setFont(font)
         self.label_20.setStyleSheet(_fromUtf8("font: 75 12pt \"Arial\";"))
         self.label_20.setObjectName(_fromUtf8("label_20"))
-        self.lcd_tempo = QtGui.QLCDNumber(moniDialog)
+        self.lcd_tempo = QtGui.QLCDNumber(self)
         self.lcd_tempo.setGeometry(QtCore.QRect(640, 180, 111, 81))
         self.lcd_tempo.setStyleSheet(_fromUtf8("background-color: blue;"))
         self.lcd_tempo.setObjectName(_fromUtf8("lcd_tempo"))
-        self.pushButton_8 = QtGui.QPushButton(moniDialog)
+        self.pushButton_8 = QtGui.QPushButton(self)
         self.pushButton_8.setGeometry(QtCore.QRect(160, 400, 181, 51))
         self.pushButton_8.setStyleSheet(_fromUtf8("font-weight:bold;background-color: red;border-radius: 10px;"))
         self.pushButton_8.setObjectName(_fromUtf8("pushButton_8"))
-        self.lcd_temp = QtGui.QLCDNumber(moniDialog)
+        self.lcd_temp = QtGui.QLCDNumber(self)
         self.lcd_temp.setGeometry(QtCore.QRect(430, 180, 111, 81))
         self.lcd_temp.setStyleSheet(_fromUtf8("background-color: blue;"))
         self.lcd_temp.setObjectName(_fromUtf8("lcd_temp"))
-        self.lcd_imp = QtGui.QLCDNumber(moniDialog)
+        self.lcd_imp = QtGui.QLCDNumber(self)
         self.lcd_imp.setGeometry(QtCore.QRect(220, 180, 111, 81))
         self.lcd_imp.setStyleSheet(_fromUtf8("alternate-background-color: rgb(0, 0, 0);background-color: blue;"))
         self.lcd_imp.setObjectName(_fromUtf8("lcd_imp"))
-        self.label_23 = QtGui.QLabel(moniDialog)
+        self.label_23 = QtGui.QLabel(self)
         self.label_23.setGeometry(QtCore.QRect(150, 240, 55, 16))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial"))
@@ -189,7 +189,7 @@ class Ui_moniDialog(object):
         self.label_23.setFont(font)
         self.label_23.setStyleSheet(_fromUtf8("font: 75 12pt \"Arial\";"))
         self.label_23.setObjectName(_fromUtf8("label_23"))
-        self.label_24 = QtGui.QLabel(moniDialog)
+        self.label_24 = QtGui.QLabel(self)
         self.label_24.setGeometry(QtCore.QRect(340, 240, 55, 16))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial"))
@@ -200,14 +200,14 @@ class Ui_moniDialog(object):
         self.label_24.setFont(font)
         self.label_24.setStyleSheet(_fromUtf8("font: 75 12pt \"Arial\";"))
         self.label_24.setObjectName(_fromUtf8("label_24"))
-        self.lcd_potencia = QtGui.QLCDNumber(moniDialog)
+        self.lcd_potencia = QtGui.QLCDNumber(self)
         self.lcd_potencia.setGeometry(QtCore.QRect(30, 180, 111, 81))
         self.lcd_potencia.setStyleSheet(_fromUtf8("background-color:blue;"))
         self.lcd_potencia.setObjectName(_fromUtf8("lcd_potencia"))
-        self.timer = QtCore.QTimer(moniDialog)
+        self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.control)
 
-        QtCore.QMetaObject.connectSlotsByName(moniDialog)
+        QtCore.QMetaObject.connectSlotsByName(self)
 
 
     def retranslateUi(self):
@@ -262,7 +262,7 @@ class Ui_moniDialog(object):
                     logger.error('Nao foi possivel realizar a leitura da Tensao - ADC')
                     os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
                     GPIO.cleanup()
-                    moniDialog.close()
+                    self.close()
 
 
                 for x in xrange(0,10):
@@ -282,7 +282,7 @@ class Ui_moniDialog(object):
                     logger.error('Nao foi possivel realizar a leitura da Corrente - ADC')
                     os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
                     GPIO.cleanup()
-                    moniDialog.close()
+                    self.close()
 
 
                 for x in xrange(0,10):
@@ -303,7 +303,7 @@ class Ui_moniDialog(object):
                     logger.error('Nao foi possivel realizar a leitura da Temperatura - ADC')
                     os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
                     GPIO.cleanup()
-                    moniDialog.close()
+                    self.close()
 
 
                 impedance = controller.getImpedance(voltage,current) #calculando impedancia
@@ -379,7 +379,7 @@ class Ui_moniDialog(object):
                         logger.error('Nao foi possivel realizar a escrita no DAC')
                         os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
                         GPIO.cleanup()
-                        moniDialog.close()
+                        self.close()
 
 
             #CONTROLE DE TEMPERATURA
@@ -501,10 +501,10 @@ class Ui_moniDialog(object):
                         callErrorWindow = True
 
                 if(callErrorWindow):
-                    logger.error('Nao foi possivel realizar a escrta no DAC')
+                    logger.error('Nao foi possivel realizar a escrita no DAC')
                     os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
                     GPIO.cleanup()
-                    moniDialog.close()
+                    self.close()
 
 
     def shutdown_function(self):
@@ -520,7 +520,7 @@ class Ui_moniDialog(object):
         logger.warn('Aumento súbito de corrente. Verifique IRF540 e se o circuito está em aberto')
         os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
         GPIO.cleanup()
-        moniDialog.close()
+        self.close()
 
 
 
@@ -542,7 +542,7 @@ class Ui_moniDialog(object):
                 logger.error('Nao foi possivel realizar a escrita no DAC')
                 os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
                 GPIO.cleanup()
-                moniDialog.close()
+                self.close()
 
 
 
