@@ -200,6 +200,7 @@ class Automatic(QMainWindow,Ui_fifDialog):
 	def __init__(self,parent=None):
 		QMainWindow.__init__(self,parent)
 		self.setupUi(self)
+		self.retranslateUi()
 		self.pushButton_7.clicked.connect(self.goBack)
 		self.pushButton_6.clicked.connect(self.goVerify)
 

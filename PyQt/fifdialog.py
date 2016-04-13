@@ -1,11 +1,5 @@
 # -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'fifdialog.ui'
-#
-# Created: Wed Mar  2 15:46:05 2016
-#      by: PyQt4 UI code generator 4.9.4
-#
-# WARNING! All changes made in this file will be lost!
+################################### LIBRARIES ###############################################
 from __future__ import division
 import random
 import parametros
@@ -13,14 +7,20 @@ import pylab_plot
 from PyQt4 import QtCore, QtGui
 from verificacao import Ui_VerifyWindow
 import math
+#############################################################################################
 
+
+
+################################### ERROR TREATMENT #########################################
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
     _fromUtf8 = lambda s: s
+#############################################################################################
 
 
 
+################################### UI_FIFDIALOG ##############################################
 class Ui_fifDialog(object):
     def setupUi(self, fifDialog):
         fifDialog.setObjectName(_fromUtf8("fifDialog"))
@@ -90,11 +90,10 @@ class Ui_fifDialog(object):
         # self.frame.setFrameShape(QtGui.QFrame.StyledPanel)
         # self.frame.setFrameShadow(QtGui.QFrame.Raised)
         # self.frame.setObjectName(_fromUtf8("frame"))
-        self.retranslateUi(fifDialog)
         QtCore.QMetaObject.connectSlotsByName(fifDialog)
 
     def retranslateUi(self, fifDialog):
-        fifDialog.setWindowTitle(QtGui.QApplication.translate("fifDialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
+        self.setWindowTitle(QtGui.QApplication.translate("fifDialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("fifDialog", "MODO DE OPERAÇÃO", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_2.setText(QtGui.QApplication.translate("fifDialog", "10min 2W 1min 5W-25W", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_3.setText(QtGui.QApplication.translate("fifDialog", "12min 4W 2min 1W-25W", None, QtGui.QApplication.UnicodeUTF8))
@@ -193,8 +192,10 @@ class Ui_fifDialog(object):
         ui = Ui_VerifyWindow()
         ui.setupUi(VerifyWindow)
         VerifyWindow.exec_()
+#############################################################################################
 
 
+################################### MAIN ####################################################
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
@@ -203,3 +204,4 @@ if __name__ == "__main__":
     ui.setupUi(fifDialog)
     fifDialog.show()
     sys.exit(app.exec_())
+#############################################################################################

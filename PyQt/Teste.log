@@ -1,0 +1,8 @@
+2016-04-13 14:46:10,711 - monidialog - INFO - Operação iniciada
+2016-04-13 14:46:10,711 - monidialog - INFO - Potencia Inicial: 5  Potencia Final: 25  Step de Potencia: 2  Tempo: 10  Step de Tempo: 1  Modo: 1
+2016-04-13 14:46:13,707 - monidialog - INFO - Operação iniciada
+2016-04-13 14:46:13,707 - monidialog - INFO - Potencia Inicial: 5  Potencia Final: 25  Step de Potencia: 2  Tempo: 10  Step de Tempo: 1  Modo: 1
+2016-04-13 14:46:13,707 - monidialog - INFO - Operação pausada
+2016-04-13 14:46:13,708 - monidialog - INFO - Potencia RT: 5  Tempo: 10  Modo: 1
+2016-04-13 14:46:31,332 - monidialog - INFO - Operação iniciada
+2016-04-13 14:46:31,332 - monidialog - INFO - Potencia Inicial: 10  Potencia Final: 25  Step de Potencia: 3  Tempo: 15  Step de Tempo: 3  Modo: 3
