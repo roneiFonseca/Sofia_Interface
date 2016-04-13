@@ -1,20 +1,22 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'time_to_pot.ui'
-#
-# Created: Fri Apr  8 09:47:17 2016
-#      by: PyQt4 UI code generator 4.10.4
-#
-# WARNING! All changes made in this file will be lost!
+################################### LIBRARIES ###############################################
 from __future__ import division
 from PyQt4 import QtCore, QtGui
 from verificacao import Ui_VerifyWindow
 import parametros
+#############################################################################################
 
 
+
+################################### GLOBAL VARIABLES ########################################
 step = 2
 checked = False
+#############################################################################################
 
+
+
+################################### ERROR TREATMENT #########################################
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -28,13 +30,16 @@ try:
 except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
+#############################################################################################
 
+
+
+################################### UI_STEPDIALOG  ##########################################
 class Ui_stepDialog(object):
     def setupUi(self, stepDialog):
         stepDialog.setObjectName(_fromUtf8("stepDialog"))
         stepDialog.resize(800, 480)
         font = QtGui.QFont()
-        # font.setFamily(_fromUtf8("Arial"))
         font.setPointSize(18)
         stepDialog.setFont(font)
         stepDialog.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);color: rgb(255,255,255);"))
@@ -48,15 +53,14 @@ class Ui_stepDialog(object):
         self.lcdNumber_2.setObjectName(_fromUtf8("lcdNumber_2"))
         self.lcdNumber_2.display(2)
 
-        # pushButton para incrementar os passos
-        self.pushButton_3 = QtGui.QPushButton(stepDialog)
+        self.pushButton_3 = QtGui.QPushButton(stepDialog)    # pushButton para incrementar os passos
         self.pushButton_3.setGeometry(QtCore.QRect(620, 170, 61, 61))
         self.pushButton_3.setFont(font)
         self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
         self.pushButton_3.setStyleSheet("font-weight:bold;background-color: blue;border-radius: 10px;")
 
-        # pushButton para decrementar os passos
-        self.pushButton_4 = QtGui.QPushButton(stepDialog)
+
+        self.pushButton_4 = QtGui.QPushButton(stepDialog) # pushButton para decrementar os passos
         self.pushButton_4.setGeometry(QtCore.QRect(620, 240, 61, 61))
         self.pushButton_4.setFont(font)
         self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
@@ -93,13 +97,10 @@ class Ui_stepDialog(object):
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName(_fromUtf8("label_2"))
 
-        self.retranslateUi(stepDialog)
-        QtCore.QObject.connect(self.pushButton_OK, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Verify_window)
-        QtCore.QObject.connect(self.pushButton_BACK, QtCore.SIGNAL(_fromUtf8("clicked()")), stepDialog.close)
         QtCore.QMetaObject.connectSlotsByName(stepDialog)
 
-    def retranslateUi(self, stepDialog):
-        stepDialog.setWindowTitle(_translate("stepDialog", "Dialog", None))
+    def retranslateUi(self):
+        self.setWindowTitle(_translate("stepDialog", "Dialog", None))
         self.pushButton_3.setText(_translate("stepDialog", "+", None))
         self.pushButton_4.setText(_translate("stepDialog", "-", None))
         self.pushButton_OK.setText(_translate("stepDialog", "OK", None))
@@ -111,87 +112,53 @@ class Ui_stepDialog(object):
         QtCore.QObject.connect(self.pushButton_3 , QtCore.SIGNAL("clicked()") , self.Plus_click)
         QtCore.QObject.connect(self.pushButton_4 , QtCore.SIGNAL("clicked()") , self.Minus_click)
         QtCore.QObject.connect(self.checkBox , QtCore.SIGNAL("clicked()") , self.state_changed)
-        # QtCore.QObject.checkBox.stateChanged.connect(self.state_changed)
-        
-        
-
-
-
-    # limitar os valores de passos conforme for melhor para o protocolo - neste caso, utiliza-se passos entre e 2 e 10 
-    #incrementa step
 
     def Plus_click(self):
-        # utilizei uma variavel chamada step para depois utilizá-la para calcular o PowerStep e o TimeStep que estão no parametros.py
         global step,checked
         step +=1
-        if step > 10:
+        if step > 10: # Até 10 passos
             step = 10
         self.lcdNumber_2.display(step)
         self.calculateSteps()
         self.showInfo(checked)
-        # limitei os passos até 10 só para fins de teste
 
-
-    #decrementa step
-    def Minus_click(self):
+    def Minus_click(self):     #decrementa step
         global step,checked
         step -=1
-        if step < 2:
+        if step < 2: #Ao menos 2 passos
             step = 2
         self.lcdNumber_2.display(step)
         self.calculateSteps()
         self.showInfo(checked)
-        # passos menores que 1 
-
-
 
     def state_changed(self):
         global step, checked
         checked = not checked
         self.showInfo(checked)
 
-        #Fazer os calculos de Step de Potencia e Step de Tempo
-        # Delta_Pot = parametros.todos ['potenciaFinal'] - parametros.todos ['potenciaInicial'] 
-
-        # parametros.todos['potenciaStep'] = Delta_Pot/step
-        # parametros.todos['tempoStep'] = parametros.todos['tempo']/step
-        
-
-# <<<<<<< HEAD
-        #Limpando variavel step e checked 
-        # checked = not checked
-# =======
-        #Limpando variavel step e checked
-        # step = 2 
-        # checked = not checked
-
     def showInfo(self,checked):
         if(checked):
             self.label.setText(_translate("stepDialog","<html><head/><body><p align=\"left\"><span style= font-size:16pt;>Passo: %d  </span></p><p align=\"left\"><span style= font-size:16pt;>Potência Step [W]: %.2f </span></p><p align=\"left\"><span style= font-size:16pt;>Tempo Step [min]: %.2f </span></p></body></html>" %(step, parametros.todos['potenciaStep'],parametros.todos['tempoStep']), None))
 
         else:
-            self.label.setText(_translate("stepDialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Insira ao lado as iterações que deseja <br> para o Tempo e Potência <br>setados anteriormente</span></p></body></html>", None))
-# >>>>>>> 20a209486d6f45e9256419d89136f52e84cf68a6
-        
+            self.label.setText(_translate("stepDialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Insira ao lado as iterações que deseja <br> para o Tempo e Potência <br>setados anteriormente</span></p></body></html>", None))        
 
     def calculateSteps(self):
         Delta_Pot = parametros.todos ['potenciaFinal'] - parametros.todos ['potenciaInicial'] 
         parametros.todos['potenciaStep'] = Delta_Pot/step
         parametros.todos['tempoStep'] = parametros.todos['tempo']/step
+#############################################################################################
 
 
-    def Verify_window(self): # Clicar em tela de verifição
-        VerifyWindow = QtGui.QDialog()
-        ui = Ui_VerifyWindow()
-        ui.setupUi(VerifyWindow)
-        VerifyWindow.exec_()
 
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    stepDialog = QtGui.QDialog()
-    ui = Ui_stepDialog()
-    ui.setupUi(stepDialog)
-    stepDialog.show()
-    sys.exit(app.exec_())
+################################### MAIN ####################################################
+# if __name__ == "__main__":
+#     import sys
+#     app = QtGui.QApplication(sys.argv)
+#     stepDialog = QtGui.QDialog()
+#     ui = Ui_stepDialog()
+#     ui.setupUi(stepDialog)
+#     stepDialog.show()
+#     sys.exit(app.exec_())
+#############################################################################################
 

@@ -1,25 +1,15 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'mainwindow.ui'
-#
-# Created: Tue Feb 23 14:35:16 2016
-#      by: PyQt4 UI code generator 4.10.4
-#
-# WARNING! All changes made in this file will be lost!
 
-from PyQt4 import QtCore, QtGui
-# from secdialog import Ui_SecDialog
-import imagens2
-import pylab_plot
-import sys
-from choosingScreen import Ui_SecDialog
 
-# try:
-#     serial_setup()
+################################### LIBRARIES ###############################################
+from PyQt4 import QtCore, QtGui                                                            
+import imagens2                                                                            
+import pylab_plot                                                                          
+# import sys                                                                               
+#############################################################################################
 
-# except Exception, e:
-#     raise e
-
+################################### ERROR TREATMENT #########################################
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -33,7 +23,9 @@ try:
 except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
+#############################################################################################
 
+################################### UI_MAINDOW ##############################################
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         self.PlotterThread = PlotterThread()
@@ -81,19 +73,10 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Sofia_Gerador_RF", None))
         self.label.setWhatsThis(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-family:\'Calibri\'; font-size:44pt; font-weight:600; color:#000000;\">Gerador RF</span><span style=\" font-family:\'Calibri\'; font-size:44pt; font-weight:600; font-style:italic; color:#000000;\"> – SOFIA</span><span style=\" font-family:\'Calibri\'; font-size:44pt; font-style:italic; color:#000000;\"/></p></body></html>", None))
         self.label.setText(_translate("MainWindow", "<html><head/><body><br><p><span style=\" font-size:26pt;\">Seja Bem Vindo</span></p><p><span style=\" font-size:26pt;\">ao </span></p><p><span style=\" font-size:26pt;\">Gerador RF – </span><span style=\" font-size:26pt; font-style:italic;\">SOFIA </span></p></body></html>", None))
-        QtCore.QTimer.singleShot(5000, self.OpenIT)   
-   
-    
-    def OpenIT(self):
-        MainWindow.close()
-        # choosingScreen = QtGui.QDialog()
-        # ui = Ui_choosingScreen()
-        # ui.setupUi(choosingScreen)
-        SecDialog = QtGui.QDialog()
-        ui = Ui_SecDialog()
-        ui.setupUi(SecDialog)
-        SecDialog.exec_()
 
+#############################################################################################
+
+################################### PLOTTER THREAD ##########################################
 class PlotterThread(QtCore.QThread):
 
     def __init__(self):
@@ -107,13 +90,14 @@ class PlotterThread(QtCore.QThread):
 
     def __del__(self):
         self.wait()
+#############################################################################################
 
-
-if __name__ == "__main__":
-    app = QtGui.QApplication(sys.argv)
-    MainWindow = QtGui.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
-
+################################### MAIN ####################################################
+# if __name__ == "__main__":
+#     app = QtGui.QApplication(sys.argv)
+#     MainWindow = QtGui.QMainWindow()
+#     ui = Ui_MainWindow()
+#     ui.setupUi(MainWindow)
+#     MainWindow.show()
+#     sys.exit(app.exec_())
+#############################################################################################
