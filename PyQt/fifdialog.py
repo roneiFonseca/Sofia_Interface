@@ -92,7 +92,7 @@ class Ui_fifDialog(object):
         # self.frame.setObjectName(_fromUtf8("frame"))
         QtCore.QMetaObject.connectSlotsByName(fifDialog)
 
-    def retranslateUi(self, fifDialog):
+    def retranslateUi(self):
         self.setWindowTitle(QtGui.QApplication.translate("fifDialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("fifDialog", "MODO DE OPERAÇÃO", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_2.setText(QtGui.QApplication.translate("fifDialog", "10min 2W 1min 5W-25W", None, QtGui.QApplication.UnicodeUTF8))
