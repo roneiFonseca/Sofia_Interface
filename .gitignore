@@ -27,3 +27,5 @@
 *.pyc
 
 *.pyc
+
+Calibração/Calib_Potencia/potencia.py
