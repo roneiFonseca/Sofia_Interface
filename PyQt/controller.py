@@ -6,7 +6,7 @@ import logging
 actuatorValue = 0
 parametros.flag['impedance'] = False
 parametros.flag['temperature'] = False
-flagCallErrorWindow = False
+parametros.flag['callErrorWindow'] = False
 
 def getImpedance(measuredVoltage,measuredCurrent):
 
@@ -66,13 +66,13 @@ def applyVoltage(address,dacAddress,desiredValue):
          try:
             actuatorValue += desiredValue
             bus.write_byte_data(address,dacAddress,desiredValue)
-            flagCallErrorWindow = False
+            callErrorWindow = False
             break #sai do for se chegar aqui
          except Exception, e:
             logger.error('Erro na escrita do DAC', exc_info=True)
-            flagCallErrorWindow = True
+            callErrorWindow = True
 
-       if(flagCallErrorWindow):
+       if(callErrorWindow):
             logger.error('Nao foi possivel realizar a escrita no DAC')
             os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
             GPIO.cleanup()

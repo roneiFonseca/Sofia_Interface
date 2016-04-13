@@ -2,11 +2,11 @@ import matplotlib.pyplot as plt
 import parametros
 import os,sys
 
-potenciaInicial =[0,5,10]
-potenciaFinal = [20,25,55]
-potenciaStep = [2,2.5,3]
-tempo = [11,9,16]
-tempoStep = [1,1,1]
+potenciaInicial =[5,1,10]
+potenciaFinal = [25,25,25]
+potenciaStep = [2,4,3]
+tempo = [10,12,15]
+tempoStep = [1,2,3]
 modo = [1,2,3]
 
 

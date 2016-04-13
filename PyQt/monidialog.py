@@ -84,8 +84,9 @@ time_now = 0
 cont = 0
 teste = 22
 
+
 #flag de monitoramento de erro
-flagCallErrorWindow = False
+parametros.flag['callErrorWindow'] = False
 
 #Contadores do Step Down de Potencia
 stepDownTop = 0
@@ -250,13 +251,13 @@ class Ui_moniDialog(object):
                         bus.read_byte(address2)
                         voltage = bus.read_byte(address2)
                         voltage = voltage*5/255
-                        flagCallErrorWindow = False
+                        callErrorWindow = False
                         break #sai do for se chegar aqui
                     except Exception, e:
                         logger.error('Erro na leitura ADC Tensao', exc_info=True)
-                        flagCallErrorWindow = True
+                        callErrorWindow = True
 
-                if(flagCallErrorWindow):
+                if(callErrorWindow):
                     logger.error('Nao foi possivel realizar a leitura da Tensao - ADC')
                     os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
                     GPIO.cleanup()
@@ -270,13 +271,13 @@ class Ui_moniDialog(object):
                         bus.read_byte(address2)
                         current = bus.read_byte(address2)
                         current = current*5/255
-                        flagCallErrorWindow = False
+                        callErrorWindow = False
                         break #sai do for se chegar aqui
                     except Exception, e:
                         logger.error('Erro na leitura ADC Corrente', exc_info=True)
-                        flagCallErrorWindow = True
+                        callErrorWindow = True
 
-                if(flagCallErrorWindow):
+                if(callErrorWindow):
                     logger.error('Nao foi possivel realizar a leitura da Corrente - ADC')
                     os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
                     GPIO.cleanup()
@@ -291,13 +292,13 @@ class Ui_moniDialog(object):
                         temp_aux = bus.read_byte(address2)
                         temperature = 0.6040*temp_aux-72.9358
                         self.lcd_temp.display(temperature)
-                        flagCallErrorWindow = False
+                        callErrorWindow = False
                         break #sai do for se chegar aqui
                     except Exception, e:
                         logger.error('Erro na leitura ADC Temperatura', exc_info=True)
-                        flagCallErrorWindow = True
+                        callErrorWindow = True
 
-                if(flagCallErrorWindow):
+                if(callErrorWindow):
                     logger.error('Nao foi possivel realizar a leitura da Temperatura - ADC')
                     os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
                     GPIO.cleanup()
@@ -367,13 +368,13 @@ class Ui_moniDialog(object):
                             bus.write_byte_data(address1, 0x44, actuatorValue)
                             time.sleep(1.0)
                             print "Tensao de Entrada(modificada): " +str(actuatorValue) #depois das condicoes
-                            flagCallErrorWindow = False
+                            callErrorWindow = False
                             break #sai do for se chegar aqui
                         except Exception, e:
                             logger.error('Erro na escrita do DAC', exc_info=True)
-                            flagCallErrorWindow = True
+                            callErrorWindow = True
 
-                    if(flagCallErrorWindow):
+                    if(callErrorWindow):
                         logger.error('Nao foi possivel realizar a escrita no DAC')
                         os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
                         GPIO.cleanup()
@@ -506,13 +507,13 @@ class Ui_moniDialog(object):
                 for x in xrange(0,10):
                     try:
                         bus.write_byte_data(address1, 0x44, 0X00)
-                        flagCallErrorWindow = False
+                        callErrorWindow = False
                         break #sai do for se chegar aqui
                     except Exception, e:
                         logger.error('Erro na escrita do DAC', exc_info=True)
-                        flagCallErrorWindow = True
+                        callErrorWindow = True
 
-                if(flagCallErrorWindow):
+                if(callErrorWindow):
                     logger.error('Nao foi possivel realizar a escrta no DAC')
                     os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
                     GPIO.cleanup()
@@ -544,13 +545,13 @@ class Ui_moniDialog(object):
             for x in xrange(0,10):
                 try:
                     bus.write_byte_data(address1, 0x44, 0X00)
-                    flagCallErrorWindow = False
+                    callErrorWindow = False
                     break #sai do for se chegar aqui
                 except Exception, e:
                     logger.error('Erro na escrita do DAC', exc_info=True)
-                    flagCallErrorWindow = True
+                    callErrorWindow = True
 
-            if(flagCallErrorWindow):
+            if(callErrorWindow):
                 logger.error('Nao foi possivel realizar a escrita no DAC')
                 os.system("sudo /usr/bin/python error_window.py")  #inumeros problemas com a execução de GUI em uma interrupçao, optou-se por executar o codigo referente a janela de erro.
                 GPIO.cleanup()
