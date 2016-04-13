@@ -42,10 +42,10 @@ class OperationMode (QMainWindow,Ui_SecDialog):
 		self.pushButton_5.clicked.connect(self.auto)
 
 	def questionBox(self):
-		reply = QMessageBox.question(self, 'Message',
-    	"Tem certeza?", QMessageBox.Yes | 
+		choice = QMessageBox.question(self, 'Message',
+    	"Tem certeza de que deseja sair?", QMessageBox.Yes | 
     	QMessageBox.No, QMessageBox.No)
-		if reply == QMessageBox.Yes:
+		if choice == QMessageBox.Yes:
 		    self.close()
 		else:
 			pass
