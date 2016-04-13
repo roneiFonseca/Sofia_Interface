@@ -1,5 +1,16 @@
 # -*- coding: utf-8 -*-
 
+################################### PROJECT #################################################
+## Project: SOFIA - EVOLUTION                                                              ##
+## Name: sofia.py                                                                          ##                           
+## Authors: EQUIPE SOFIA - SOFTWARE                                                        ##                           
+## Company: Universidade de Brasilia                      Date: 01/04/2016                 ##                           
+## Functions: Software de Interface                                                        ##                           
+#############################################################################################
+
+
+
+################################### LIBRARIES ###############################################
 from PyQt4.QtCore import pyqtSignal,QTimer
 from PyQt4.QtGui import QApplication, QMainWindow, QPushButton, \
             QLabel, QVBoxLayout, QWidget, QMessageBox, QDialog
@@ -18,8 +29,11 @@ import sys
 import imagens2 
 import pylab_plot
 import parametros
+#############################################################################################
 
-class loadingWindow(QMainWindow,Ui_MainWindow):
+
+
+class LoadingWindow(QMainWindow,Ui_MainWindow):
 	def __init__(self,parent=None): 
 		QMainWindow.__init__(self)
 		self.setupUi(self)
@@ -30,6 +44,8 @@ class loadingWindow(QMainWindow,Ui_MainWindow):
 		self.close()
 		self.mainwindow2 = OperationMode(self)
 		self.mainwindow2.show()
+
+
 
 class OperationMode (QMainWindow,Ui_SecDialog):
 	def __init__(self,parent=None): 
@@ -67,10 +83,12 @@ class OperationMode (QMainWindow,Ui_SecDialog):
 		self.automatic.show()
 
 
+
 class Help(QDialog,Ui_Dialog):
 	def __init__(self,parent=None):
 		QDialog.__init__(self,parent)
 		self.setupUi(self)
+		self.retranslateUi()
 		self.pushButton_5.clicked.connect(self.close)
 
 
@@ -79,6 +97,7 @@ class PowerSetup(QMainWindow,Ui_thirdDialog):
 	def __init__(self,parent=None): 
 		QMainWindow.__init__(self,parent)
 		self.setupUi(self)
+		self.retranslateUi()
 		self.pushButton_off.clicked.connect(self.goBack)
 		self.pushButton_5.clicked.connect(self.goTimer)
 
@@ -92,10 +111,14 @@ class PowerSetup(QMainWindow,Ui_thirdDialog):
 		self.timerConfig = TimerSetup(self)
 		self.timerConfig.show()
 
+
+
+
 class TimerSetup(QMainWindow,Ui_fourthDialog):
 	def __init__(self,parent=None):
 		QMainWindow.__init__(self,parent)
 		self.setupUi(self)
+		self.retranslateUi()
 		self.pushButton_off.clicked.connect(self.goBack)
 		self.pushButton_5.clicked.connect(self.goStep)
 
@@ -109,10 +132,13 @@ class TimerSetup(QMainWindow,Ui_fourthDialog):
 		self.stepMode = StepSetup(self)
 		self.stepMode.show()
 
+
+
 class StepSetup(QMainWindow,Ui_stepDialog):
 	def __init__(self,parent=None):
 		QMainWindow.__init__(self,parent)
 		self.setupUi(self)
+		self.retranslateUi()
 		self.pushButton_BACK.clicked.connect(self.goBack)
 		self.pushButton_OK.clicked.connect(self.goVerify)
 
@@ -127,11 +153,12 @@ class StepSetup(QMainWindow,Ui_stepDialog):
 		self.verifyMode.show()
 
 
+
 class Verification(QMainWindow,Ui_VerifyWindow):
 	def __init__(self,parent=None):
 		QMainWindow.__init__(self,parent)
 		self.setupUi(self)
-		self.retranslateUi(self)
+		self.retranslateUi()
 		self.pushButton_2.clicked.connect(self.goBack)
 		self.pushButton.clicked.connect(self.goStart)
 
@@ -150,11 +177,13 @@ class Verification(QMainWindow,Ui_VerifyWindow):
 		self.startProcedure = StartProcedure(self)
 		self.startProcedure.show()
 
+
+
 class StartProcedure(QMainWindow,Ui_moniDialog):
 	def __init__(self,parent=None):
 		QMainWindow.__init__(self,parent)
 		self.setupUi(self)
-		self.retranslateUi(self)
+		self.retranslateUi()
 		self.pushButton_8.clicked.connect(self.goBack)
 		# self.pushButton_7.clicked.connect(self.begin)
 
@@ -164,8 +193,6 @@ class StartProcedure(QMainWindow,Ui_moniDialog):
 		self.verifyMode.show()
 
 	# def begin(self):
-
-
 
 
 
@@ -187,9 +214,10 @@ class Automatic(QMainWindow,Ui_fifDialog):
 		self.verifyMode.show()
 
 
+
 if __name__ == "__main__": 
 
     app = QApplication(sys.argv) 
-    ui = loadingWindow() 
+    ui = LoadingWindow() 
     ui.show() 
     sys.exit(app.exec_()) 

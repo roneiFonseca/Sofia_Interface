@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'monidialog.ui'
-#
-# Created: Wed Feb 24 16:46:35 2016
-#      by: PyQt4 UI code generator 4.10.4
-#
-# WARNING! All changes made in this file will be lost!
-
+################################### LIBRARIES ###############################################
 from __future__ import division
 from PyQt4 import QtCore, QtGui
 import sys
@@ -15,9 +9,12 @@ import controller
 import time
 import math
 import os
-
 import logging
+#############################################################################################
 
+
+
+################################### SET-UP ##################################################
 #configurando arquivo de log
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -68,10 +65,11 @@ if (RPI_ON):
     GPIO.output(5,0)
     GPIO.output(6,0)
     GPIO.output(13,0)
+#############################################################################################
 
 
 
-
+################################### GLOBAL VARIABLES #########################################
 time_before= 0
 time_beginning = 0
 minute = 0
@@ -99,7 +97,11 @@ if (RPI_ON):
     bus = smbus.SMBus(1)
     address1 = 0x48
     address2 = 0x49
+#############################################################################################
 
+
+
+################################### ERROR TREATMENT #########################################
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -113,7 +115,10 @@ try:
 except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
+#############################################################################################
 
+
+################################### UI_MONIDIALOG ###########################################
 class Ui_moniDialog(object):
     def setupUi(self, moniDialog):
         moniDialog.setObjectName(_fromUtf8("moniDialog"))
@@ -202,13 +207,11 @@ class Ui_moniDialog(object):
         self.timer = QtCore.QTimer(moniDialog)
         self.timer.timeout.connect(self.control)
 
-        self.retranslateUi(moniDialog)
-
         QtCore.QMetaObject.connectSlotsByName(moniDialog)
 
 
-    def retranslateUi(self, moniDialog):
-        moniDialog.setWindowTitle(_translate("moniDialog", "Dialog", None))
+    def retranslateUi(self):
+        self.setWindowTitle(_translate("moniDialog", "Dialog", None))
         self.label_2.setText(_translate("moniDialog", "TELA DE MONITORAMENTO", None))
         self.label_14.setText(_translate("moniDialog", "min", None))
 
@@ -218,8 +221,6 @@ class Ui_moniDialog(object):
         self.label_23.setText(_translate("moniDialog", "W", None))
         self.label_24.setText(_translate("moniDialog", "Ω", None))
         QtCore.QObject.connect(self.pushButton_7 , QtCore.SIGNAL("clicked()") , self.start)
-        QtCore.QObject.connect(self.pushButton_8, QtCore.SIGNAL(_fromUtf8("clicked()")),self.Reset_Parameters)
-        QtCore.QObject.connect(self.pushButton_8, QtCore.SIGNAL(_fromUtf8("clicked()")),moniDialog.close)
         self.lcd_temp.display("---")
         self.lcd_imp.display("---")
         self.label_15.setText(_translate("moniDialog", "Modo de Operação: Aguardando INICIAR", None))
@@ -578,12 +579,14 @@ class Ui_moniDialog(object):
 
     if(RPI_ON):
         GPIO.add_event_detect(17, GPIO.FALLING, callback=shutdown_function)
+#############################################################################################
 
 
-if __name__ == "__main__":
-    app = QtGui.QApplication(sys.argv)
-    moniDialog = QtGui.QDialog()
-    ui = Ui_moniDialog()
-    ui.setupUi(moniDialog)
-    moniDialog.show()
-    sys.exit(app.exec_())
+
+################################### MAIN ####################################################
+# if __name__ == "__main__":
+#     app = QtGui.QApplication(sys.argv)
+#     moniDialog = QtGui.QDialog()
+#     ui = Ui_moniDialog()
+#     ui.setupUi(moniDialog)
+#############################################################################################

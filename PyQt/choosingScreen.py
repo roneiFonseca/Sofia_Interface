@@ -1,25 +1,23 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'choosingScreen.ui'
-#
-# Created: Sun Apr 10 14:49:19 2016
-#      by: PyQt4 UI code generator 4.9.4
-#
-# WARNING! All changes made in this file will be lost!
-
+################################### LIBRARIES ###############################################
 from PyQt4 import QtCore, QtGui
-from PyQt4.QtGui import QMessageBox,QWidget
-# from thirddialog import Ui_thirdDialog
-# from fifdialog import Ui_fifDialog
-# from help_box import Ui_Dialog
 import parametros
-import sys
+# import sys
+#############################################################################################
 
+
+
+##################################  Error Treatment #########################################
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
     _fromUtf8 = lambda s: s
+#############################################################################################
 
+
+
+####################################   Ui_SecDialog  ########################################
 class Ui_SecDialog(object):
     def setupUi(self, SecDialog):
         SecDialog.setObjectName(_fromUtf8("SecDialog"))
@@ -106,8 +104,12 @@ class Ui_SecDialog(object):
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ffffff;\">Manual: Ajuste seus próprios parâmetros para o procedimento.</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#ffffff;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ffffff;\">Pré-clínico: Entre com os dados médicos do paciente.</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+#############################################################################################
 
 
+
+
+####################################   Main  ################################################
 # if __name__ == "__main__":
 #     # import sys
 #     app = QtGui.QApplication(sys.argv)
@@ -116,3 +118,4 @@ class Ui_SecDialog(object):
 #     # ui.setupUi(SecDialog)
 #     ui.show()
 #     sys.exit(app.exec_())
+#############################################################################################
