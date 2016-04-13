@@ -29,3 +29,10 @@
 *.pyc
 
 Calibração/Calib_Potencia/potencia.py
+<<<<<<< Updated upstream
+=======
+
+*.py
+>>>>>>> Stashed changes
+
+Calibração/Calib_Potencia/Potencia.py
