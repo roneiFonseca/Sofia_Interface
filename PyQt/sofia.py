@@ -172,9 +172,14 @@ class TemperatureSetup(QMainWindow,Ui_temperatureDialog):
 		self.pushButton_5.clicked.connect(self.goVerify)
 
 	def goBack(self):
-		self.close()
-		self.stepConfig = StepSetup(self)
-		self.stepConfig.show()
+		if (parametros.flag['manualMode']): # If in Manual Mode
+			self.close()
+			self.stepConfig = StepSetup(self)
+			self.stepConfig.show()
+		else: #in Auto Mode
+			self.close()
+			self.automatic = Automatic(self)
+			self.automatic.show()
 
 	def goVerify(self):
 		self.close()
@@ -228,17 +233,17 @@ class Automatic(QMainWindow,Ui_fifDialog):
 		self.setupUi(self)
 		self.retranslateUi()
 		self.pushButton_7.clicked.connect(self.goBack)
-		self.pushButton_6.clicked.connect(self.goVerify)
+		self.pushButton_6.clicked.connect(self.goTemperature)
 
 	def goBack(self):
 		self.close()
 		self.operationMode = OperationMode(self)
 		self.operationMode.show()
 
-	def goVerify(self):
+	def goTemperature(self):
 		self.close()
-		self.verifyMode = Verification(self)
-		self.verifyMode.show()
+		self.temperatureMode = TemperatureSetup(self)
+		self.temperatureMode.show()
 
 
 
