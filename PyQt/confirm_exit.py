@@ -56,6 +56,7 @@ class Ui_Form(object):
         QtCore.QObject.connect(self.pushButton , QtCore.SIGNAL("clicked()") , self.turn_off)
         # QtCore.QObject.connect(self.pushButton_2 , QtCore.SIGNAL("clicked()") , Form.close)
 
+ 
 
     def turn_off(self):
         self.close()   #Desliga a tela de confirmação e em seguida, desliga o equipamento -> aciona os respectivos reles!
