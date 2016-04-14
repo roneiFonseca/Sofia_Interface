@@ -24,6 +24,7 @@ from fifdialog import Ui_fifDialog
 from step_configure import Ui_stepDialog
 from verificacao import Ui_VerifyWindow
 from monidialog import Ui_moniDialog
+from confirm_exit import Ui_Form
 
 import sys
 import imagens2 
@@ -58,13 +59,8 @@ class OperationMode (QMainWindow,Ui_SecDialog):
 		self.pushButton_5.clicked.connect(self.auto)
 
 	def questionBox(self):
-		choice = QMessageBox.question(self, 'Message',
-    	"Tem certeza de que deseja sair?", QMessageBox.Yes | 
-    	QMessageBox.No, QMessageBox.No)
-		if choice == QMessageBox.Yes:
-		    self.close()
-		else:
-			pass
+		self.exit = Exit(self)
+		self.exit.show()
 
 	def help(self):
 		self.otherwindow = Help(self)
@@ -82,7 +78,13 @@ class OperationMode (QMainWindow,Ui_SecDialog):
 		self.automatic = Automatic(self)
 		self.automatic.show()
 
-
+class Exit(QDialog,Ui_Form):
+	def __init__(self, parent=None):
+		QDialog.__init__(self,parent)
+		self.setupUi(self)
+		self.retranslateUi()
+		self.pushButton_2.clicked.connect(self.close)
+		
 
 class Help(QDialog,Ui_Dialog):
 	def __init__(self,parent=None):
