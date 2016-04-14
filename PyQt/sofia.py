@@ -84,6 +84,14 @@ class Exit(QDialog,Ui_Form):
 		self.setupUi(self)
 		self.retranslateUi()
 		self.pushButton_2.clicked.connect(self.close)
+		self.pushButton.clicked.connect(self.turn_off)
+
+	def turn_off(self):
+		self.close()
+		BackgroundWindow = OperationMode(self)
+		BackgroundWindow.close()
+		#acrescentar o desligamento pelos reles
+
 		
 
 class Help(QDialog,Ui_Dialog):
