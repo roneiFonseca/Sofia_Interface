@@ -44,8 +44,6 @@ class Ui_Form(object):
         self.label_2.setText(_fromUtf8(""))
         self.label_2.setPixmap(QtGui.QPixmap(_fromUtf8(":/icons/ask.png")))
         self.label_2.setObjectName(_fromUtf8("label_2"))
-
-        # self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self):
@@ -54,13 +52,6 @@ class Ui_Form(object):
         self.pushButton_2.setText(_translate("Form", "Não", None))
 
         QtCore.QObject.connect(self.pushButton , QtCore.SIGNAL("clicked()") , self.turn_off)
-        # QtCore.QObject.connect(self.pushButton_2 , QtCore.SIGNAL("clicked()") , Form.close)
-
- 
-
-    def turn_off(self):
-        self.close()   #Desliga a tela de confirmação e em seguida, desliga o equipamento -> aciona os respectivos reles!
-
 
 #############################################################################################
 
