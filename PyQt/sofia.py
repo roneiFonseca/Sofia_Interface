@@ -83,7 +83,13 @@ class Exit(QDialog,Ui_Form):
 		QDialog.__init__(self,parent)
 		self.setupUi(self)
 		self.retranslateUi()
-		self.pushButton_2.clicked.connect(self.close)
+		self.pushButton.clicked.connect(self.closeAll) #Sim
+		self.pushButton_2.clicked.connect(self.close) #Não
+
+	def closeAll(self):
+		self.close()
+		self.mainwindow2 = OperationMode(self)
+		self.mainwindow2.close()
 		
 
 class Help(QDialog,Ui_Dialog):

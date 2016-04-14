@@ -66,3 +66,5 @@ PyQt/time_window.pyc
 PyQt/verificacao.pyc
 
 PyQt/fifdialog.pyc
+
+*.pyc
