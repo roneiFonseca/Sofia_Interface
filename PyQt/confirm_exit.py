@@ -5,6 +5,8 @@ from PyQt4 import QtCore, QtGui
 import icons_mode_operation
 #############################################################################################
 
+
+
 ##################################  Error Treatment #########################################
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
