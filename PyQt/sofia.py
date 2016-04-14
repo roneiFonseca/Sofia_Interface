@@ -38,7 +38,7 @@ class LoadingWindow(QMainWindow,Ui_MainWindow):
 		QMainWindow.__init__(self)
 		self.setupUi(self)
 		self.retranslateUi(self)
-		QTimer.singleShot(5000, self.newWindow)
+		QTimer.singleShot(100, self.newWindow)
 
 	def newWindow(self):
 		self.close()
