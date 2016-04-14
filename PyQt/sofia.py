@@ -194,8 +194,6 @@ class StartProcedure(QMainWindow,Ui_moniDialog):
 		self.verifyMode = Verification(self)
 		self.verifyMode.show()
 
-	# def begin(self):
-
 
 
 class Automatic(QMainWindow,Ui_fifDialog):
