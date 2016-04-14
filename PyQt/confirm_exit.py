@@ -44,18 +44,12 @@ class Ui_Form(object):
         self.label_2.setText(_fromUtf8(""))
         self.label_2.setPixmap(QtGui.QPixmap(_fromUtf8(":/icons/ask.png")))
         self.label_2.setObjectName(_fromUtf8("label_2"))
-
-        # self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self):
         self.label.setText(_translate("Form", "Tem certeza que deseja sair?", None))
         self.pushButton.setText(_translate("Form", "Sim", None))
         self.pushButton_2.setText(_translate("Form", "Não", None))
-
- 
-
-
 
 #############################################################################################
 
