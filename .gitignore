@@ -28,6 +28,7 @@
 
 *.pyc
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 Calibração/Calib_Potencia/potencia.py
 <<<<<<< Updated upstream
@@ -68,3 +69,10 @@ PyQt/verificacao.pyc
 PyQt/fifdialog.pyc
 
 *.pyc
+=======
+Calibração/Calib_Potencia/potencia.py
+
+*.py
+>>>>>>> Stashed changes
+
+Calibração/Calib_Potencia/Potencia.py
