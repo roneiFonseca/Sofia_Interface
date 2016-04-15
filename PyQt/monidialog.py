@@ -32,7 +32,7 @@ console.setLevel(logging.INFO)
 console.setFormatter(formatter)
 logging.getLogger('').addHandler(console)
 
-RPI_ON = True
+RPI_ON = False
 
 if (RPI_ON):
     import RPi.GPIO as GPIO

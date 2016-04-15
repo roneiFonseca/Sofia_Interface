@@ -3,6 +3,7 @@
 ################################### LIBRARIES ###############################################
 from PyQt4 import QtCore, QtGui
 import parametros
+import icons_mode_operation
 # import sys
 #############################################################################################
 
@@ -24,12 +25,12 @@ class Ui_SecDialog(object):
         SecDialog.resize(800, 480)
         SecDialog.setStyleSheet(_fromUtf8("background-color: black;"))
         self.label_2 = QtGui.QLabel(SecDialog)
-        self.label_2.setGeometry(QtCore.QRect(260, 20, 301, 31))
+        self.label_2.setGeometry(QtCore.QRect(210, 20, 400, 40))
         self.label_2.setStyleSheet(_fromUtf8("font: 26pt \"Arial\";\n""color:rgb(255, 255, 255)"))
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.label_3 = QtGui.QLabel(SecDialog)
-        self.label_3.setGeometry(QtCore.QRect(40, 80, 191, 31))
+        self.label_3.setGeometry(QtCore.QRect(70, 80, 191, 31))
         self.label_3.setStyleSheet(_fromUtf8("font: 18pt \"Arial\";\n""color: white;"))
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName(_fromUtf8("label_3"))
@@ -48,13 +49,18 @@ class Ui_SecDialog(object):
         self.textBrowser.setStyleSheet(_fromUtf8("border-style: outset;\n""border-width: 1px;\n""border-color: gray;"))
         self.textBrowser.setObjectName(_fromUtf8("textBrowser"))
         
-        self.pushButton_2 = QtGui.QPushButton(SecDialog) # "?" Button 
+
+        self.pushButton_2 = QtGui.QPushButton(SecDialog) # "Power" Button 
         self.pushButton_2.setGeometry(QtCore.QRect(20, 400, 61, 51))
         self.pushButton_2.setStyleSheet(_fromUtf8("font: 20pt \"Arial\";\n""background-color: red;color:bla;\n""border-radius: 5px;"))
         self.pushButton_2.setText(_fromUtf8(""))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
-        self.pushButton_2.setIcon(QtGui.QIcon("power.png"))
-        self.pushButton_2.setIconSize(QtCore.QSize(35,35))
+        icon_power = QtGui.QIcon()
+        icon_power.addPixmap(QtGui.QPixmap(_fromUtf8(":/icons/power.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_2.setIcon(icon_power)
+        self.pushButton_2.setIconSize(QtCore.QSize(35, 35))
+
+
         
 
         self.pushButton_3 = QtGui.QPushButton("",SecDialog) # "?" Button 
@@ -62,25 +68,35 @@ class Ui_SecDialog(object):
         self.pushButton_3.setStyleSheet(_fromUtf8("font: 34pt \"Arial\";\n""background-color: gray;color:bla;\n""border-radius: 5px;"))
         self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
         
-        self.pushButton_4 = QtGui.QPushButton(SecDialog)
+        self.pushButton_4 = QtGui.QPushButton(SecDialog)  # "PreClinico" Button 
         self.pushButton_4.setGeometry(QtCore.QRect(290, 220, 221, 91))
         self.pushButton_4.setStyleSheet(_fromUtf8("font: 24pt \"Arial\";\n""background-color: purple;\n""border-radius: 5px;"))
         self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
-        self.pushButton_4.setIcon(QtGui.QIcon("people.png"))
+        icon_preclinico = QtGui.QIcon()
+        icon_preclinico.addPixmap(QtGui.QPixmap(_fromUtf8(":/icons/people.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_4.setIcon(icon_preclinico)
+        
         self.pushButton_4.setIconSize(QtCore.QSize(65,65))
-        self.pushButton_5 = QtGui.QPushButton(SecDialog)
+
+
+        self.pushButton_5 = QtGui.QPushButton(SecDialog) # "Auto" Button 
         self.pushButton_5.setGeometry(QtCore.QRect(60, 120, 211, 91))
         self.pushButton_5.setStyleSheet(_fromUtf8("font: 18pt \"Arial\";\n""background-color: blue;\n""border-radius: 5px;"))
         self.pushButton_5.setText(_fromUtf8(""))
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
-        self.pushButton_5.setIcon(QtGui.QIcon("clock.png"))
+        icon_auto = QtGui.QIcon()
+        icon_auto.addPixmap(QtGui.QPixmap(_fromUtf8(":/icons/clock.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_5.setIcon(icon_auto)
         self.pushButton_5.setIconSize(QtCore.QSize(65,65))
-        self.pushButton_6 = QtGui.QPushButton(SecDialog)
+
+        self.pushButton_6 = QtGui.QPushButton(SecDialog)  # "Manual" Button 
         self.pushButton_6.setGeometry(QtCore.QRect(530, 120, 211, 91))
         self.pushButton_6.setStyleSheet(_fromUtf8("font: 18pt \"Arial\";\n""background-color: green;\n""border-radius: 5px;"))
         self.pushButton_6.setText(_fromUtf8(""))
         self.pushButton_6.setObjectName(_fromUtf8("pushButton_6"))
-        self.pushButton_6.setIcon(QtGui.QIcon("set.png"))
+        icon_manual = QtGui.QIcon()
+        icon_manual.addPixmap(QtGui.QPixmap(_fromUtf8(":/icons/set.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_6.setIcon(icon_manual)
         self.pushButton_6.setIconSize(QtCore.QSize(65,65))
 
         self.retranslateUi(SecDialog)
