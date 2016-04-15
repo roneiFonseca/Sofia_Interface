@@ -173,12 +173,12 @@ class Ui_VerifyWindow(object):
 
 
 ################################### MAIN ####################################################
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    verifyWindow = QtGui.QMainWindow()
-    ui = Ui_VerifyWindow()
-    ui.setupUi(verifyWindow)
-    verifyWindow.show()
-    sys.exit(app.exec_())
+# if __name__ == "__main__":
+#     import sys
+#     app = QtGui.QApplication(sys.argv)
+#     verifyWindow = QtGui.QMainWindow()
+#     ui = Ui_VerifyWindow()
+#     ui.setupUi(verifyWindow)
+#     verifyWindow.show()
+#     sys.exit(app.exec_())
 #############################################################################################
