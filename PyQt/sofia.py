@@ -196,14 +196,9 @@ class Verification(QMainWindow,Ui_VerifyWindow):
 		self.pushButton.clicked.connect(self.goStart)
 
 	def goBack(self):
-		if (parametros.flag['manualMode']): # If in Manual Mode
-			self.close()
-			self.temperatureMode = TemperatureSetup(self)
-			self.temperatureMode.show()
-		else: #in Auto Mode
-			self.close()
-			self.automatic = Automatic(self)
-			self.automatic.show()
+		self.close()
+		self.temperatureMode = TemperatureSetup(self)
+		self.temperatureMode.show()
 
 	def goStart(self):
 		self.close()
