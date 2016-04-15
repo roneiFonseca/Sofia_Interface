@@ -23,7 +23,7 @@ from time_window import Ui_fourthDialog
 from fifdialog import Ui_fifDialog
 from step_configure import Ui_stepDialog
 from temperature import Ui_temperatureDialog
-from verificacao import Ui_VerifyWindow
+from verification import Ui_VerifyWindow
 from monidialog import Ui_moniDialog
 from confirm_exit import Ui_Form
 
@@ -192,7 +192,7 @@ class Verification(QMainWindow,Ui_VerifyWindow):
 		QMainWindow.__init__(self,parent)
 		self.setupUi(self)
 		self.retranslateUi()
-		self.pushButton_2.clicked.connect(self.goBack)
+		self.pushButton_3.clicked.connect(self.goBack)
 		self.pushButton.clicked.connect(self.goStart)
 
 	def goBack(self):
