@@ -166,7 +166,7 @@ class StepSetup(QMainWindow,Ui_stepDialog):
 class TemperatureSetup(QMainWindow,Ui_temperatureDialog):
 	def __init__(self,parent=None):
 		QMainWindow.__init__(self,parent)
-		self.setupUi(self)
+		self.setupUi()
 		self.retranslateUi()
 		self.pushButton.clicked.connect(self.goBack)
 		self.pushButton_5.clicked.connect(self.goVerify)

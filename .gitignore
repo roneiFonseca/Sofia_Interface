@@ -95,3 +95,5 @@ Calibração/Calib_Potencia/potencia.py
 
 *.py
 >>>>>>> Stashed changes
+
+*.pyc
