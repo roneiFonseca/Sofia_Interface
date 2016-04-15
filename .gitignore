@@ -29,6 +29,7 @@
 *.pyc
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 Calibração/Calib_Potencia/potencia.py
 <<<<<<< Updated upstream
@@ -81,3 +82,10 @@ Calibração/Calib_Potencia/Potencia.py
 
 *.pyc
 >>>>>>> galho_do_matias
+=======
+Calibração/Calib_Potencia/potencia.py
+
+*.py
+>>>>>>> Stashed changes
+
+Calibração/Calib_Potencia/Potencia.py
