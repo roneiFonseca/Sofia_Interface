@@ -22,7 +22,8 @@ from thirddialog import Ui_thirdDialog
 from time_window import Ui_fourthDialog
 from fifdialog import Ui_fifDialog
 from step_configure import Ui_stepDialog
-from verificacao import Ui_VerifyWindow
+from temperature import Ui_temperatureDialog
+from verification import Ui_VerifyWindow
 from monidialog import Ui_moniDialog
 from confirm_exit import Ui_Form
 
@@ -84,14 +85,12 @@ class Exit(QDialog,Ui_Form):
 		self.setupUi(self)
 		self.retranslateUi()
 		self.pushButton_2.clicked.connect(self.close)
-		self.pushButton.clicked.connect(self.turn_off)
+		self.pushButton.clicked.connect(self.closeAll)
 
-	def turn_off(self):
+	def closeAll(self):
 		self.close()
-		BackgroundWindow = OperationMode(self)
-		BackgroundWindow.close()
-		#acrescentar o desligamento pelos reles
-
+		mainwindow2 = OperationMode(self)
+		mainwindow2.close()
 		
 
 class Help(QDialog,Ui_Dialog):
@@ -139,8 +138,8 @@ class TimerSetup(QMainWindow,Ui_fourthDialog):
 
 	def goStep(self):
 		self.close()
-		self.stepMode = StepSetup(self)
-		self.stepMode.show()
+		self.stepConfig = StepSetup(self)
+		self.stepConfig.show()
 
 
 
@@ -150,12 +149,37 @@ class StepSetup(QMainWindow,Ui_stepDialog):
 		self.setupUi(self)
 		self.retranslateUi()
 		self.pushButton_BACK.clicked.connect(self.goBack)
-		self.pushButton_OK.clicked.connect(self.goVerify)
+		self.pushButton_OK.clicked.connect(self.goTemperature)
 
 	def goBack(self):
 		self.close()
 		self.timerConfig = TimerSetup(self)
 		self.timerConfig.show()
+
+	def goTemperature(self):
+		self.close()
+		self.temperatureMode = TemperatureSetup(self)
+		self.temperatureMode.show()
+
+
+
+class TemperatureSetup(QMainWindow,Ui_temperatureDialog):
+	def __init__(self,parent=None):
+		QMainWindow.__init__(self,parent)
+		self.setupUi(self)
+		self.retranslateUi()
+		self.pushButton.clicked.connect(self.goBack)
+		self.pushButton_5.clicked.connect(self.goVerify)
+
+	def goBack(self):
+		if (parametros.flag['manualMode']): # If in Manual Mode
+			self.close()
+			self.stepConfig = StepSetup(self)
+			self.stepConfig.show()
+		else: #in Auto Mode
+			self.close()
+			self.automatic = Automatic(self)
+			self.automatic.show()
 
 	def goVerify(self):
 		self.close()
@@ -163,24 +187,18 @@ class StepSetup(QMainWindow,Ui_stepDialog):
 		self.verifyMode.show()
 
 
-
 class Verification(QMainWindow,Ui_VerifyWindow):
 	def __init__(self,parent=None):
 		QMainWindow.__init__(self,parent)
 		self.setupUi(self)
 		self.retranslateUi()
-		self.pushButton_2.clicked.connect(self.goBack)
+		self.pushButton_3.clicked.connect(self.goBack)
 		self.pushButton.clicked.connect(self.goStart)
 
 	def goBack(self):
-		if (parametros.flag['manualMode']): # If in Manual Mode
-			self.close()
-			self.stepMode = StepSetup(self)
-			self.stepMode.show()
-		else: #in Auto Mode
-			self.close()
-			self.automatic = Automatic(self)
-			self.automatic.show()
+		self.close()
+		self.temperatureMode = TemperatureSetup(self)
+		self.temperatureMode.show()
 
 	def goStart(self):
 		self.close()
@@ -202,8 +220,6 @@ class StartProcedure(QMainWindow,Ui_moniDialog):
 		self.verifyMode = Verification(self)
 		self.verifyMode.show()
 
-	# def begin(self):
-
 
 
 class Automatic(QMainWindow,Ui_fifDialog):
@@ -212,17 +228,17 @@ class Automatic(QMainWindow,Ui_fifDialog):
 		self.setupUi(self)
 		self.retranslateUi()
 		self.pushButton_7.clicked.connect(self.goBack)
-		self.pushButton_6.clicked.connect(self.goVerify)
+		self.pushButton_6.clicked.connect(self.goTemperature)
 
 	def goBack(self):
 		self.close()
 		self.operationMode = OperationMode(self)
 		self.operationMode.show()
 
-	def goVerify(self):
+	def goTemperature(self):
 		self.close()
-		self.verifyMode = Verification(self)
-		self.verifyMode.show()
+		self.temperatureMode = TemperatureSetup(self)
+		self.temperatureMode.show()
 
 
 

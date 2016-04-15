@@ -5,6 +5,8 @@ from PyQt4 import QtCore, QtGui
 import icons_mode_operation
 #############################################################################################
 
+
+
 ##################################  Error Treatment #########################################
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -50,8 +52,6 @@ class Ui_Form(object):
         self.label.setText(_translate("Form", "Tem certeza que deseja sair?", None))
         self.pushButton.setText(_translate("Form", "Sim", None))
         self.pushButton_2.setText(_translate("Form", "Não", None))
-
-        QtCore.QObject.connect(self.pushButton , QtCore.SIGNAL("clicked()") , self.turn_off)
 
 #############################################################################################
 
