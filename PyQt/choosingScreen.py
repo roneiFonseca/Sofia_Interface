@@ -4,10 +4,15 @@
 from PyQt4 import QtCore, QtGui
 import parametros
 import icons_mode_operation
+import led_rc
+import serial_setup
+# from vera_problems import Ui_Form
 # import sys
 #############################################################################################
 
-
+################################### GLOBAL VARIABLES ########################################
+Led_on = True
+#############################################################################################
 
 ##################################  Error Treatment #########################################
 try:
@@ -48,7 +53,17 @@ class Ui_SecDialog(object):
         self.textBrowser.setGeometry(QtCore.QRect(110, 370, 571, 81))
         self.textBrowser.setStyleSheet(_fromUtf8("border-style: outset;\n""border-width: 1px;\n""border-color: gray;"))
         self.textBrowser.setObjectName(_fromUtf8("textBrowser"))
+
+        self.label = QtGui.QLabel(SecDialog)
+        self.label.setGeometry(QtCore.QRect(110, 345, 16, 16))
+        self.label.setText(_fromUtf8(""))
+        self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/led/led_off_16x16.png")))
+        self.label.setObjectName(_fromUtf8("label"))
         
+        self.pushButton_Vera = QtGui.QPushButton(SecDialog)        # "Vera" comunication 
+        self.pushButton_Vera.setGeometry(QtCore.QRect(130, 340, 120, 25))
+        self.pushButton_Vera.setObjectName(_fromUtf8("pushButton_Vera"))
+        self.pushButton_Vera.setStyleSheet(_fromUtf8("font: 16pt \"Arial\";\n""background-color: blue;color:white;\n""border-radius: 5px;"))
 
         self.pushButton_2 = QtGui.QPushButton(SecDialog) # "Power" Button 
         self.pushButton_2.setGeometry(QtCore.QRect(20, 400, 61, 51))
@@ -100,6 +115,9 @@ class Ui_SecDialog(object):
         self.pushButton_6.setIconSize(QtCore.QSize(65,65))
 
         self.retranslateUi(SecDialog)
+        self.timer = QtCore.QTimer(SecDialog)
+        self.timer.timeout.connect(self.blink)
+        self.timer.start(500)
         QtCore.QMetaObject.connectSlotsByName(SecDialog)
 
     def retranslateUi(self, SecDialog):
@@ -109,6 +127,7 @@ class Ui_SecDialog(object):
         self.label_4.setText(QtGui.QApplication.translate("SecDialog", "MANUAL", None, QtGui.QApplication.UnicodeUTF8))
         self.label_5.setText(QtGui.QApplication.translate("SecDialog", "PRÉ-CLÍNICO", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_3.setText(QtGui.QApplication.translate("SecDialog", "?", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_Vera.setText(QtGui.QApplication.translate("SecDialog", "Vera", None, QtGui.QApplication.UnicodeUTF8))
 
 
         self.textBrowser.setHtml(QtGui.QApplication.translate("SecDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -120,6 +139,40 @@ class Ui_SecDialog(object):
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ffffff;\">Manual: Ajuste seus próprios parâmetros para o procedimento.</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#ffffff;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ffffff;\">Pré-clínico: Entre com os dados médicos do paciente.</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+
+        QtCore.QObject.connect(self.pushButton_Vera, QtCore.SIGNAL("clicked()") , self.try_connect)
+
+
+    def blink(self):
+        global Led_on
+        if Led_on:
+            self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/led/led_red_16x16.png")))
+            Led_on = not Led_on
+        else:
+            self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/led/led_off_16x16.png")))
+            Led_on = not Led_on
+
+    def try_connect(self):
+        connect = serial_setup.serial_setup()
+        if connect:
+            print serial_setup.serial_setup()
+            self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/led/led_green_16x16.png")))
+            self.textBrowser.setHtml(QtGui.QApplication.translate("SecDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'.Helvetica Neue DeskInterface\'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ffffff;\">Conexão realizada com sucesso!</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+        else:
+            self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/led/led_red_16x16.png")))
+            self.textBrowser.setHtml(QtGui.QApplication.translate("SecDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'.Helvetica Neue DeskInterface\'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ffffff;\">Problemas com a conexão com o Equipamento Vera.</span></p>\n", None, QtGui.QApplication.UnicodeUTF8))
+            self.timer.stop()
+            
+        
+
 #############################################################################################
 
 
@@ -127,11 +180,11 @@ class Ui_SecDialog(object):
 
 ####################################   Main  ################################################
 # if __name__ == "__main__":
-#     # import sys
+#     import sys
 #     app = QtGui.QApplication(sys.argv)
-#     # SecDialog = QtGui.QDialog()
-#     ui = action_select_dialog()
-#     # ui.setupUi(SecDialog)
-#     ui.show()
+#     SecDialog = QtGui.QDialog()
+#     ui = Ui_SecDialog()
+#     ui.setupUi(SecDialog)
+#     SecDialog.show()
 #     sys.exit(app.exec_())
 #############################################################################################
