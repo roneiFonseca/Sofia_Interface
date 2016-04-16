@@ -17,6 +17,7 @@ def serial_setup():
       bytesize=serial.EIGHTBITS,
       timeout=1)
       break
+
     except Exception as e:
       # raise e
       print "ERRO NA CONEXAO SERIAL I/O ERRO({0}): {1}".format(e.errno, e.strerror)
