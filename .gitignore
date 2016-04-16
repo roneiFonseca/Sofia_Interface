@@ -30,6 +30,7 @@
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 Calibração/Calib_Potencia/potencia.py
 <<<<<<< Updated upstream
@@ -89,3 +90,10 @@ Calibração/Calib_Potencia/potencia.py
 >>>>>>> Stashed changes
 
 Calibração/Calib_Potencia/Potencia.py
+=======
+Calibração/Calib_Potencia/potencia.py
+
+*.py
+>>>>>>> Stashed changes
+
+*.pyc
