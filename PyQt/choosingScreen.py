@@ -5,13 +5,16 @@ from PyQt4 import QtCore, QtGui
 import parametros
 import icons_mode_operation
 import led_rc
-import serial_setup
+
 # from vera_problems import Ui_Form
 # import sys
 #############################################################################################
 
 ################################### GLOBAL VARIABLES ########################################
 Led_on = True
+SERIAL_ON= False
+if SERIAL_ON:
+    import serial_setup
 #############################################################################################
 
 ##################################  Error Treatment #########################################
@@ -153,23 +156,24 @@ class Ui_SecDialog(object):
             Led_on = not Led_on
 
     def try_connect(self):
-        connect = serial_setup.serial_setup()
-        if connect:
-            print serial_setup.serial_setup()
-            self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/led/led_green_16x16.png")))
-            self.textBrowser.setHtml(QtGui.QApplication.translate("SecDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'.Helvetica Neue DeskInterface\'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ffffff;\">Conexão realizada com sucesso!</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        else:
-            self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/led/led_red_16x16.png")))
-            self.textBrowser.setHtml(QtGui.QApplication.translate("SecDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'.Helvetica Neue DeskInterface\'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ffffff;\">Problemas com a conexão com o Equipamento Vera.</span></p>\n", None, QtGui.QApplication.UnicodeUTF8))
-            self.timer.stop()
+        if (SERIAL_ON):
+            connect = serial_setup.serial_setup()
+            if connect:
+                print serial_setup.serial_setup()
+                self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/led/led_green_16x16.png")))
+                self.textBrowser.setHtml(QtGui.QApplication.translate("SecDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+    "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+    "p, li { white-space: pre-wrap; }\n"
+    "</style></head><body style=\" font-family:\'.Helvetica Neue DeskInterface\'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
+    "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ffffff;\">Conexão realizada com sucesso!</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+            else:
+                self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/led/led_red_16x16.png")))
+                self.textBrowser.setHtml(QtGui.QApplication.translate("SecDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+    "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+    "p, li { white-space: pre-wrap; }\n"
+    "</style></head><body style=\" font-family:\'.Helvetica Neue DeskInterface\'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
+    "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ffffff;\">Problemas com a conexão com o Equipamento Vera.</span></p>\n", None, QtGui.QApplication.UnicodeUTF8))
+                self.timer.stop()
             
         
 
