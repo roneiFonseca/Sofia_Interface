@@ -166,6 +166,7 @@ class Ui_SecDialog(object):
     "p, li { white-space: pre-wrap; }\n"
     "</style></head><body style=\" font-family:\'.Helvetica Neue DeskInterface\'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
     "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ffffff;\">Conexão realizada com sucesso!</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+                self.timer.stop()
             else:
                 self.label.setPixmap(QtGui.QPixmap(_fromUtf8(":/led/led_red_16x16.png")))
                 self.textBrowser.setHtml(QtGui.QApplication.translate("SecDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
