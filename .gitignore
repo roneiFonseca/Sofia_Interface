@@ -25,3 +25,75 @@
 *.png
 
 *.pyc
+
+*.pyc
+
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+Calibração/Calib_Potencia/potencia.py
+<<<<<<< Updated upstream
+=======
+
+*.py
+>>>>>>> Stashed changes
+
+Calibração/Calib_Potencia/Potencia.py
+=======
+*.pyc
+
+*.pyc
+
+*.pyc
+>>>>>>> galho_do_matias
+
+*.pyc
+
+PyQt/fifdialog.pyc
+
+PyQt/fifdialog.pyc
+
+PyQt/fifdialog.pyc
+
+PyQt/monidialog.pyc
+
+PyQt/parametros.pyc
+
+PyQt/pylab_plot.pyc
+
+PyQt/thirddialog.pyc
+
+PyQt/time_window.pyc
+
+PyQt/verificacao.pyc
+
+PyQt/fifdialog.pyc
+
+*.pyc
+<<<<<<< HEAD
+=======
+Calibração/Calib_Potencia/potencia.py
+
+*.py
+>>>>>>> Stashed changes
+
+Calibração/Calib_Potencia/Potencia.py
+=======
+
+*.pyc
+>>>>>>> galho_do_matias
+=======
+Calibração/Calib_Potencia/potencia.py
+
+*.py
+>>>>>>> Stashed changes
+
+Calibração/Calib_Potencia/Potencia.py
+=======
+Calibração/Calib_Potencia/potencia.py
+
+*.py
+>>>>>>> Stashed changes
+
+*.pyc

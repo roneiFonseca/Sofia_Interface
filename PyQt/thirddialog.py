@@ -1,18 +1,12 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'thirddialog.ui'
-#
-# Created: Wed Feb 24 15:04:30 2016
-#      by: PyQt4 UI code generator 4.10.4
-#
-# WARNING! All changes made in this file will be lost!
 
+################################### LIBRARIES ###############################################
 from PyQt4 import QtCore, QtGui
 import parametros
-from time_window import Ui_fourthDialog
-# from secdialog import Ui_SecDialog
+#############################################################################################
 
-
+################################### ERROR TREATMENT #########################################
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -26,9 +20,10 @@ try:
 except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
+#############################################################################################
 
 
-
+################################### UI_thirdDialog  #########################################
 class Ui_thirdDialog(object):
 
     def setupUi(self, thirdDialog):
@@ -129,13 +124,11 @@ class Ui_thirdDialog(object):
         self.pushButton_off.setGeometry(QtCore.QRect(160, 400, 181, 51))
         self.pushButton_off.setStyleSheet(_fromUtf8("font-weight:bold;background-color: red;border-radius: 10px;"))
         self.pushButton_off.setObjectName(_fromUtf8("pushButton_off"))
-        self.retranslateUi(thirdDialog)
         
-
         QtCore.QMetaObject.connectSlotsByName(thirdDialog)
 
-    def retranslateUi(self, thirdDialog):
-        thirdDialog.setWindowTitle(_translate("thirdDialog", "Dialog", None))
+    def retranslateUi(self):
+        self.setWindowTitle(_translate("thirdDialog", "Dialog", None))
         self.label_2.setText(_translate("thirdDialog", "POTÊNCIA ", None))
         self.pushButton.setText(_translate("thirdDialog", "+", None))
         self.pushButton_2.setText(_translate("thirdDialog", "-", None))
@@ -153,8 +146,8 @@ class Ui_thirdDialog(object):
         QtCore.QObject.connect(self.pushButton_2 , QtCore.SIGNAL("clicked()") , self.initial_button_Minus_click)
         QtCore.QObject.connect(self.pushButton_3 , QtCore.SIGNAL("clicked()") , self.final_button_Plus_click)
         QtCore.QObject.connect(self.pushButton_4, QtCore.SIGNAL("clicked()") , self.final_button_Minus_click)
-        QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Timer_Func)
-        QtCore.QObject.connect(self.pushButton_off, QtCore.SIGNAL(_fromUtf8("clicked()")), thirdDialog.close)
+        # QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Timer_Func)
+        # QtCore.QObject.connect(self.pushButton_off, QtCore.SIGNAL(_fromUtf8("clicked()")), thirdDialog.close)
 
 
 
@@ -197,20 +190,17 @@ class Ui_thirdDialog(object):
             self.lcdNumber_2.display(parametros.todos['potenciaFinal'])
 
 
-    def Timer_Func(self): # Clicar em Tempo
-        fourthDialog = QtGui.QDialog()
-        ui = Ui_fourthDialog()
-        ui.setupUi(fourthDialog)
-        fourthDialog.exec_()
-               
+#############################################################################################
 
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    thirdDialog = QtGui.QDialog()
-    ui = Ui_thirdDialog()
-    ui.setupUi(thirdDialog)
-    thirdDialog.show()
-    sys.exit(app.exec_())
+################################### MAIN ####################################################
+# if __name__ == "__main__":
+#     import sys
+#     app = QtGui.QApplication(sys.argv)
+#     thirdDialog = QtGui.QDialog()
+#     ui = Ui_thirdDialog()
+#     ui.setupUi(thirdDialog)
+#     thirdDialog.show()
+#     sys.exit(app.exec_())
+#############################################################################################
 
 

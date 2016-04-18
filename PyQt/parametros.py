@@ -4,7 +4,10 @@ todos = {
 'potenciaStep':2, 
 'potenciaFinal': 25,
 'tempo':10,
-'tempoStep':1, 
+'tempoStep':1,
+'temperaturaMax':40,
+'temperaturaLimSup':60,
+'temperaturaLimInf':20,
 'modo': 1};
 
 flag = {

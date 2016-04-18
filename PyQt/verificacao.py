@@ -1,18 +1,12 @@
 # -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'verificacao.ui'
-#
-# Created: Thu Mar  3 14:46:55 2016
-#      by: PyQt4 UI code generator 4.10.4
-#
-# WARNING! All changes made in this file will be lost!
-
+################################### LIBRARIES ###############################################
 from PyQt4 import QtCore, QtGui
-from monidialog import Ui_moniDialog
 import parametros
-import sys
-import os
+#############################################################################################
 
+
+
+################################### ERROR TREATMENT #########################################
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -26,7 +20,10 @@ try:
 except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
+#############################################################################################
 
+
+################################### UI_VERIFYWINDOW #########################################
 class Ui_VerifyWindow(object):
     def setupUi(self, VerifyWindow):
         VerifyWindow.setObjectName(_fromUtf8("VerifyWindow"))
@@ -88,17 +85,10 @@ class Ui_VerifyWindow(object):
         self.label_8.setGeometry(QtCore.QRect(550, 290, 55, 16))
         self.label_8.setStyleSheet(_fromUtf8("font: 10pt \"Arial\";"))
         self.label_8.setObjectName(_fromUtf8("label_8"))
-        # self.label_9 = QtGui.QLabel(VerifyWindow)
-        # self.label_9.setGeometry(QtCore.QRect(0, 0, 821, 121))
-        # self.label_9.setText(_fromUtf8(""))
-        # self.label_9.setPixmap(QtGui.QPixmap(_fromUtf8(":/imagens/logo.png")))
-        # self.label_9.setObjectName(_fromUtf8("label_9"))
-
-        self.retranslateUi(VerifyWindow)
         QtCore.QMetaObject.connectSlotsByName(VerifyWindow)
 
-    def retranslateUi(self, VerifyWindow):
-        VerifyWindow.setWindowTitle(_translate("VerifyWindow", "Dialog", None))
+    def retranslateUi(self):
+        self.setWindowTitle(_translate("VerifyWindow", "Dialog", None))
         self.label.setText(_translate("VerifyWindow", "VERIFICAÇÃO", None))
         self.label_2.setText(_translate("VerifyWindow", "TEMPO", None))
         self.label_3.setText(_translate("VerifyWindow", "POTÊNCIA INICIAL", None))
@@ -119,24 +109,17 @@ class Ui_VerifyWindow(object):
         else:    
             self.lcdNumber_3.display(parametros.todos['modo'])
         self.lcdNumber_4.display(parametros.todos['potenciaFinal'])
-        QtCore.QObject.connect(self.pushButton , QtCore.SIGNAL("clicked()") , self.Monitoring_Window)
-        QtCore.QObject.connect(self.pushButton , QtCore.SIGNAL("clicked()") , VerifyWindow.close)
-        QtCore.QObject.connect(self.pushButton_2 , QtCore.SIGNAL("clicked()") , VerifyWindow.close)
+#############################################################################################
 
-    def Monitoring_Window(self): # Clicar para a tela de monitoramento
-
-        moniDialog = QtGui.QDialog()
-        ui = Ui_moniDialog()
-        ui.setupUi(moniDialog)
-        moniDialog.exec_()
-        #os.system("sudo /usr/bin/python monidialog.py")
-      
-
+################################### MAIN ####################################################
 if __name__ == "__main__":
+    import sys
     app = QtGui.QApplication(sys.argv)
     VerifyWindow = QtGui.QDialog()
     ui = Ui_VerifyWindow()
     ui.setupUi(VerifyWindow)
     VerifyWindow.show()
     sys.exit(app.exec_())
+#############################################################################################
+
 

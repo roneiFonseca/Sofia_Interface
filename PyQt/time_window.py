@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'manual_to_time.ui'
-#
-# Created: Wed Mar  2 15:59:04 2016
-#      by: PyQt4 UI code generator 4.10.4
-#
-# WARNING! All changes made in this file will be lost!
 
+################################### LIBRARIES ###############################################
 from PyQt4 import QtCore, QtGui
 import parametros
-from step_configure import Ui_stepDialog
+#############################################################################################
 
+
+
+################################### ERROR TREATMENT #########################################
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -24,7 +22,11 @@ try:
 except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
+#############################################################################################
 
+
+
+################################### UI_FourthDialog #########################################
 class Ui_fourthDialog(object):
     def setupUi(self, fourthDialog):
         fourthDialog.setObjectName(_fromUtf8("fourthDialog"))
@@ -85,12 +87,10 @@ class Ui_fourthDialog(object):
         self.pushButton_off.setStyleSheet(_fromUtf8("font-weight:bold;background-color: red;border-radius: 10px;"))
         self.pushButton_off.setObjectName(_fromUtf8("pushButton_off"))
 
-        self.retranslateUi(fourthDialog)
-        QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Step_window)
         QtCore.QMetaObject.connectSlotsByName(fourthDialog)
 
-    def retranslateUi(self, fourthDialog):
-        fourthDialog.setWindowTitle(_translate("fourthDialog", "Dialog", None))
+    def retranslateUi(self):
+        self.setWindowTitle(_translate("fourthDialog", "Dialog", None))
         self.label_2.setText(_translate("fourthDialog", "TEMPO FINAL", None))
         self.pushButton_5.setText(_translate("fourthDialog", "OK", None))
         self.pushButton_3.setText(_translate("fourthDialog", "+", None))
@@ -99,7 +99,6 @@ class Ui_fourthDialog(object):
         self.pushButton_off.setText(_translate("fourthDialog", "VOLTAR", None))
         QtCore.QObject.connect(self.pushButton_3 , QtCore.SIGNAL("clicked()") , self.time_button_Plus_click)
         QtCore.QObject.connect(self.pushButton_4 , QtCore.SIGNAL("clicked()") , self.time_button_Minus_click)
-        QtCore.QObject.connect(self.pushButton_off, QtCore.SIGNAL(_fromUtf8("clicked()")), fourthDialog.close)
 
     def time_button_Plus_click(self):
         parametros.todos['tempo'] +=1
@@ -115,20 +114,18 @@ class Ui_fourthDialog(object):
             self.lcdNumber_2.display(5)
             parametros.todos['tempo'] = 5   
     
-    def Step_window(self): # Chama tela de Passos
-        # fourthDialog.close()
-        stepDialog = QtGui.QDialog()
-        ui = Ui_stepDialog()
-        ui.setupUi(stepDialog)
-        stepDialog.exec_()
+#############################################################################################
 
-        
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    fourthDialog = QtGui.QDialog()
-    ui = Ui_fourthDialog()
-    ui.setupUi(fourthDialog)
-    fourthDialog.show()
-    sys.exit(app.exec_())
+
+
+################################### MAIN ####################################################
+# if __name__ == "__main__":
+#     import sys
+#     app = QtGui.QApplication(sys.argv)
+#     fourthDialog = QtGui.QDialog()
+#     ui = Ui_fourthDialog()
+#     ui.setupUi(fourthDialog)
+#     fourthDialog.show()
+#     sys.exit(app.exec_())
+#############################################################################################
 

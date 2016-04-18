@@ -9,8 +9,12 @@
 
 from PyQt4 import QtCore, QtGui
 import parametros
-import math
-import thread, time
+import math, time
+import thread
+from threading import Thread, Lock
+import ctypes
+
+mutex = Lock()
 
 RPI_ON = False
 if (RPI_ON):
@@ -20,7 +24,7 @@ if (RPI_ON):
     GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
     bus = smbus.SMBus(1)
     address = 0x48
-
+    address2 = 0x49
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -46,7 +50,7 @@ class Ui_thirdDialog(object):
         thirdDialog.setFont(font)
         thirdDialog.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);color: rgb(255,255,255);"))
 
-        
+
         self.label_2 = QtGui.QLabel(thirdDialog)
         self.label_2.setGeometry(QtCore.QRect(240, 50, 301, 71))
 
@@ -57,7 +61,7 @@ class Ui_thirdDialog(object):
         self.lcdNumber = QtGui.QLCDNumber(thirdDialog)
         self.lcdNumber.setGeometry(QtCore.QRect(80, 200, 121, 81))
         self.lcdNumber.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n"))
-    
+
         self.lcdNumber.display(parametros.todos['potenciaInicial'])
 
 
@@ -141,7 +145,7 @@ class Ui_thirdDialog(object):
         self.pushButton = QtGui.QPushButton(thirdDialog)
         self.pushButton.setGeometry(QtCore.QRect(250, 180, 61, 61))
         self.pushButton.setStyleSheet("font-weight:bold;background-color: blue;border-radius: 10px;")
-        
+
         font = QtGui.QFont()
         font.setPointSize(18)
         self.pushButton.setFont(font)
@@ -164,13 +168,13 @@ class Ui_thirdDialog(object):
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName(_fromUtf8("label_3"))
 
-        
+
         self.pushButton_3 = QtGui.QPushButton(thirdDialog)
         self.pushButton_3.setFont(font)
         self.pushButton_3.setGeometry(QtCore.QRect(640, 180, 61, 61))
         self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
         self.pushButton_3.setStyleSheet("font-weight:bold;background-color: blue;border-radius: 10px;")
-        # self.pushButton_3.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);\n""font: 30pt \"Arial\";"))        
+        # self.pushButton_3.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n""color: rgb(0, 255, 0);\n""font: 30pt \"Arial\";"))
 
 
         self.label_4 = QtGui.QLabel(thirdDialog)
@@ -270,18 +274,18 @@ class Ui_thirdDialog(object):
         font.setPointSize(18)
         self.pushButton_4.setFont(font)
         self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
-             
+
 
         self.pushButton_5 = QtGui.QPushButton(thirdDialog)
         self.pushButton_5.setGeometry(QtCore.QRect(110, 350, 151, 71))
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
         self.pushButton_5.setStyleSheet("font-weight:bold;background-color: rgb(40, 255, 0); border-radius: 10px;")
-        
+
         self.pushButton_6 = QtGui.QPushButton(thirdDialog)
         self.pushButton_6.setGeometry(QtCore.QRect(510, 350, 151, 71))
         self.pushButton_6.setObjectName(_fromUtf8("pushButton_6"))
         self.pushButton_6.setStyleSheet("font-weight:bold;background-color: red; border-radius: 10px;")
-       
+
         self.label_8 = QtGui.QLabel(thirdDialog)
         self.label_8.setGeometry(QtCore.QRect(210, 280, 40, 13))
         self.label_8.setStyleSheet(_fromUtf8("font: 12pt \"Arial\";\n"))
@@ -318,87 +322,114 @@ class Ui_thirdDialog(object):
         QtCore.QObject.connect(self.pushButton_5 , QtCore.SIGNAL("clicked()") , self.iniciar_click)
         QtCore.QObject.connect(self.pushButton_6, QtCore.SIGNAL("clicked()") , self.parar_click)
         # QtCore.QObject.connect(self.pushButton_5 , QtCore.SIGNAL("clicked()") , self.update_Display)
- 
+     # t1 = Thread(target = getPower, args = ("nada",1))
     def initial_button_Plus_click(self):
         parametros.todos['potenciaInicial'] +=1
         self.lcdNumber.display(parametros.todos['potenciaInicial'])
-        
+
     def initial_button_Minus_click(self):
-        parametros.todos['potenciaInicial'] -=1 
+        parametros.todos['potenciaInicial'] -=1
+        if parametros.todos['potenciaInicial'] < 0:
+            parametros.todos['potenciaInicial'] = 0
         self.lcdNumber.display(parametros.todos['potenciaInicial'])
-        
-    def final_button_Plus_click(self):        
+
+    def final_button_Plus_click(self):
         parametros.todos['potenciaInicial'] += 1
         self.lcdNumber_2.display(parametros.todos['potenciaInicial'])
         parametros.todos['potenciaInicial']-=1
-    
+
     def final_button_Minus_click(self):
-        parametros.todos['potenciaInicial'] -=1 
+        parametros.todos['potenciaInicial'] -=1
         self.lcdNumber_2.display(parametros.todos['potenciaInicial'])
-    
+
     def iniciar_click(self):
         print '========== New power set ==========='
-        print parametros.todos['potenciaInicial']    
-        if (RPI_ON):
-            bus.write_byte_data(address, 0x44, parametros.todos['potenciaInicial'])
-        # while 1 :
-        #     print'========== update_Display ==========='
-        #     self.lcdNumber_2.display(10)   
-        #     # time.sleep(1)   
-        # pass
-            
+        print parametros.todos['potenciaInicial']
+        # if (RPI_ON):
+        #     try:
+        #         bus.write_byte_data(address, 0x41, parametros.todos['potenciaInicial']*5)
+        #     except Exception, e:
+        #         raise e
+
     def parar_click(self):
         print'========== swithing off ADC ==========='
+        parametros.todos['potenciaInicial'] = 0
+        self.lcdNumber.display(parametros.todos['potenciaInicial'])
         if (RPI_ON):
-            bus.write_byte_data(address, 0x44, 0X00)
+            try:
+                bus.write_byte_data(address, 0x41, 0X00)
+            except Exception, e:
+                raise e
 
 def update_Display(threadname, delay):
-    print'========== update_Display ==========='
+    # print'========== update_Display ==========='
+
     while 1 :
-        print'========== update_Display ==========='
-        ui.lcdNumber_2.display(parametros.todos['power'])   
-        time.sleep(delay)   
-        pass  
+        # print'========== update_Display ==========='
+        mutex.acquire()
+        ui.lcdNumber_2.display(parametros.todos['power'])
+        mutex.release()
+        time.sleep(delay)
+        pass
+def setPower(threadname,delay):
+    print '========== set Power==========='
+    while  True:
+        if (RPI_ON):
+            bus.write_byte_data(address, 0x41, parametros.todos['potenciaInicial']*5)
+        # time.sleep(delay)
 
 def getPower(threadname, delay):
-    
-    while (1):
-        print '========== Reading V and I ==========='
-        if (RPI_ON):
-            bus.write_byte(address, 1)
-            bus.read_byte(address)
-            current = bus.read_byte(address)
-            current = current*5/255 
-            
-            bus.write_byte(address, 2)
-            bus.read_byte(address)
-            voltage = bus.read_byte(address)
-            voltage = voltage*5/255
-                    
-            print 'V %f ='% voltage
-            print 'I %f=' %current
 
-            try:
+    while (1):
+        print '========== Reading Power==========='
+
+        try:
+            if (RPI_ON):
+                 # for k in range (1,10):
+
+                mutex.acquire()
+                bus.write_byte(address, 1)
+                current = bus.read_byte(address)
+                current = bus.read_byte(address)
+                current = current*3.3/255.0
+                # current = current/10
+
+                bus.write_byte(address, 2)
+                # time.sleep(0.1)
+                voltage = bus.read_byte(address)
+                voltage = bus.read_byte(address)
+                mutex.release()
+                voltage = voltage*3.3/255.0
+                # voltage = voltage/10
+
+                print 'V %f ='% voltage
+                print 'I %f=' %current
+
                 impedancia = voltage/current
-            except ZeroDivisionError:
-                impedancia =10E9
+                power =  voltage*current
+                parametros.todos['power'] = power
+
+        except ZeroDivisionError:
+            impedancia =10E9
+        except IOError as e:
+            print "ADC I/O ERRO({0}): {1}".format(e.errno, e.strerror)
+
 
             #impedancia = voltage/current
-            power =  voltage*current
-            parametros.todos['power'] = power
 
         time.sleep(delay)
 def getTemp(threadname, delay):
     while (1):
         print '========== Reading temperatura ==========='
         if (RPI_ON):
+            mutex.acquire()
             bus.write_byte(address, 0)
             bus.read_byte(address)
             temp_aux = bus.read_byte(address)
+            mutex.release()
             temperatura = 0.6040*temp_aux-72.9358
-            parametros.todos['temperatura'] = temperatura 
+            parametros.todos['temperatura'] = temperatura
         time.sleep(delay)
-
 
 if __name__ == "__main__":
     import sys
@@ -408,13 +439,20 @@ if __name__ == "__main__":
     ui.setupUi(thirdDialog)
     thirdDialog.show()
     print '========== newTread.. ==========='
-    thread.start_new_thread( getPower, ("GetPowerThread", 1, ) )
-    thread.start_new_thread( update_Display, ("DisplayThread", 2, ) )
-    thread.start_new_thread( getTemp, ("TempThread", 1, ) )
-
-    sys.exit(app.exec_())
     
+    t1 = Thread(target = getPower, args = ("GetPowerThread",1))
+    t2 = Thread(target = update_Display, args = ("DisplayThread",1))
+    t3 = Thread(target = getTemp, args = ("TempThread",1))
+    t4 = Thread(target = setPower, args = ("SetPowerThread",1))
 
-   
+    t1.daemon = True
+    t2.daemon = True
+    t3.daemon = True
+    t4.daemon = True
 
-
+    t1.start()
+    t2.start()
+    t3.start()
+    t4.start()
+    sys.exit(app.exec_())
+        
