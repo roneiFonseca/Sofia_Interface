@@ -12,7 +12,11 @@ import parametros
 import math, time
 import thread
 from threading import Thread, Lock
+<<<<<<< HEAD
 
+=======
+import ctypes
+>>>>>>> refs/remotes/origin/master
 
 mutex = Lock()
 
@@ -52,7 +56,11 @@ class Ui_thirdDialog(object):
 
 
         self.label_2 = QtGui.QLabel(thirdDialog)
+<<<<<<< HEAD
         self.label_2.setGeometry(QtCore.QRect(240, 10, 301, 71))
+=======
+        self.label_2.setGeometry(QtCore.QRect(240, 50, 301, 71))
+>>>>>>> refs/remotes/origin/master
         self.label_2.setStyleSheet(_fromUtf8("font: 26pt \"Arial\";\n""font-weight:bold;"))
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName(_fromUtf8("label_2"))
@@ -61,6 +69,7 @@ class Ui_thirdDialog(object):
         self.lcdNumber.setGeometry(QtCore.QRect(80, 200, 121, 81))
         self.lcdNumber.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n"))
         self.lcdNumber.display(parametros.todos['potenciaInicial'])
+<<<<<<< HEAD
         self.lcdNumber.setStyleSheet(_fromUtf8("background-color: blue;color:white"))
         self.lcdNumber.setObjectName(_fromUtf8("lcdNumber"))
 
@@ -70,11 +79,99 @@ class Ui_thirdDialog(object):
 
         self.lcdCurrent = QtGui.QLCDNumber(thirdDialog)
         self.lcdCurrent.setGeometry(QtCore.QRect(380, 250, 121, 81))
+=======
+
+        self.lcdVoltage = QtGui.QLCDNumber(thirdDialog)
+        self.lcdVoltage.setGeometry(QtCore.QRect(330, 200, 121, 81))
+        self.lcdVoltage.setStyleSheet(_fromUtf8("background-color: blue;color:white"))
+
+        self.lcdCurrent = QtGui.QLCDNumber(thirdDialog)
+        self.lcdCurrent.setGeometry(QtCore.QRect(470, 200, 121, 81))
+>>>>>>> refs/remotes/origin/master
         self.lcdCurrent.setStyleSheet(_fromUtf8("background-color: blue;color:white"))
         
 
 
+<<<<<<< HEAD
         
+=======
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Light, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.BrightText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Light, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.BrightText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Light, brush)
+        brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.BrightText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        self.lcdNumber.setPalette(palette)
+        self.lcdNumber.setStyleSheet(_fromUtf8("background-color: blue;color:white"))
+        self.lcdNumber.setObjectName(_fromUtf8("lcdNumber"))
+>>>>>>> refs/remotes/origin/master
 
         self.pushButton = QtGui.QPushButton(thirdDialog)
         self.pushButton.setGeometry(QtCore.QRect(250, 180, 61, 61))
@@ -112,7 +209,11 @@ class Ui_thirdDialog(object):
 
 
         self.label_4 = QtGui.QLabel(thirdDialog)
+<<<<<<< HEAD
         self.label_4.setGeometry(QtCore.QRect(625, 80, 91, 21))
+=======
+        self.label_4.setGeometry(QtCore.QRect(650, 290, 91, 21))
+>>>>>>> refs/remotes/origin/master
         # self.label_4.setStyleSheet(_fromUtf8("font: 16pt \"Times New Roman\";"))
         self.label_4.setStyleSheet(_fromUtf8("font: 16pt \"Arial\";\n"))
         self.label_4.setAlignment(QtCore.Qt.AlignCenter)
@@ -120,8 +221,88 @@ class Ui_thirdDialog(object):
 
 
         self.lcdNumber_2 = QtGui.QLCDNumber(thirdDialog)
+<<<<<<< HEAD
         self.lcdNumber_2.setGeometry(QtCore.QRect(620, 110, 121, 81))
         self.lcdNumber_2.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n"))
+=======
+        self.lcdNumber_2.setGeometry(QtCore.QRect(620, 200, 121, 81))
+        self.lcdNumber_2.setStyleSheet(_fromUtf8("border: 2px solid gray;\n""background-color: rgb(0, 0, 0);\n"))
+       
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Light, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.BrightText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Light, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.BrightText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Light, brush)
+        brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.BrightText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        self.lcdNumber_2.setPalette(palette)
+>>>>>>> refs/remotes/origin/master
         self.lcdNumber_2.setStyleSheet(_fromUtf8("background-color: blue;color:white"))
         self.lcdNumber_2.setObjectName(_fromUtf8("lcdNumber_2"))
 
@@ -147,16 +328,25 @@ class Ui_thirdDialog(object):
         self.pushButton_6.setStyleSheet("font-weight:bold;background-color: red; border-radius: 10px;")
 
         self.label_8 = QtGui.QLabel(thirdDialog)
+<<<<<<< HEAD
         self.label_8.setGeometry(QtCore.QRect(750, 180, 40, 13))
+=======
+        self.label_8.setGeometry(QtCore.QRect(750, 280, 40, 13))
+>>>>>>> refs/remotes/origin/master
         self.label_8.setStyleSheet(_fromUtf8("font: 12pt \"Arial\";\n"))
         self.label_8.setObjectName(_fromUtf8("label_8"))
 
         self.label_9 = QtGui.QLabel(thirdDialog)
+<<<<<<< HEAD
         self.label_9.setGeometry(QtCore.QRect(390, 215, 100, 30))
+=======
+        self.label_9.setGeometry(QtCore.QRect(500, 290, 100, 20))
+>>>>>>> refs/remotes/origin/master
         self.label_9.setStyleSheet(_fromUtf8("font: 16pt \"Arial\";\n"))
         self.label_9.setObjectName(_fromUtf8("label_9"))
 
         self.label_V = QtGui.QLabel(thirdDialog)
+<<<<<<< HEAD
         self.label_V.setGeometry(QtCore.QRect(390, 70, 100, 40))
         self.label_V.setStyleSheet(_fromUtf8("font: 16pt \"Arial\";\n"))
         self.label_V.setObjectName(_fromUtf8("label_V"))
@@ -171,6 +361,12 @@ class Ui_thirdDialog(object):
         self.label_temp.setStyleSheet(_fromUtf8("font: 16pt \"Arial\";\n"))
         self.label_temp.setObjectName(_fromUtf8("label_V"))
 
+=======
+        self.label_V.setGeometry(QtCore.QRect(350, 290, 100, 20))
+        self.label_V.setStyleSheet(_fromUtf8("font: 16pt \"Arial\";\n"))
+        self.label_V.setObjectName(_fromUtf8("label_V"))
+
+>>>>>>> refs/remotes/origin/master
         self.retranslateUi(thirdDialog)
         #QtCore.QObject.connect(self.pushButton_5, QtCore.SIGNAL(_fromUtf8("clicked()")),thirdDialog.close)
 
@@ -178,7 +374,11 @@ class Ui_thirdDialog(object):
 
     def retranslateUi(self, thirdDialog):
         thirdDialog.setWindowTitle(_translate("thirdDialog", "Dialog", None))
+<<<<<<< HEAD
         self.label_2.setText(_translate("thirdDialog", "Calibração ", None))
+=======
+        self.label_2.setText(_translate("thirdDialog", "POTÊNCIA ", None))
+>>>>>>> refs/remotes/origin/master
         self.pushButton.setText(_translate("thirdDialog", "+", None))
         self.pushButton_2.setText(_translate("thirdDialog", "-", None))
         self.label_3.setText(_translate("thirdDialog", "Referência", None))
@@ -190,7 +390,10 @@ class Ui_thirdDialog(object):
         self.label_8.setText(_translate("thirdDialog", "W", None))
         self.label_9.setText(_translate("thirdDialog", "Corrente", None))
         self.label_V.setText(_translate("thirdDialog", "Voltagem", None))
+<<<<<<< HEAD
         self.label_temp.setText(_translate("thirdDialog", "Temperatura", None))
+=======
+>>>>>>> refs/remotes/origin/master
 
         QtCore.QObject.connect(self.pushButton , QtCore.SIGNAL("clicked()") , self.initial_button_Plus_click)
         QtCore.QObject.connect(self.pushButton_2 , QtCore.SIGNAL("clicked()") , self.initial_button_Minus_click)
@@ -319,9 +522,20 @@ def getTemp(threadname, delay):
             mutex.release()
             temperatura = 0.6040*temp_aux-72.9358
             parametros.todos['temperatura'] = temperatura
+<<<<<<< HEAD
             ui.lcdCurrent.display(temperatura)
         time.sleep(delay)
 
+=======
+        time.sleep(delay)
+
+# def terminate_thread(thread):
+    """Terminates a python thread from another thread.
+
+    :param thread: a threading.Thread instance
+    """
+
+>>>>>>> refs/remotes/origin/master
     if not thread.isAlive():
         return
 
@@ -337,9 +551,12 @@ def getTemp(threadname, delay):
         raise SystemError("PyThreadState_SetAsyncExc failed")
 
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> refs/remotes/origin/master
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
@@ -364,4 +581,8 @@ if __name__ == "__main__":
     # t3.start()
     t4.start()
     sys.exit(app.exec_())
+<<<<<<< HEAD
        
+=======
+       
+>>>>>>> refs/remotes/origin/master
