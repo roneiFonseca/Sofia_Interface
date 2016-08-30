@@ -555,10 +555,10 @@ class Ui_moniDialog(object):
         restart = 0
         time_off = 0
         time_now = 0
-        parametros.todos['potenciaInicial']= 0
-        parametros.todos['potenciaRT']= 0
+        parametros.todos['potenciaInicial']= 5
+        parametros.todos['potenciaRT']= 5
         parametros.todos['potenciaStep']=2
-        parametros.todos['potenciaFinal']= 20
+        parametros.todos['potenciaFinal']= 25
         parametros.todos['tempo']=1
         parametros.todos['tempoStep']=1
         parametros.todos['modo'] = 1
